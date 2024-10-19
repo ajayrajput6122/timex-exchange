@@ -14,6 +14,10 @@ import HelpCenter from './Pages/HelpCenter.js'
 import PrivacyPolicy from './Pages/PrivacyPolicy.js'
 import RefundCancellation from './Pages/RefundCancellation.js'
 import BuySell from './Pages/BuySell.js'
+import Deposit from './Pages/Deposit.js'
+import Withdraw from './Pages/Withdraw.js'
+import Deposithistory from './Pages/Deposithistory.js'
+import Withdrawhistory from './Pages/Withdrawhistory.js'
 
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 function App() {
@@ -37,6 +41,10 @@ function App() {
             <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
             <Route path="/RefundCancellation" element={<RefundCancellation />} />
             <Route path="/BuySell" element={<BuySell />} />
+            <Route path="/Deposit" element={<Deposit />} />
+            <Route path="/Withdraw" element={<Withdraw />} />
+            <Route path="/Deposithistory" element={<Deposithistory />} />
+            <Route path="/Withdrawhistory" element={<Withdrawhistory />} />
             </Routes>
             
             </Router>

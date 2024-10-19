@@ -732,9 +732,15 @@ input:focus-visible, select:focus-visible { border: none !important;
     margin: auto;
 }
 
+.Depot { width: 100%;}
+
 span.otp_btn {
     font-size: 16px;
     background: #ffffff1a;
     border-radius: 10px;
     padding: 6px;
+}
+
+.t_table_main.login_box {
+    padding: 20px;
 }
