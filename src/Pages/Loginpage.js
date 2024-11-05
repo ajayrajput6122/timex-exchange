@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import email2 from "../Img/email2.png";
 import Mobile from "../Img/email-marketing.png";
 import Loginbg from "../Img/qr_code_img_bg.png";
@@ -7,30 +7,22 @@ import axios from "axios";
 import { base_url } from "../ApiService/BaseUrl";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import { AuthContext } from "../Contextapi/Auth";
 
-const Register = () => {
+const Login = () => {
   const { saveAuthData } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     otp: "",
     password: "",
-    confirmPassword: "",
-    referralCode: "",
     register_type: "email",
   });
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const navigate = useNavigate();
 
-  const handleShowPassword = () => {
+  const handleShow = () => {
     setShowPassword(!showPassword);
   };
-  const handleShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,9 +37,9 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post(`${base_url}/api/auth/registerOtp`, {
+      const response = await axios.post(`${base_url}/api/auth/userOtp`, {
         email: formData.email,
-        register_type: "email",
+        register_type: formData.register_type,
       });
       if (response.data.success) {
         toast.dismiss();
@@ -63,15 +55,10 @@ const Register = () => {
     }
   };
 
-  const handleRegisterSubmit = async (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !formData.email ||
-      !formData.otp ||
-      !formData.password ||
-      !formData.confirmPassword
-    ) {
+    if (!formData.email || !formData.otp || !formData.password) {
       toast.dismiss();
       toast.error("Please fill in all fields");
       return;
@@ -79,22 +66,25 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        `${base_url}/api/auth/signup`,
+        `${base_url}/api/auth/verify_signin`,
         formData
       );
       if (response.data.success) {
         toast.dismiss();
         toast.success(response.data.message);
+        saveAuthData({
+          token: response.data.user.accessToken,
+          user: response.data.user,
+        });
         navigate("/dashboard");
-        saveAuthData({ token: response.data.user.accessToken, user: response.data.user });
       } else {
         toast.dismiss();
         toast.error(response.data.message);
       }
     } catch (error) {
       toast.dismiss();
-      toast.error("Registeration failed");
-      console.error("Registeration failed", error);
+      toast.error("Login failed");
+      console.error("Login failed", error);
     }
   };
 
@@ -102,8 +92,8 @@ const Register = () => {
     <>
       <section className="sec01_login">
         <div className="container">
-          <div className="">
-            <div className="register_f">
+          <div className="row column-rever_sm">
+            <div className="col-lg-6 col-md-6">
               <div className="login_box">
                 <ul
                   class="nav nav-pills login_tab mb-3"
@@ -149,7 +139,7 @@ const Register = () => {
                     aria-labelledby="pills-home-tab"
                   >
                     <div className="login_f">
-                      <form onSubmit={handleRegisterSubmit}>
+                      <form onSubmit={handleLoginSubmit}>
                         <div className="form_t">
                           <h5 className="trade_box_title_l wc">
                             Email Address
@@ -192,21 +182,6 @@ const Register = () => {
                             </h4>
                           </div>
                         </div>
-                        {/* <div className="form_t mt-4">
-                          <h5 className="trade_box_title_l wc">
-                            Email Verification Code
-                          </h5>
-                          <div className="f_group_l d-flex j_con">
-                            <input
-                              type="text"
-                              className="input_l w-100 wc"
-                              autocomplete="off"
-                            />
-                            <h4 className="WC f_g_text alin_c">
-                              <i class="fa-solid fa-comment fa-beat"></i>
-                            </h4>
-                          </div>
-                        </div> */}
                         <div className="form_t mt-4">
                           <h5 className="trade_box_title_l wc">Password</h5>
                           <div className="f_group_l d-flex j_con">
@@ -222,71 +197,27 @@ const Register = () => {
                               {!showPassword ? (
                                 <i
                                   className="fa-solid fa-lock fa-beat"
-                                  onClick={handleShowPassword}
+                                  onClick={handleShow}
                                 ></i>
                               ) : (
                                 <i
                                   className="fa-solid fa-unlock fa-beat"
-                                  onClick={handleShowPassword}
+                                  onClick={handleShow}
                                 ></i>
                               )}
                             </h4>
                           </div>
                         </div>
-                        <div className="form_t mt-4">
-                          <h5 className="trade_box_title_l wc">
-                            Confirm Password{" "}
-                          </h5>
-                          <div className="f_group_l d-flex j_con">
-                            <input
-                              type={!showConfirmPassword ? "password" : "text"}
-                              name="confirmPassword"
-                              value={formData.confirmPassword}
-                              onChange={handleChange}
-                              className="input_l w-100 wc"
-                              autocomplete="off"
-                            />
-                            <h4 className="WC f_g_text alin_c">
-                              {!showConfirmPassword ? (
-                                <i
-                                  className="fa-solid fa-lock fa-beat"
-                                  onClick={handleShowConfirmPassword}
-                                ></i>
-                              ) : (
-                                <i
-                                  className="fa-solid fa-unlock fa-beat"
-                                  onClick={handleShowConfirmPassword}
-                                ></i>
-                              )}
-                            </h4>
-                          </div>
-                        </div>
-                        <div className="form_t mt-4">
-                          <h5 className="trade_box_title_l wc">
-                            Referral Code (Optional)
-                          </h5>
-                          <div className="f_group_l d-flex j_con">
-                            <input
-                              type="text"
-                              name="referralCode"
-                              value={formData.referralCode}
-                              onChange={handleChange}
-                              className="input_l w-100 wc"
-                              autocomplete="off"
-                            />
-                            <h4 className="WC f_g_text alin_c">
-                              <i class="fa-solid fa-comment fa-beat"></i>
-                            </h4>
-                          </div>
-                        </div>
-                        {/* <h5 className='trade_box_title_l wc'><a>Forgot Password?</a></h5> */}
+                        <h5 className="trade_box_title_l wc text-end">
+                          <a>Forgot Password?</a>
+                        </h5>
 
                         <button className="btn_login wc" type="submit">
-                          <i class="fa-solid fa-id-card fa-shake me-2"></i>{" "}
-                          Register
+                          <i class="fa-solid fa-right-to-bracket fa-shake me-2"></i>{" "}
+                          Login
                         </button>
                         <h5 className="text text-center mt-4">
-                          Already have an account <a className="wc">Login</a>
+                          Do you have an account? <a className="wc">Register</a>
                         </h5>
                       </form>
                     </div>
@@ -305,27 +236,12 @@ const Register = () => {
                           </h5>
                           <div className="f_group_l d-flex j_con">
                             <input
-                              type="email"
+                              type="tel"
                               className="input_l w-100 wc"
                               autocomplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
-                              <i class="fa-solid fa-envelope fa-beat"></i>
-                            </h4>
-                          </div>
-                        </div>
-                        <div className="form_t mt-4">
-                          <h5 className="trade_box_title_l wc">
-                            Phone Verification Code
-                          </h5>
-                          <div className="f_group_l d-flex j_con">
-                            <input
-                              type="text"
-                              className="input_l w-100 wc"
-                              autocomplete="off"
-                            />
-                            <h4 className="WC f_g_text alin_c">
-                              <i class="fa-solid fa-comment fa-beat"></i>
+                              <i class="fa-solid fa-mobile-screen-button fa-beat"></i>
                             </h4>
                           </div>
                         </div>
@@ -342,49 +258,27 @@ const Register = () => {
                             </h4>
                           </div>
                         </div>
-                        <div className="form_t mt-4">
-                          <h5 className="trade_box_title_l wc">
-                            Confirm Password{" "}
-                          </h5>
-                          <div className="f_group_l d-flex j_con">
-                            <input
-                              type="password"
-                              className="input_l w-100 wc"
-                              autocomplete="off"
-                            />
-                            <h4 className="WC f_g_text alin_c">
-                              <i class="fa-solid fa-lock fa-beat"></i>
-                            </h4>
-                          </div>
-                        </div>
-                        <div className="form_t mt-4">
-                          <h5 className="trade_box_title_l wc">
-                            Referral Code (Optional)
-                          </h5>
-                          <div className="f_group_l d-flex j_con">
-                            <input
-                              type="text"
-                              className="input_l w-100 wc"
-                              autocomplete="off"
-                            />
-                            <h4 className="WC f_g_text alin_c">
-                              <i class="fa-solid fa-comment fa-beat"></i>
-                            </h4>
-                          </div>
-                        </div>
-                        {/* <h5 className='trade_box_title_l wc'><a>Forgot Password?</a></h5> */}
+                        <h5 className="trade_box_title_l wc text-end">
+                          <a>Forgot Password?</a>
+                        </h5>
 
                         <button className="btn_login wc" type="submit">
-                          <i class="fa-solid fa-id-card fa-shake me-2"></i>{" "}
-                          Register
+                          <i class="fa-solid fa-right-to-bracket fa-shake me-2"></i>{" "}
+                          Login
                         </button>
                         <h5 className="text text-center mt-4">
-                          Already have an account <a className="wc">Login</a>
+                          Do you have an account? <a className="wc">Register</a>
                         </h5>
                       </form>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 alin_c">
+              <div className="bg_login">
+                <img className="qr_bg" src={Loginbg} />
+                <img className="qr" src={Qr} />
               </div>
             </div>
           </div>
@@ -394,4 +288,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

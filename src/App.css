@@ -995,3 +995,10 @@ img.btc { width: 80%;}
     .Deposithistory {width: 575px;}
  }
 
+/* Raman work */
+.dropdown-options{
+    background-color: white !important;
+}
+.dropdown-item:hover{
+    background-color:rgb(192, 184, 184) !important;
+}
