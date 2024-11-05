@@ -71,10 +71,14 @@ const Header = () => {
         </li>
         
       </ul>
-      <div className='alin_c'>
-              <span className='wc user'><i class="fa-solid fa-user me-2"></i> user</span>
+      <div className='alin_c d-flex'>
+              {/* <span className='wc user'><i class="fa-solid fa-user me-2"></i> user</span> */}
+              <div className='d-flex j_con'>
+                  <button className='t_f_btn t_f_btn1 wc mt-0'>Login</button>
+                  <button className='t_f_btn t_f_btn2 wc mt-0'>Register</button>
+              </div>
               <img
-              className='dark_li'
+              className='dark_li alin_c'
         src={isDarkTheme ? Sun : Moon}
         alt="Toggle Theme"
         onClick={handleToggle}

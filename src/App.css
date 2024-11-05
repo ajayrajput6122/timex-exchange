@@ -10,14 +10,21 @@
     --sec-bg:#f5f5f51f;
     --btn-color:#fff;
     --gold-color:#c38807;
+    --border-color:#ffffff29;
+    --box-s:#0000005c;
+    --dropdown-bg:#000;
 }
 
 .dark-theme { --primary-color: #fff;
     --secondary-color: #000;
-    --box-border:#efe8e8;
+    --box-border:#efe8e800;
     --sec-bg:#f5f5f5;
     --btn-color:#000;
-    --box-bg:#f5f5f5; }
+    --box-bg:#f5f5f5; 
+    --border-color:#0000006b;
+    --box-s:#0000005c;
+    --dropdown-bg:#fff;
+    }
 
 h1, h2, h3, h4, h5, h6, a, li, span, p, button, th, td, input, label {font-family: "Outfit", sans-serif;}
 
@@ -33,6 +40,12 @@ ul { list-style: none !important;
 
 .container { padding: 0px !important;
             max-width: 1280px !important;}
+
+.dropdown-menu_header { background-color: var(--dropdown-bg) !important;}
+
+.dark_li {
+    width: 20px;
+    height: 24px;}
 /* 
 .head_bg { background-color: var(--sec-bg);
            padding: 10px 20px;
@@ -697,7 +710,8 @@ input:focus-visible, select:focus-visible { border: none !important;
             border: none !important;}
 
 .f_group_l {
-    border: 1px solid #ffffff29;
+    border: 1px solid;
+    border-color: var(--border-color);
     padding: 12px 20px;
     border-radius: 50px;
     margin: 10px 0px;
@@ -747,14 +761,16 @@ span.otp_btn {
 .nav-link.p_tabs_btn.active { background-color: transparent !important;
                                 color: #c38807;
                                 border-radius: 0px !important;
-                            border-bottom: 1px solid #ffffff7b;}
+                            border-bottom: 1px solid;
+                            border-color: var(--border-color);}
 
-.nav-link.p_tabs_btn { color: #fff;}
+.nav-link.p_tabs_btn { color: var(--secondary-color);}
 
 .tab-content1 { width: 80%;}
 
 .nav_tab_sid, .tab-content1 { background-color: var(--box-border);
                 border-radius: 10px;
+                box-shadow: -1px 0px 7px var(--box-s);
                 padding: 15px;}
 
 .p_tile { font-size: 17px;}
@@ -833,6 +849,8 @@ img.btc { width: 80%;}
 .nav.nav_tab_sid.flex-column.nav-pills {margin-right: 15px;}
 
 .titel_h4_my { margin: 40px 0px;}
+
+.nav-link.p_tabs_btn { text-align: start !important;}
 
 @media (max-width:1240px) { 
     .withdrawhistory { width: 1240px;}
