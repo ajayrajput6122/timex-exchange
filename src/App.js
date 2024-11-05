@@ -21,7 +21,9 @@
   import Myprofile from './Pages/Myprofile.js'
   import Forgotpassword from './Pages/Forgotpassword.js'
   import Market from './Pages/Market.js'
-  
+  import Footer from './Pages/Footer.js'
+  import Download from './Pages/Download.js'
+
 
   import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
   function App() {
@@ -52,6 +54,8 @@
               <Route path="/Myprofile" element={<Myprofile />} />
               <Route path="/Forgotpassword" element={<Forgotpassword />} />
               <Route path="/Market" element={<Market />} />
+              <Route path="/Footer" element={<Footer />} />
+              <Route path="/Download" element={<Download />} />
               </Routes>
               
               </Router>
