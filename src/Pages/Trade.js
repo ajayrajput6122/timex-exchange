@@ -88,7 +88,7 @@ const Trade = () => {
             </div>
             <div className='col-lg-5'>
                 <div className='row'>
-                    <div className='col-lg-6 p-1'>
+                    <div className='col-lg-6 col-md-6 p-1'>
                         <div className='trade_box trade_box1'>
                            <h4 className='text-center trade_box_title b_boot'>Order Book</h4>
                            <div className='d-flex j_con'>
@@ -122,7 +122,7 @@ const Trade = () => {
                            </div>
                         </div>
                     </div>
-                    <div className='col-lg-6 p-1'>
+                    <div className='col-lg-6 col-md-6 p-1'>
                         <div className='trade_box '>
                             <nav className='b_boot pb-2 mb'>
                                 <div class="nav nav-tabs t_t_btn_g" id="nav-tab" role="tablist">
@@ -258,9 +258,9 @@ const Trade = () => {
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show wc active" id="nav-home_t1" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <div className='t_table_main'>
-                                <div className='t_table_sec'>
-                                    <table className='trade_table_2'>
+                            <div className='table_over'>
+                                <div className='table_scroll'>
+                                    <table className='trade_table_222'>
                                         <tr>
                                             <th className='t_t_heading wc b_boot'>Trading Pair</th>
                                             <th className='t_t_heading wc b_boot'> Date</th>
@@ -290,9 +290,9 @@ const Trade = () => {
                            </div>
                             </div>
                             <div class="tab-pane fade wc" id="nav-profile_t1" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <div className='t_table_main'>
-                                <div className='t_table_sec'>
-                                    <table className='trade_table_2'>
+                            <div className='table_over'>
+                                <div className='table_scroll'>
+                                    <table className='trade_table_222'>
                                         <tr>
                                             <th className='t_t_heading wc b_boot'>Trading Pair</th>
                                             <th className='t_t_heading wc b_boot'> Date</th>
@@ -327,7 +327,7 @@ const Trade = () => {
                                 <div className='t_table_sec'>
                                     <table className='trade_table_1'>
                                         <tr>
-                                            <th className='t_t_heading wc b_boot'><i class="fa-solid fa-user-plus fa-beat"></i>Price (USDT)</th>
+                                            <th className='t_t_heading wc b_boot'><i class="fa-solid fa-user-plus fa-beat me-1"></i>Price (USDT)</th>
                                             <th className='t_t_heading wc b_boot'>Quantity (BTC)</th>
                                             <th className='t_t_heading wc b_boot'>Total (USDT)</th>
                                         </tr>

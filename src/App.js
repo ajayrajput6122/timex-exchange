@@ -29,6 +29,7 @@ const PrivacyPolicy = React.lazy(() => import("./Pages/PrivacyPolicy"));
 const HelpCenter = React.lazy(() => import("./Pages/HelpCenter"));
 const Support = React.lazy(() => import("./Pages/Support"));
 const Security = React.lazy(() => import("./Pages/Security"));
+const Download = React.lazy(() => import("./Pages/Download"));
 const RefundCancellation = React.lazy(() =>
   import("./Pages/RefundCancellation")
 );
@@ -125,6 +126,14 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <Market />
+              </Suspense>
+            }
+          />
+          <Route
+            path="download"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Download />
               </Suspense>
             }
           />
