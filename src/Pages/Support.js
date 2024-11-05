@@ -14,10 +14,10 @@ const Support = () => {
         <p className='text support_text'>At Time-X, we’re dedicated to ensuring you have the best experience possible. If you have any questions or run into issues, our support team is ready to assist. Whether it’s account setup, trading, security features, or any other concern, we’re here to help you every step of the way.</p>
            <div className='margin-top'>
             <div className='row'>
-                <div className='col-lg-6 text-center'>
+                <div className='col-lg-6 col-md-5 col-sm-5 text-center'>
                      <img className='btc' src={Btc} />
                 </div>
-                <div className='col-lg-6 alin_c'>
+                <div className='col-lg-6 col-md-7 col-sm-7  alin_c'>
                     <div className='sec4_box'>
                         <div className='icon-box d-flex b_boot pb-4'>
                             <div className='icon-box-icon alin_c'>

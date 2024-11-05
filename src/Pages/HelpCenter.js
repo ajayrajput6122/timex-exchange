@@ -6,10 +6,10 @@ const HelpCenter = () => {
         <section className='sec01_e'>
             <div className='container '>
             <div className='row'>
-                <div className='col-lg-6 text-center'>
+                <div className='col-lg-6 col-md-6 alin_c text-center'>
                     <img className='Referrals' src={Securityi} />
                 </div>
-                <div className='col-lg-6 alin_c text-center'>
+                <div className='col-lg-6 col-md-6 alin_c text-center'>
                     <h4 className='sub_title bc'>.. Help Center ..</h4>
                     <h2 className='title_h2 wc'>Contact with us</h2>
 

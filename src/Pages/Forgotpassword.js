@@ -5,7 +5,7 @@ const Forgotpassword = () => {
     <>
       <section className='sec01_login'>
         <div className='container'>
-        <h2 class="title_h2 wc text-center mb-5"> Forgot Password</h2>
+        <h2 class="title_h2 wc text-center title_h2_mb"> Forgot Password</h2>
         <div className='login_f login_box register_f'>
           
                     <form>

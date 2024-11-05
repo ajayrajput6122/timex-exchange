@@ -5,10 +5,10 @@ const Withdrawhistory = () => {
     <>
       <section className='sec01_login'>
         <div className='container'>
-        <h2 className='title_h2 wc text-center mb-5'>Withdrawal History</h2>
-        <div className='t_table_main login_box'>
-                                <div className='t_table_sec'>
-                                    <table className='trade_table_2'>
+        <h2 className='title_h2 wc text-center title_h2_mb'>Withdrawal History</h2>
+        <div className='table_over sec4_box'>
+                                <div className='table_scroll'>
+                                    <table className='withdrawhistory'>
                                         <tr>
                                             <th className='t_t_heading wc b_boot'>S No.	</th>
                                             <th className='t_t_heading wc b_boot'> ID</th>

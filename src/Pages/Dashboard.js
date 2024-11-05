@@ -14,9 +14,9 @@ const Dashboard = () => {
 <section className='sec01_d'>
     <div className='container '> 
         <h2 className='title_h2 wc text-center'>Welcome To Dashboard</h2>
-        <p className='text text-center m_boot'>Glorious, not only for your eyes.</p>
+        <p className='text text-center '>Glorious, not only for your eyes.</p>
         <div className='row'>
-            <div className='col-lg-4'>
+            <div className='col-lg-4 col-md-4 col-sm-6 mt-3'>
                 <div className='sec4_box'>
                   <div className='d-flex d_box b_boot pb-4'>
                     <div className='icon-box d-flex'>
@@ -25,11 +25,11 @@ const Dashboard = () => {
                     </div>
                     <div className='icon-box-con'>
                         <h5 className='box_title box_title1 wc'>Bitcoin Cash</h5>
-                        <p className='box1_text wc mb-0'> <span className='me-1'>≈</span> 2342.42730</p>
+                        <p className='box1_text wc mb-0'> 2342.42730</p>
                     </div>
                     </div>
                     <div className='alin_c'>
-                        <p className='box1_text wc mb-0 gc'> 2.29678606</p>
+                        <p className='box1_text wc mb-0 gc'> 2.296</p>
                     </div>
                    </div>
 
@@ -40,17 +40,17 @@ const Dashboard = () => {
                     </div>
                     <div className='icon-box-con'>
                         <h5 className='box_title box_title1 wc'>BNB</h5>
-                        <p className='box1_text wc mb-0'> <span className='me-1'>≈</span> 2342.42730</p>
+                        <p className='box1_text wc mb-0'> 2342.42730</p>
                     </div>
                     </div>
                     <div className='alin_c'>
-                        <p className='box1_text wc mb-0 rc'> 2.29678606</p>
+                        <p className='box1_text wc mb-0 rc'> 2.296</p>
                     </div>
                    </div>
                 </div>
             </div>
 
-            <div className='col-lg-4'>
+            <div className='col-lg-4 col-md-4 col-sm-6 mt-3'>
                 <div className='sec4_box'>
                   <div className='d-flex d_box b_boot pb-4'>
                     <div className='icon-box d-flex'>
@@ -59,11 +59,11 @@ const Dashboard = () => {
                     </div>
                     <div className='icon-box-con'>
                         <h5 className='box_title box_title1 wc'>XRP</h5>
-                        <p className='box1_text wc mb-0'> <span className='me-1'>≈</span> 2342.42730</p>
+                        <p className='box1_text wc mb-0'> 2342.42730</p>
                     </div>
                     </div>
                     <div className='alin_c'>
-                        <p className='box1_text wc mb-0 rc'> 2.29678606</p>
+                        <p className='box1_text wc mb-0 rc'> 2.296</p>
                     </div>
                    </div>
 
@@ -74,17 +74,17 @@ const Dashboard = () => {
                     </div>
                     <div className='icon-box-con'>
                         <h5 className='box_title box_title1 wc'>Shiba Inu</h5>
-                        <p className='box1_text wc mb-0'> <span className='me-1'>≈</span> 2342.42730</p>
+                        <p className='box1_text wc mb-0'>2342.42730</p>
                     </div>
                     </div>
                     <div className='alin_c'>
-                        <p className='box1_text wc mb-0 gc'> 2.29678606</p>
+                        <p className='box1_text wc mb-0 gc'> 2.296</p>
                     </div>
                    </div>
                 </div>
             </div>
 
-            <div className='col-lg-4'>
+            <div className='col-lg-4 col-md-4 col-sm-6 mt-3'>
                 <div className='sec4_box'>
                   <div className='d-flex d_box b_boot pb-4'>
                     <div className='icon-box d-flex'>
@@ -93,11 +93,11 @@ const Dashboard = () => {
                     </div>
                     <div className='icon-box-con'>
                         <h5 className='box_title box_title1 wc'>TRON</h5>
-                        <p className='box1_text wc mb-0'> <span className='me-1'>≈</span> 2342.42730</p>
+                        <p className='box1_text wc mb-0'> 2342.42730</p>
                     </div>
                     </div>
                     <div className='alin_c'>
-                        <p className='box1_text wc mb-0 rc'> 2.29678606</p>
+                        <p className='box1_text wc mb-0 rc'> 2.296</p>
                     </div>
                    </div>
 
@@ -108,11 +108,11 @@ const Dashboard = () => {
                     </div>
                     <div className='icon-box-con'>
                         <h5 className='box_title box_title1 wc'>Bitcoin</h5>
-                        <p className='box1_text wc mb-0'> <span className='me-1'>≈</span> 2342.42730</p>
+                        <p className='box1_text wc mb-0'> 2342.42730</p>
                     </div>
                     </div>
                     <div className='alin_c'>
-                        <p className='box1_text wc mb-0 gc'> 2.29678606</p>
+                        <p className='box1_text wc mb-0 gc'> 2.296</p>
                     </div>
                    </div>
                 </div>

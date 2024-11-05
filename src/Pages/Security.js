@@ -8,10 +8,10 @@ const Security = () => {
        <section className='sec01_e'>
             <div className='container '>
             <div className='row'>
-                <div className='col-lg-6 text-center'>
+                <div className='col-lg-6 col-md-5 col-sm-5 alin_c text-center'>
                     <img className='Referrals' src={Securityi} />
                 </div>
-                <div className='col-lg-6 alin_c text-center'>
+                <div className='col-lg-6 col-md-7 col-sm-7 alin_c text-center'>
                     <h4 className='sub_title bc'>.. Security ..</h4>
                     <h2 className='title_h2 wc'>Security at Timex Your Crypto’s Safety is Our Top Priority</h2>
                     <p className='text '>At Timex, we take security seriously. Our multi-layered security system includes advanced firewalls and real-time detection of suspicious activities to keep your assets safe.</p>

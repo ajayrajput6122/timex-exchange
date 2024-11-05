@@ -19,17 +19,21 @@
     --btn-color:#000;
     --box-bg:#f5f5f5; }
 
-h1, h2, h3, h4, h5, h6, a, li, span, p, button, th, td{font-family: "Outfit", sans-serif;}
+h1, h2, h3, h4, h5, h6, a, li, span, p, button, th, td, input, label {font-family: "Outfit", sans-serif;}
 
 a { text-decoration: none !important;}
 
 ul { list-style: none !important;
     padding: 0px !important;
     margin: 0px !important;}
-/* 
-.container { padding: 0px !important;
-            max-width: 1320px !important;}
 
+.header_ul li a { color: var(--secondary-color) !important;}
+
+.header_ul { column-gap: 40px;}
+
+.container { padding: 0px !important;
+            max-width: 1280px !important;}
+/* 
 .head_bg { background-color: var(--sec-bg);
            padding: 10px 20px;
            justify-content: space-between;
@@ -467,13 +471,8 @@ table { width: 100%;}
 }
 
 .nav-link.tab_btn.active, .nav-link.tab_btn:hover { background: #c38807;
-    padding: 6px 20px;
     border: 2px solid #c38807;
-    border-radius: 10px;
-    font-size: 18px;
-    display: inline;
     margin-top: 10px;
-    font-weight: 600;
     color: #fff;}
 
 .nav-link.tab_btn { background: transparent;
@@ -775,3 +774,206 @@ span.otp_btn {
 .p_box_k { background-color: #000;
             padding: 20px;
             border-radius: 10px;}
+
+.border_box_p { border:1px solid #ffffff1a;
+                padding: 20px;
+                border-radius: 10px;}
+
+.gold_c { color: #c38807;}
+
+.file_box { border:1px dashed #ffffff1a;
+    padding: 20px;
+    position: relative;
+    border-radius: 10px;}
+
+.file_box_a {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.input_l_file {
+    height: 200px;
+    opacity: 0;
+    position: relative;
+    z-index: 9999;
+}
+
+.nav.nav_tab_sid.flex-column.nav-pills.me-3 { height: 100%;}
+
+.file_box_a i { font-size: 38px;}
+
+img.btc { width: 80%;}
+
+.navbar-toggler-icon { width: auto !important;
+                        height: auto !important;
+                    background: none !important;
+                    border: none !important;}
+
+.table_over { overflow-x: hidden;}
+
+.table_scroll { overflow-x: scroll;}
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.179);
+	background-color: #F5F5F5;}
+
+::-webkit-scrollbar{
+	width: 6px;
+	background-color: #F5F5F5;
+  height: 5px;}
+
+::-webkit-scrollbar-thumb { background-color: #00000055;}
+
+.title_h2_mb { margin-bottom: 40px;}
+
+.tabs_d-flex { display: flex;}
+
+.nav.nav_tab_sid.flex-column.nav-pills {margin-right: 15px;}
+
+.titel_h4_my { margin: 40px 0px;}
+
+@media (max-width:1240px) { 
+    .withdrawhistory { width: 1240px;}
+}
+
+@media (max-width:992px) { 
+
+    .box1_img { width: 40px;
+        margin-right: 15px;}
+
+    .sec01_d { padding: 40px 20px;}
+
+    .baner_title { font-size: 44px;}
+
+    .sec01_h { padding: 60px 20px;}
+
+    .column-rever { flex-direction: column-reverse;}
+
+    .md_center { text-align: center;}
+
+    .sec02_h { padding: 00px 20px 30px;}
+
+    .sec04_h { padding: 30px 20px 60px;}
+
+    .title_h2 { font-size: 34px;}
+
+    img.btc { width: 100% !important;}
+
+    .sec4_box { padding: 15px;}
+
+    .sec02_d { padding: 0px 20px;}
+
+    .m_boot {margin-bottom: 25px;}
+
+    .sec01_e { padding: 40px 20px;}
+
+    .sec01_login {padding: 50px 20px;}
+
+    .titel_h4_my { margin: 25px 0px;}
+
+    .referral_history {width: 992px;}
+}
+
+@media (max-width:800px) { 
+.box_title {font-size: 16px;}
+}
+
+@media (max-width:768px) { 
+    .baner_title { font-size: 34px;}
+
+    .sec01_h {padding: 40px 20px;}
+
+    .column-rever_sm { flex-direction: column-reverse;}
+
+    .title_h2 { font-size: 28px;}
+
+    .sub_title.bc { font-size: 22px;}
+
+    .sec4_box_title.wc { font-size: 18px;}
+
+    .sec04_h { padding: 30px 20px 30px;}
+
+    .sec03_h { padding: 30px 20px;}
+
+    .text, .accordion-body p { font-size: 16px;}
+
+    .start_box { padding: 15px;}
+
+    header { padding: 10px 20px;}
+
+    .logo { width: 110px;}
+
+    .dashboard_table { width: 780px; }
+
+    .sece_box_img { width: 55px;}
+
+    .sec01_e {padding: 30px 20px;}
+
+    .login_f {padding: 15px;}
+
+    .sec01_login { padding: 29px 20px;}
+
+    .title_h2_mb { margin-bottom: 20px;}
+
+    .sec01_d { padding: 30px 20px;}
+
+    .m_boot { margin-bottom: 10px;}
+
+    .tabs_d-flex { display: block;}
+
+    .tab-content1 {width: 100%;}
+
+    .nav.nav_tab_sid.flex-column.nav-pills {margin-right: 0px;
+                                            margin-bottom: 20px;}
+
+    .titel_h4_my { margin: 20px 0px;}
+
+    .refferal_earns_t { width: 768px;}
+
+    .f_group_l {padding: 8px 15px;}
+
+    .border_box_p {padding: 15px;}
+}
+
+@media (max-width:575px) {
+    .baner_title { font-size: 28px;}
+
+    .sec01_h {padding: 25px 15px 40px;}
+
+    .start_box { width: 100%;
+        padding: 15px;}
+
+    .start_box1 { border-width: 0px 0px 1px 0px;}
+
+    .start_box3 { border-width: 0px 0px 1px 0px;}
+
+    .Sparkle { display: none;}
+
+    .started { padding: 10px;}
+
+    .sec02_h { padding: 00px 20px 0px;}
+
+    .title_h2 { font-size: 22px;}
+
+    .box_title { font-size: 18px;}
+
+    .sub_title.bc { font-size: 18px;}
+
+    .column-rever_p { flex-direction: column-reverse;}
+
+    .margin-top {margin-top: 15px;}
+
+    .nav-link.tab_btn { font-size: 15px; 
+        padding: 6px 15px;}
+
+    .qr { width: 120px;}
+
+    .trade_box_title_l {font-size: 16px;}
+
+    .login_btn_t {font-size: 16px;}
+
+    .Deposithistory {width: 575px;}
+ }
+

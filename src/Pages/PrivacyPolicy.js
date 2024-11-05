@@ -6,9 +6,9 @@ const PrivacyPolicy = () => {
     <>
     <section className='sec01_e'>
             <div className='container '>
-            <div className='row'>
+            <div className='row column-rever_sm'>
                 
-                <div className='col-lg-6 alin_c text-center'>
+                <div className='col-lg-6 col-md-6 alin_c text-center'>
                     <h4 className='sub_title bc'>.. Privacy Policy ..</h4>
                     <h2 className='title_h2 wc'>Privacy Policy for Timex</h2>
 
@@ -17,7 +17,7 @@ const PrivacyPolicy = () => {
                     <p className='text '>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy. You are advised to review this Privacy Policy periodically for any changes. If you have any questions about this Privacy Policy, please contact us at:</p>
                     <h4 className='sub_title bc'>Email:  <span className='wc'>timex@gmail.com</span></h4>
                 </div>
-                <div className='col-lg-6 text-center'>
+                <div className='col-lg-6 col-md-6 alin_c text-center'>
                     <img className='Referrals' src={Securityi} />
                 </div>
             </div>

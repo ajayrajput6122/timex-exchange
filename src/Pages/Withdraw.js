@@ -6,7 +6,7 @@ const Withdraw = () => {
     <>
         <section className='sec01_login'>
         <div className='container'>
-            <h2 className='title_h2 wc text-center mb-5'>Withdrawal</h2>
+            <h2 className='title_h2 wc text-center title_h2_mb'>Withdrawal</h2>
             <div className='row'> 
                 <div className='col-lg-6'>
                     <img className='Depot' src={Depot} />

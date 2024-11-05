@@ -6,12 +6,12 @@ const Deposit = () => {
     <>
     <section className='sec01_login'>
         <div className='container'>
-            <h2 className='title_h2 wc text-center mb-5'>Deposit Crypto</h2>
+            <h2 className='title_h2 wc text-center title_h2_mb'>Deposit Crypto</h2>
             <div className='row'> 
-                <div className='col-lg-6'>
+                <div className='col-lg-6 col-md-6 alin_c'>
                     <img className='Depot' src={Depot} />
                 </div>
-                <div className='col-lg-6'>
+                <div className='col-lg-6 col-md-6 alin_c'>
                     <div className='login_f login_box'>
                     <form>
                                         <div className='form_t'>

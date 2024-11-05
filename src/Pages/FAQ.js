@@ -11,10 +11,10 @@ const FAQ = () => {
     <section className='sec01_e'>
       <div className='container '>
             <div className='row'>
-                <div className='col-lg-6 text-center'>
+                <div className='col-lg-6 col-md-5 col-sm-5 text-center'>
                     <img className='Referrals' src={Faqi} />
                 </div>
-                <div className='col-lg-6 alin_c text-center'>
+                <div className='col-lg-6 col-md-7 col-sm-7 alin_c text-center'>
                     <h4 className='sub_title bc'>.. Quick Answers ..</h4>
                     <h2 className='title_h2 wc'>FAQ</h2>
                     <p className='text '>Feeling overwhelmed by crypto? Our FAQ section is here to guide you through the world of Time-X. Find clear, step-by-step answers and uncover the mysteries of crypto with ease. Let’s navigate this adventure together!</p>

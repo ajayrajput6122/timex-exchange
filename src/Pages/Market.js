@@ -15,7 +15,7 @@ const Market = () => {
         <h2 className='title_h2 wc text-center'>Market Coins</h2>
         <p className='text text-center m_boot'>Glorious, not only for your eyes.</p>
         <div className='row'>
-            <div className='col-lg-4'>
+            <div className='col-lg-4 mt-3'>
                 <div className='sec4_box'>
                   <div className='d-flex d_box b_boot pb-4'>
                     <div className='icon-box d-flex'>
@@ -49,7 +49,7 @@ const Market = () => {
                 </div>
             </div>
 
-            <div className='col-lg-4'>
+            <div className='col-lg-4 mt-3'>
                 <div className='sec4_box'>
                   <div className='d-flex d_box b_boot pb-4'>
                     <div className='icon-box d-flex'>
@@ -83,7 +83,7 @@ const Market = () => {
                 </div>
             </div>
 
-            <div className='col-lg-4'>
+            <div className='col-lg-4 mt-3'>
                 <div className='sec4_box'>
                   <div className='d-flex d_box b_boot pb-4'>
                     <div className='icon-box d-flex'>

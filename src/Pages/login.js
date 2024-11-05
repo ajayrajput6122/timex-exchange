@@ -9,8 +9,8 @@ const login = () => {
     <>
     <section className='sec01_login'>
         <div className='container'>
-            <div className='row'>
-                <div className='col-lg-6'>
+            <div className='row column-rever_sm'>
+                <div className='col-lg-6 col-md-6'>
                     <div className='login_box'>
                         <ul class="nav nav-pills login_tab mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -79,7 +79,7 @@ const login = () => {
                         </div>
                     </div>
                 </div>
-                <div className='col-lg-6'>
+                <div className='col-lg-6 col-md-6 alin_c'>
                     <div className='bg_login'>
                         <img className='qr_bg' src={Loginbg} /> 
                         <img className='qr' src={Qr} /> 
