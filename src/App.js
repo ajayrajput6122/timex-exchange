@@ -33,6 +33,8 @@ const Download = React.lazy(() => import("./Pages/Download"));
 const MyProfile = React.lazy(() => import("./Pages/Myprofile"));
 const FAQ = React.lazy(() => import("./Pages/FAQ"));
 const ForgotPassword = React.lazy(() => import("./Pages/Forgotpassword"));
+const Staking = React.lazy(() => import("./Pages/Staking"));
+const Swap = React.lazy(() => import("./Pages/Swap"));
 const RefundCancellation = React.lazy(() =>
   import("./Pages/RefundCancellation")
 );
@@ -49,6 +51,7 @@ function App() {
             </Suspense>
           }
         >
+
           <Route
             path=""
             element={
@@ -209,6 +212,22 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <Register />
+              </Suspense>
+            }
+          />
+           <Route
+            path="staking"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Staking />
+              </Suspense>
+            }
+          />
+          <Route
+            path="swap"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Swap />
               </Suspense>
             }
           />
