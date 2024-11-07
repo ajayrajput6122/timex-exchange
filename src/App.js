@@ -30,6 +30,8 @@ const HelpCenter = React.lazy(() => import("./Pages/HelpCenter"));
 const Support = React.lazy(() => import("./Pages/Support"));
 const Security = React.lazy(() => import("./Pages/Security"));
 const Download = React.lazy(() => import("./Pages/Download"));
+const Staking = React.lazy(() => import("./Pages/Staking"));
+const Swap = React.lazy(() => import("./Pages/Swap"));
 const RefundCancellation = React.lazy(() =>
   import("./Pages/RefundCancellation")
 );
@@ -182,6 +184,22 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <Register />
+              </Suspense>
+            }
+          />
+           <Route
+            path="staking"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Staking />
+              </Suspense>
+            }
+          />
+          <Route
+            path="swap"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Swap />
               </Suspense>
             }
           />

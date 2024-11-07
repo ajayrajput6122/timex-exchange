@@ -451,10 +451,11 @@ input:focus-visible, select:focus-visible { border: none !important;
 
 .login_btn_t { background-color: transparent !important;
                 font-size: 18px;
+                color: var(--secondary-color) !important;
                 border-radius: 0px !important;
                 padding-top: 12px !important;
                 padding-bottom: 12px !important;
-                border-bottom: 2px solid #fff;
+                border-bottom: 2px solid var(--border-color);
                 font-weight: 700;}
 
 .login_btn_t:hover { color: #c38807;}
@@ -645,6 +646,21 @@ right: 15px;}
 
 .dropdown-item:active, .dropdown-item:hover { background-color: #c38807;}
 
+.sec02_d { padding: 0px 20px 60px;}
+
+.stak {width: 351px;}
+
+.swap_sel { background-color: var(--gold-color);
+            color: var(--btn-color);
+            padding: 5px;
+            border-radius: 10px;
+            border: none !important;
+            font-size: 16px;}
+
+.swap_sel option:hover {background-color: transparent !important; }
+
+/* .btn_t02:hover { color: var(--secondary-color) !important;} */
+
 @media (max-width:1240px) { 
     .withdrawhistory { width: 1240px;}
 }
@@ -689,6 +705,8 @@ right: 15px;}
     .titel_h4_my { margin: 25px 0px;}
 
     .referral_history {width: 992px;}
+
+    .sec02_d { padding-bottom: 50px;}
 }
 
 @media (max-width:800px) { 
@@ -705,6 +723,8 @@ right: 15px;}
     .title_h2 { font-size: 28px;}
 
     .sub_title.bc { font-size: 22px;}
+
+    .sec02_d { padding-bottom: 30px;}
 
     .sec4_box_title.wc { font-size: 18px;}
 
