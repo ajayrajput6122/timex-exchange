@@ -28,7 +28,7 @@ const BugReports = () => {
       );
       setDashboardData(response.data.data);
     } catch (error) {
-      console.error("Error fetching dashboard data:", error);
+      console.error("Error fetching bug history data:", error);
     } finally {
       setLoading(false);
     }

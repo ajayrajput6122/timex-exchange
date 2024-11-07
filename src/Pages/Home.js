@@ -35,7 +35,7 @@ const Home = () => {
               <span className="bc timex">Timex</span>
             </h1>
             <p className="text">
-              Experience top-notch trading with Bitnetto, the leading crypto
+              Experience top-notch trading with Timex, the leading crypto
               exchange. Start trading with us today and take your investment
               journey to the next level!
             </p>
@@ -45,7 +45,9 @@ const Home = () => {
             {authData?.token ? (
               <button className="btn_timex">Potential Rewards </button>
             ) : (
-              <NavLink to='/register' className="btn_timex">Join Timex</NavLink>
+              <NavLink to="/register" className="btn_timex">
+                Join Timex
+              </NavLink>
             )}
           </div>
         </div>
@@ -117,7 +119,9 @@ const Home = () => {
                 <div className=" col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
                   <div className="sec4_box">
                     <img className="sec4_box_img" src={Investment} />
-                    <h4 className="sec4_box_title wc">Shield Your </h4>
+                    <h4 className="sec4_box_title wc">
+                      Shield Your Investments
+                    </h4>
                     <p className="sec4_box_text">
                       Trust Our Secure Crypto Measures for Peaceful, Profitable
                       Trading. Robust Asset Protection Guaranteed.

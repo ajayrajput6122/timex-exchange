@@ -224,7 +224,8 @@ const Header = () => {
                       <span className="wc user d-flex">
                         <i className="fa-solid fa-user me-2 align-self-center"></i>
                         <span className="align-self-center">
-                          {authData?.user.username}
+                          {/* {authData?.user.username}- */}
+                          User ID - {authData?.user.id.slice(0, 4)}
                         </span>
                       </span>
                       <button
