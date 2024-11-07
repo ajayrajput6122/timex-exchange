@@ -30,6 +30,9 @@ const HelpCenter = React.lazy(() => import("./Pages/HelpCenter"));
 const Support = React.lazy(() => import("./Pages/Support"));
 const Security = React.lazy(() => import("./Pages/Security"));
 const Download = React.lazy(() => import("./Pages/Download"));
+const MyProfile = React.lazy(() => import("./Pages/Myprofile"));
+const FAQ = React.lazy(() => import("./Pages/FAQ"));
+const ForgotPassword = React.lazy(() => import("./Pages/Forgotpassword"));
 const RefundCancellation = React.lazy(() =>
   import("./Pages/RefundCancellation")
 );
@@ -122,6 +125,14 @@ function App() {
             }
           />
           <Route
+            path="myprofile"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <MyProfile />
+              </Suspense>
+            }
+          />
+          <Route
             path="market"
             element={
               <Suspense fallback={<div>Loading...</div>}>
@@ -130,10 +141,18 @@ function App() {
             }
           />
           <Route
-            path="download"
+            path="downloads"
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <Download />
+              </Suspense>
+            }
+          />
+          <Route
+            path="faq"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <FAQ />
               </Suspense>
             }
           />
@@ -166,6 +185,14 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <Security />
+              </Suspense>
+            }
+          />
+          <Route
+            path="forgotpassword"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <ForgotPassword />
               </Suspense>
             }
           />

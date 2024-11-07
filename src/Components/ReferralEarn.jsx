@@ -10,7 +10,7 @@ const ReferralEarn = () => {
                         <div className='form_t mt-4'>
                         <h5 className='trade_box_title_l wc'>Referral Code</h5>
                           <div className='f_group_l d-flex j_con'>
-                              <input type='email' className='input_l w-100 wc'  autocomplete="off"  />
+                              <input type='email' className='input_l w-100 wc'  autoComplete="off"  />
                               <h4 className='WC f_g_text alin_c'><span className='otp_btn wc'>Copy</span></h4>
                           </div>        
                         </div>
@@ -19,7 +19,7 @@ const ReferralEarn = () => {
                         <div className='form_t mt-4'>
                         <h5 className='trade_box_title_l wc'>Share Link</h5>
                           <div className='f_group_l d-flex j_con'>
-                              <input type='email' className='input_l w-100 wc'  autocomplete="off"  />
+                              <input type='email' className='input_l w-100 wc'  autoComplete="off"  />
                               <h4 className='WC f_g_text alin_c'><span className='otp_btn wc'>Copy</span></h4>
                           </div>        
                         </div>

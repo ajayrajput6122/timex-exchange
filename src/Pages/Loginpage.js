@@ -6,7 +6,7 @@ import Qr from "../Img/qr.png";
 import axios from "axios";
 import { base_url } from "../ApiService/BaseUrl";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contextapi/Auth";
 
 const Login = () => {
@@ -151,7 +151,7 @@ const Login = () => {
                               value={formData.email}
                               onChange={handleChange}
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <i class="fa-solid fa-envelope fa-beat"></i>
@@ -169,7 +169,7 @@ const Login = () => {
                               value={formData.otp}
                               onChange={handleChange}
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <span
@@ -191,7 +191,7 @@ const Login = () => {
                               value={formData.password}
                               onChange={handleChange}
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               {!showPassword ? (
@@ -209,7 +209,7 @@ const Login = () => {
                           </div>
                         </div>
                         <h5 className="trade_box_title_l wc text-end">
-                          <a>Forgot Password?</a>
+                          <NavLink className={'text-white'} to={'/forgotpassword'}>Forgot Password?</NavLink>
                         </h5>
 
                         <button className="btn_login wc" type="submit">
@@ -217,7 +217,7 @@ const Login = () => {
                           Login
                         </button>
                         <h5 className="text text-center mt-4">
-                          Do you have an account? <a className="wc">Register</a>
+                          Don't have an account? <Link to='/register' className="wc">Register</Link>
                         </h5>
                       </form>
                     </div>
@@ -238,7 +238,7 @@ const Login = () => {
                             <input
                               type="tel"
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <i class="fa-solid fa-mobile-screen-button fa-beat"></i>
@@ -251,7 +251,7 @@ const Login = () => {
                             <input
                               type="password"
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <i class="fa-solid fa-lock fa-beat"></i>

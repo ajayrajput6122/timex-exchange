@@ -6,7 +6,7 @@ import Qr from "../Img/qr.png";
 import axios from "axios";
 import { base_url } from "../ApiService/BaseUrl";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Contextapi/Auth";
 
@@ -161,7 +161,7 @@ const Register = () => {
                               value={formData.email}
                               onChange={handleChange}
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <i class="fa-solid fa-envelope fa-beat"></i>
@@ -179,7 +179,7 @@ const Register = () => {
                               value={formData.otp}
                               onChange={handleChange}
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <span
@@ -200,7 +200,7 @@ const Register = () => {
                             <input
                               type="text"
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <i class="fa-solid fa-comment fa-beat"></i>
@@ -216,7 +216,7 @@ const Register = () => {
                               value={formData.password}
                               onChange={handleChange}
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               {!showPassword ? (
@@ -244,7 +244,7 @@ const Register = () => {
                               value={formData.confirmPassword}
                               onChange={handleChange}
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               {!showConfirmPassword ? (
@@ -272,7 +272,7 @@ const Register = () => {
                               value={formData.referralCode}
                               onChange={handleChange}
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <i class="fa-solid fa-comment fa-beat"></i>
@@ -286,7 +286,7 @@ const Register = () => {
                           Register
                         </button>
                         <h5 className="text text-center mt-4">
-                          Already have an account <a className="wc">Login</a>
+                          Already have an account? <Link to={'/login'} className="wc">Login</Link>
                         </h5>
                       </form>
                     </div>
@@ -307,7 +307,7 @@ const Register = () => {
                             <input
                               type="email"
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <i class="fa-solid fa-envelope fa-beat"></i>
@@ -322,7 +322,7 @@ const Register = () => {
                             <input
                               type="text"
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <i class="fa-solid fa-comment fa-beat"></i>
@@ -335,7 +335,7 @@ const Register = () => {
                             <input
                               type="password"
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <i class="fa-solid fa-lock fa-beat"></i>
@@ -350,7 +350,7 @@ const Register = () => {
                             <input
                               type="password"
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <i class="fa-solid fa-lock fa-beat"></i>
@@ -365,7 +365,7 @@ const Register = () => {
                             <input
                               type="text"
                               className="input_l w-100 wc"
-                              autocomplete="off"
+                              autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
                               <i class="fa-solid fa-comment fa-beat"></i>

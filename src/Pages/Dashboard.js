@@ -256,8 +256,11 @@ const Dashboard = () => {
                       {/* {coin.percent_change_24h.toFixed(2)} */}
                     </td>
                     <td className="table_data b_boot">
-                      <NavLink className="table_btn wc" to={"/trade"}>
+                      <NavLink className="table_btn wc me-2" to={"/trade"}>
                         Trade
+                      </NavLink>
+                      <NavLink className="table_btn wc" to={"/trade"}>
+                        Buy/Sell
                       </NavLink>
                     </td>
                     <td className="table_data b_boot">

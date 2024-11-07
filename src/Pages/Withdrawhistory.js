@@ -117,7 +117,7 @@ const Withdrawhistory = () => {
                   ))}
                 </table>
               ) : (
-                <div className="text-center">
+                <div className="text-center text-white">
                   <p>No withdrawal transactions available.</p>
                 </div>
               )}
