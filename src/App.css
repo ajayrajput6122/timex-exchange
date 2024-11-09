@@ -325,7 +325,7 @@ section {
 }
 
 .sec01_d {
-  padding: 60px 20px;
+  padding: 60px 20px 30px;
 }
 
 .m_boot {
@@ -775,8 +775,8 @@ select:focus-visible {
 span.otp_btn {
   font-size: 16px;
   background: #ffffff1a;
-  border-radius: 10px;
-  padding: 6px;
+  border-radius: 17px;
+  padding: 6px 9px;
 }
 
 .t_table_main.login_box {
@@ -834,7 +834,7 @@ span.otp_btn {
 }
 
 .border_box_p {
-  border: 1px solid #ffffff1a;
+  border: 1px solid var(--border-color);
   padding: 20px;
   border-radius: 10px;
 }
@@ -844,7 +844,7 @@ span.otp_btn {
 }
 
 .file_box {
-  border: 1px dashed #ffffff1a;
+  border: 1px dashed var(--border-color);
   padding: 20px;
   position: relative;
   border-radius: 10px;
@@ -962,6 +962,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
             font-size: 16px;}
 
 .swap_sel option:hover {background-color: transparent !important; }
+
+select.input_l.w-100.wc option { background-color: var(--primary-color) !important;}
+
+.form_max_w { max-width: 600px;
+    margin: auto;}
 
 /* .btn_t02:hover { color: var(--secondary-color) !important;} */
 
@@ -1169,86 +1174,51 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 @media (max-width: 575px) {
-  .baner_title {
-    font-size: 28px;
-  }
+  .baner_title { font-size: 28px;}
 
-  .sec01_h {
-    padding: 25px 15px 40px;
-  }
+  .sec01_h { padding: 25px 15px 40px;}
 
-  .start_box {
-    width: 100%;
-    padding: 15px;
-  }
+  .start_box { width: 100%;
+    padding: 15px;}
 
-  .start_box1 {
-    border-width: 0px 0px 1px 0px;
-  }
+  .start_box1 {border-width: 0px 0px 1px 0px;}
 
-  .start_box3 {
-    border-width: 0px 0px 1px 0px;
-  }
+  .start_box3 {border-width: 0px 0px 1px 0px;}
 
-  .Sparkle {
-    display: none;
-  }
+  .Sparkle {display: none;}
 
-  .started {
-    padding: 10px;
-  }
+  .started { padding: 10px;}
 
-  .sec02_h {
-    padding: 00px 20px 0px;
-  }
+  .sec02_h {padding: 00px 20px 0px;}
 
-  .title_h2 {
-    font-size: 22px;
-  }
+  .title_h2 {font-size: 22px;}
 
-  .box_title {
-    font-size: 18px;
-  }
+  .box_title { font-size: 18px;}
 
-  .sub_title.bc {
-    font-size: 18px;
-  }
+  .sub_title.bc {font-size: 18px;}
 
-  .column-rever_p {
-    flex-direction: column-reverse;
-  }
+  .column-rever_p {flex-direction: column-reverse;}
 
-  .margin-top {
-    margin-top: 15px;
-  }
+  .margin-top {margin-top: 15px;}
 
   .nav-link.tab_btn {
     font-size: 15px;
-    padding: 6px 15px;
-  }
+    padding: 6px 15px;}
 
-  .qr {
-    width: 120px;
-  }
+  .qr {width: 120px;}
 
-  .trade_box_title_l {
-    font-size: 16px;
-  }
+  .trade_box_title_l { font-size: 16px;}
 
-  .login_btn_t {
-    font-size: 16px;
-  }
+  .login_btn_t { font-size: 16px;}
 
-  .Deposithistory {
-    width: 575px;
-  }
+  .Deposithistory { width: 575px;}
 }
 
 /* Raman work */
-.nav-item a:hover {
+.header_ul .nav-item a:hover {
   color: #c38807 !important;
 }
-.nav-item .active {
+.header_ul .nav-item .active {
   color: #c38807 !important;
 }
 .dropdown-options {

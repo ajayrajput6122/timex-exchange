@@ -200,6 +200,9 @@ const Forgotpassword = () => {
               <button className="btn_login wc" type="submit">
                 Forgot Password{" "}
               </button>
+              <h5 className="text text-center mt-4">
+              Have an account? <a className="wc">Log In here</a>
+              </h5>
             </form>
           </div>
         </div>

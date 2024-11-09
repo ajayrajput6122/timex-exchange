@@ -1,5 +1,5 @@
 import React from 'react'
-import Btc from '../Img/btc.png'
+import Btc from '../Img/Support_pg.png'
 import Facebook from '../Img/facebook.png'
 import Youtube from '../Img/youtube.png'
 import Email from '../Img/email.png'

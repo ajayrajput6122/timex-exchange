@@ -5,6 +5,11 @@ import ReferralEarn from '../Components/ReferralEarn'
 import ReferralBonus from '../Components/ReferralBonus'
 import BugReports  from '../Components/BugReports'
 import ChangePassword1 from '../Components/ChangePassword1'
+import Kycverification01 from '../Components/Kycverification01'
+import Kycverification02 from '../Components/Kycverification02'
+import Kycverification03 from '../Components/Kycverification03'
+import Kycverification04 from '../Components/Kycverification04'
+import Kycverification05 from '../Components/Kycverification05'
 
 const Myprofile = () => {
   return (
@@ -25,6 +30,7 @@ const Myprofile = () => {
               <div class="tab-content tab-content1" id="v-pills-tabContent">
                 <div class="tab-pane fade wc show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <MyProfil/>
+                {/* <Kycverification05/> */}
                 </div>
 
                 <div class="tab-pane fade wc" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
