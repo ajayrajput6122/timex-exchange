@@ -59,15 +59,15 @@ function App() {
               </Suspense>
             }
           />
-          <Route
-            path="dashboard"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Dashboard />
-              </Suspense>
-            }
-          />
           <Route element={<PrivateRoute />}>
+            <Route
+              path="dashboard"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Dashboard />
+                </Suspense>
+              }
+            />
             <Route
               path="deposit"
               element={
@@ -101,14 +101,30 @@ function App() {
               }
             />
             <Route
-              path="trade"
+              path="staking"
               element={
                 <Suspense fallback={<div>Loading...</div>}>
-                  <Trade />
+                  <Staking />
+                </Suspense>
+              }
+            />
+            <Route
+              path="swap"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Swap />
                 </Suspense>
               }
             />
           </Route>
+          <Route
+            path="trade"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Trade />
+              </Suspense>
+            }
+          />
           <Route
             path="earnings"
             element={
@@ -210,22 +226,6 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <Register />
-              </Suspense>
-            }
-          />
-          <Route
-            path="staking"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Staking />
-              </Suspense>
-            }
-          />
-          <Route
-            path="swap"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Swap />
               </Suspense>
             }
           />

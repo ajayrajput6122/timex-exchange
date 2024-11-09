@@ -8,11 +8,14 @@ import { AuthContext } from "../Contextapi/Auth";
 const Staking = () => {
   const { authData } = useContext(AuthContext);
   const [dashboardData, setDashboardData] = useState([]);
+  const [returnData, setReturnData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loading2, setLoading2] = useState(true);
   const [formData, setFormData] = useState({
     amount: "",
+    balance: "",
+    tokenName: "",
     tokenId: "62c9a988187e31ce104cd317",
-    userWalletbalance: "",
   });
 
   const handleChange = (e) => {
@@ -42,7 +45,8 @@ const Staking = () => {
       if (response.data.success) {
         toast.dismiss();
         toast.success(response.data.message);
-        setFormData({ amount: "" });
+        setFormData((prev) => ({ ...prev, amount: "" }));
+        getDashboardData();
       } else {
         toast.dismiss();
         toast.error(response.data.message);
@@ -58,14 +62,18 @@ const Staking = () => {
     try {
       const response = await axios.post(
         `${base_url}/api/userwalletbalance`,
-        {},
+        { tokenName: "USDT" },
         {
           headers: {
             Authorization: authData?.token,
           },
         }
       );
-      setFormData({});
+      setFormData((prev) => ({
+        ...prev,
+        balance: response.data.balance,
+        tokenName: response.data.tokenName,
+      }));
     } catch (error) {
       console.error("Error fetching stake history data:", error);
     } finally {
@@ -93,8 +101,32 @@ const Staking = () => {
     }
   };
 
+  const getReturnData = async () => {
+    setLoading2(true);
+    try {
+      const response = await axios.post(
+        `${base_url}/api/stake_return_history`,
+        {},
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
+      if (response.data.success) {
+        setReturnData(response.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching stake history data:", error);
+    } finally {
+      setLoading2(false);
+    }
+  };
+
   useEffect(() => {
     getDashboardData();
+    getWalletBal();
+    getReturnData();
   }, []);
 
   return (
@@ -108,7 +140,9 @@ const Staking = () => {
                   <h5 className="trade_box_title_l wc">Staking in USDT</h5>
                 </div>
                 <div>
-                  <h5 className="trade_box_title_l wc">Bal: 240 USDT</h5>
+                  <h5 className="trade_box_title_l wc">
+                    Bal: {formData?.balance} {formData?.tokenName}
+                  </h5>
                 </div>
               </div>
               <div className="login_f login_box">
@@ -184,7 +218,7 @@ const Staking = () => {
                         {loading && (
                           <div
                             className="d-flex justify-content-center align-items-center"
-                            style={{ height: "100vh" }}
+                            // style={{ height: "100vh" }}
                           >
                             <div
                               className="spinner-border text-white"
@@ -260,28 +294,72 @@ const Staking = () => {
                   <div className="table_over">
                     <div className="table_scroll">
                       <table className="trade_table_222">
-                        <tr>
-                          <th className="t_t_heading wc b_boot">S No. </th>
-                          <th className="t_t_heading wc b_boot"> User ID </th>
-                          <th className="t_t_heading wc b_boot"> Amount</th>
-                          <th className="t_t_heading wc b_boot">
-                            {" "}
-                            Return Amount{" "}
-                          </th>
-                          <th className="t_t_heading wc b_boot"> Day </th>
-                          <th className="t_t_heading wc b_boot">
-                            {" "}
-                            Date & Time
-                          </th>
-                        </tr>
-                        <tr>
-                          <td className="t_t_data b_boot wc">0</td>
-                          <td className="t_t_data b_boot wc">0</td>
-                          <td className="t_t_data b_boot wc">0</td>
-                          <td className="t_t_data b_boot wc">0</td>
-                          <td className="t_t_data b_boot wc">0</td>
-                          <td className="t_t_data b_boot wc">0</td>
-                        </tr>
+                        {loading2 && (
+                          <div
+                            className="d-flex justify-content-center align-items-center"
+                            style={{ height: "100vh" }}
+                          >
+                            <div
+                              className="spinner-border text-white"
+                              role="status"
+                            >
+                              <span className="visually-hidden">
+                                Loading...
+                              </span>
+                            </div>
+                          </div>
+                        )}
+                        {returnData.length > 0 ? (
+                          <>
+                            <tr>
+                              <th className="t_t_heading wc b_boot">S No. </th>
+                              <th className="t_t_heading wc b_boot">
+                                {" "}
+                                User ID{" "}
+                              </th>
+                              <th className="t_t_heading wc b_boot">
+                                {" "}
+                                Amount{" "}
+                              </th>
+                              <th className="t_t_heading wc b_boot">
+                                {" "}
+                                Return Amount{" "}
+                              </th>
+                              <th className="t_t_heading wc b_boot"> Days</th>
+                              <th className="t_t_heading wc b_boot">
+                                {" "}
+                                Date & Time
+                              </th>
+                            </tr>
+                            {returnData.map((coin, index) => (
+                              <tr key={index}>
+                                <td className="t_t_data b_boot wc">
+                                  {index + 1}
+                                </td>
+                                <td className="t_t_data b_boot wc">
+                                  {coin._id}
+                                </td>
+                                <td className="t_t_data b_boot wc">
+                                  {coin.amount}
+                                </td>
+                                <td className="t_t_data b_boot wc">
+                                  {coin.returnRate}
+                                </td>
+                                <td className="t_t_data b_boot wc">
+                                  {coin.day}
+                                </td>
+                                <td className="t_t_data b_boot wc">
+                                  {new Date(coin.createdAt).toLocaleString()}
+                                </td>
+                              </tr>
+                            ))}
+                          </>
+                        ) : (
+                          <div className="text-center text-white mt-5">
+                            <h2>No data available</h2>
+                            <p>Please try again later.</p>
+                          </div>
+                        )}
                       </table>
                     </div>
                   </div>
