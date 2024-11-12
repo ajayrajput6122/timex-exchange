@@ -1,6 +1,6 @@
 import React from "react";
 import Btc from "../Img/btc.png";
-import Securityi from "../Img/Security.png";
+import Securityi from "../Img/Security_pg.png";
 import Logo from "../Img/logo.png";
 const Security = () => {
   return (

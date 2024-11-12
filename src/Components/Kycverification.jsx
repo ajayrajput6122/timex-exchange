@@ -1,5 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Kycverification01 from "./Kycverification01";
+import Kycverification2 from "./Kycverification02";
+import Kycverification3 from "./Kycverification03";
+import Kycverification4 from "./Kycverification04";
+import Kycverification5 from "./Kycverification05";
 
 const Kycverification = () => {
   const [country, setCountry] = useState([]);
@@ -26,7 +31,7 @@ const Kycverification = () => {
   return (
     <div>
       <h4 className="text-center wc mb-4">KYC Verification</h4>
-      <form>
+      {/* <form>
         <div className="border_box_p">
           <h4 className="p_tile gold_c">Region or KYC Type *</h4>
 
@@ -365,7 +370,12 @@ const Kycverification = () => {
             Submit for verification
           </button>
         </div>
-      </form>
+      </form> */}
+      <Kycverification01 />
+      {/* <Kycverification2/> */}
+      <Kycverification3/>
+      <Kycverification4/>
+      <Kycverification5/>
     </div>
   );
 };

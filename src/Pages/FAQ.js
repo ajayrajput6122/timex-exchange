@@ -1,5 +1,5 @@
 import React from 'react'
-import Faqi from '../Img/FAQ.png'
+import Faqi from '../Img/Faq_pg.png'
 import Signup from '../Img/sign-up.png'
 import Facebook from '../Img/facebook.png'
 import Youtube from '../Img/youtube.png'

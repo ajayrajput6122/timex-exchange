@@ -65,7 +65,12 @@ const Register = () => {
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-
+    if (formData.password !== formData.confirmPassword
+    ) {
+      toast.dismiss();
+      toast.error("Password don't match");
+      return;
+    }
     if (
       !formData.email ||
       !formData.otp ||
@@ -86,7 +91,10 @@ const Register = () => {
         toast.dismiss();
         toast.success(response.data.message);
         navigate("/dashboard");
-        saveAuthData({ token: response.data.user.accessToken, user: response.data.user });
+        saveAuthData({
+          token: response.data.user.accessToken,
+          user: response.data.user,
+        });
       } else {
         toast.dismiss();
         toast.error(response.data.message);
@@ -286,7 +294,10 @@ const Register = () => {
                           Register
                         </button>
                         <h5 className="text text-center mt-4">
-                          Already have an account? <Link to={'/login'} className="wc">Login</Link>
+                          Already have an account?{" "}
+                          <Link to={"/login"} className="wc">
+                            Login
+                          </Link>
                         </h5>
                       </form>
                     </div>

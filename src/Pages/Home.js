@@ -199,51 +199,47 @@ const Home = () => {
 
       <section className="sec04_h">
         <div className="container text-center">
-          <h4 className="sub_title bc">.. Benefits ..</h4>
-          <h2 className="title_h2 wc">Explore Incredible Exchange Features!</h2>
-          <p className="text ">
+          {/* <h4 className="sub_title bc">.. Benefits ..</h4> */}
+          <h2 className="title_h2 wc">Why Cryptocurrency is a Top Market for Investment ?</h2>
+          {/* <p className="text ">
             Don't settle for average; level up your crypto game one step at a
             time. You'll be boasting about us in no time!
-          </p>
+          </p> */}
 
           <div className="row">
             <div className="col-lg-3 col-md-6 col-sm-6 mt-3">
               <div className="sec4_box">
                 <img className="sec4_box_img" src={Investment} />
-                <h4 className="sec4_box_title wc">Shield Your </h4>
+                <h4 className="sec4_box_title wc">Investment Choice </h4>
                 <p className="sec4_box_text">
-                  Trust Our Secure Crypto Measures for Peaceful, Profitable
-                  Trading. Robust Asset Protection Guaranteed.
+                Cryptocurrencies are a popular investment choice today because of their potential for high returns, global access, and growing use in real life. Here’s a quick look at why many people consider investing in crypto.
                 </p>
               </div>
             </div>
             <div className="col-lg-3 col-md-6 col-sm-6 mt-3">
               <div className="sec4_box">
                 <img className="sec4_box_img" src={Stock} />
-                <h4 className="sec4_box_title wc">Real-Time Crypto Trading</h4>
+                <h4 className="sec4_box_title wc">Big Return Potential</h4>
                 <p className="sec4_box_text">
-                  Capture Opportunities: Swiftly Trade Cryptocurrencies on Our
-                  Platform, Where Time is of Essence.
+                Cryptocurrencies like Bitcoin and Ethereum have shown huge growth over the years. Many investors are attracted to crypto because prices can rise rapidly, offering big returns, though with some risk.
                 </p>
               </div>
             </div>
             <div className="col-lg-3 col-md-6 col-sm-6 mt-3">
               <div className="sec4_box">
                 <img className="sec4_box_img" src={Encrypted} />
-                <h4 className="sec4_box_title wc">Shielded Assets</h4>
+                <h4 className="sec4_box_title wc">More Popular</h4>
                 <p className="sec4_box_text">
-                  Trust in Our Crypto Exchange: Your Assets and Transactions
-                  Remain Secure, Safeguarded from Unwanted Access.
+                Big companies & financial firms are getting involved in crypto. Banks & companies are offering crypto-related products, which makes crypto more stable & trustworthy. This support from big names is drawing in new investors.
                 </p>
               </div>
             </div>
             <div className="col-lg-3 col-md-6 col-sm-6 mt-3">
               <div className="sec4_box">
                 <img className="sec4_box_img" src={Profits} />
-                <h4 className="sec4_box_title wc">Profit Maximization </h4>
+                <h4 className="sec4_box_title wc">Easy Access for Everyone </h4>
                 <p className="sec4_box_text">
-                  Optimize Your Gains: Benefit from Our Competitive Transaction
-                  Fees, Reinvest in Your Crypto Portfolios
+                The crypto market is open 24/7 and accessible from anywhere. You can buy or sell at any time from any part of the world, which isn’t possible in traditional stock markets. This worldwide access is a big draw for new investors.
                 </p>
               </div>
             </div>
