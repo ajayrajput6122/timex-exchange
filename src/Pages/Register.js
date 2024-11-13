@@ -110,6 +110,7 @@ const Register = () => {
     <>
       <section className="sec01_login">
         <div className="container">
+        <h2 class="title_h2 wc text-center title_h2_mb"> Register</h2>
           <div className="">
             <div className="register_f">
               <div className="login_box">

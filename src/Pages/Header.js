@@ -221,23 +221,32 @@ const Header = () => {
                   )}
                 </ul>
                 <div className="alin_c d-flex">
-                  {authData.token ? (
-                    <>
-                      <span className="wc user d-flex">
-                        <i className="fa-solid fa-user me-2 align-self-center"></i>
-                        <span className="align-self-center">
-                          User ID -{" "}
-                          {authData?.user.username}
-                          {/* {authData?.user.id.toUpperCase().slice(0, 4)} */}
-                        </span>
-                      </span>
-                      <button
-                        className="ms-2 t_f_btn t_f_btn1 wc mt-0"
-                        type="button"
-                        onClick={logout}
-                      >
+                  {/* <div class="dropdown">
+                    <a class=" dropdown-toggle wc" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i className="fa-solid fa-user me-2 align-self-center"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu_header p-2" aria-labelledby="dropdownMenuLink">
+                      <li><span className="align-self-center user_id"><i className="fa-solid fa-user me-2 align-self-center"></i> {authData?.user.username}</span></li>
+                      <li><button className=" logout wc" type="button" onClick={logout}>
                         Logout
                       </button>
+                      </li>
+                    </ul>
+                  </div> */}
+                  {authData.token ? (
+                    <>
+                     <div class="dropdown">
+                    <a class=" dropdown-toggle wc" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i className="fa-solid fa-user me-2 align-self-center"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu_header p-2" aria-labelledby="dropdownMenuLink">
+                      <li><span className="align-self-center user_id"><i className="fa-solid fa-user me-2 align-self-center"></i> {authData?.user.username}</span></li>
+                      <li><button className=" logout wc" type="button" onClick={logout}>
+                        Logout
+                      </button>
+                      </li>
+                    </ul>
+                  </div>
                     </>
                   ) : (
                     <div className="d-flex j_con">
