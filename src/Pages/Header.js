@@ -233,7 +233,6 @@ const Header = () => {
                       </li>
                     </ul>
                   </div> */}
-                  
                   {authData.token ? (
                     <>
                      <div class="dropdown">
