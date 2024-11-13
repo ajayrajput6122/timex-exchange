@@ -92,6 +92,7 @@ const Login = () => {
     <>
       <section className="sec01_login">
         <div className="container">
+        <h2 class="title_h2 wc text-center title_h2_mb"> Login</h2>
           <div className="row column-rever_sm">
             <div className="col-lg-6 col-md-6">
               <div className="login_box">

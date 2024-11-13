@@ -64,7 +64,7 @@ ul {
 }
 
 .header_ul {
-  column-gap: 40px;
+  column-gap: 10px;
 }
 
 .container {
@@ -139,7 +139,7 @@ header {
 }
 
 .sec01_h {
-  padding: 80px 20px;
+  padding: 80px 20px 60px;
 }
 
 .baner_title {
@@ -263,7 +263,7 @@ section {
 }
 
 .sec02_h {
-  padding: 00px 20px 60px;
+  padding: 00px 20px;
 }
 
 .sub_title.bc {
@@ -272,7 +272,7 @@ section {
 }
 
 .title_h2 {
-  font-size: 42px;
+  font-size: 38px;
 }
 
 .sec04_h {
@@ -610,19 +610,28 @@ select:focus-visible {
 
 .t_f_btn,
 .t_f_btn2,
-.t_f_btn3 {
+.t_f_btn3,
+.logout {
   padding: 2px 20px;
   border: 2px solid #c38807;
   border-radius: 10px;
   font-size: 16px;
   display: inline;
-  width: 50%;
   margin-top: 10px;
   font-weight: 600;
 }
 
+.user_id { color: var(--secondary-color);}
+
+.t_f_btn,
+.t_f_btn2,
+.t_f_btn3 {
+  width: 50%;
+}
+
 .t_f_btn1,
-.t_f_btn4 {
+.t_f_btn4,
+.logout {
   background: #c38807;
   margin-right: 3px;
 }
@@ -710,7 +719,7 @@ select:focus-visible {
 }
 
 .login_f {
-  padding: 40px;
+  padding: 20px 40px 40px;
 }
 
 .trade_box_title_l {
@@ -970,13 +979,15 @@ select.input_l.w-100.wc option { background-color: var(--primary-color) !importa
 
 /* .btn_t02:hover { color: var(--secondary-color) !important;} */
 
+.sec01_staking { padding: 0px 20px 60px;}
+
 @media (max-width: 1240px) {
   .withdrawhistory {
     width: 1240px;
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 991px) {
   .trade_table_222 {
     width: 992px;
   }
@@ -1053,6 +1064,10 @@ select.input_l.w-100.wc option { background-color: var(--primary-color) !importa
     .referral_history {width: 992px;}
 
     .sec02_d { padding-bottom: 50px;}
+
+    .dashboard_table {
+      width: 992px;
+    }
 }
 
 @media (max-width: 800px) {
@@ -1066,13 +1081,19 @@ select.input_l.w-100.wc option { background-color: var(--primary-color) !importa
     font-size: 34px;
   }
 
+  .btn_login {padding: 8px 20px;}
+
+  .sec01_staking { padding: 0px 20px 40px;}
+
   .sec01_h {
     padding: 40px 20px;
   }
 
-  .column-rever_sm {
-    flex-direction: column-reverse;
-  }
+  .footer_list_item a {
+    font-size: 15px;
+}
+
+  .footer_title { font-size: 18px;}
 
   .title_h2 {
     font-size: 28px;
@@ -1089,6 +1110,8 @@ select.input_l.w-100.wc option { background-color: var(--primary-color) !importa
   .sec04_h {
     padding: 30px 20px 30px;
   }
+
+  .btn_t02 { font-size: 15px;} 
 
   .sec03_h {
     padding: 30px 20px;
@@ -1109,10 +1132,6 @@ select.input_l.w-100.wc option { background-color: var(--primary-color) !importa
 
   .logo {
     width: 110px;
-  }
-
-  .dashboard_table {
-    width: 780px;
   }
 
   .sece_box_img {
@@ -1151,6 +1170,8 @@ select.input_l.w-100.wc option { background-color: var(--primary-color) !importa
     width: 100%;
   }
 
+  .trade_box_staking { margin-top: 20px;}
+
   .nav.nav_tab_sid.flex-column.nav-pills {
     margin-right: 0px;
     margin-bottom: 20px;
@@ -1171,6 +1192,13 @@ select.input_l.w-100.wc option { background-color: var(--primary-color) !importa
   .border_box_p {
     padding: 15px;
   }
+
+  .sec02_f { padding: 30px 20px;}
+  
+}
+
+@media (max-width: 767px) {
+  .column-rever_sm { flex-direction: column-reverse;}
 }
 
 @media (max-width: 575px) {
@@ -1202,8 +1230,8 @@ select.input_l.w-100.wc option { background-color: var(--primary-color) !importa
   .margin-top {margin-top: 15px;}
 
   .nav-link.tab_btn {
-    font-size: 15px;
-    padding: 6px 15px;}
+    font-size: 13px;
+    padding: 6px 7px;}
 
   .qr {width: 120px;}
 
@@ -1212,6 +1240,11 @@ select.input_l.w-100.wc option { background-color: var(--primary-color) !importa
   .login_btn_t { font-size: 16px;}
 
   .Deposithistory { width: 575px;}
+
+  .stak {
+    width: 241px;
+    margin-bottom: 20px;
+}
 }
 
 /* Raman work */

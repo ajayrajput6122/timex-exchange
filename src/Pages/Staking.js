@@ -4,7 +4,7 @@ import Stak from '../Img/rb_2529.png'
 const Staking = () => {
   return (
     <>
-       <section className="sec01_login">
+       <section className="sec01_staking">
             <div className="container">
                 <div className="row column-rever_sm">
                     <div className="col-lg-6 col-md-6 alin_c">
@@ -38,7 +38,7 @@ const Staking = () => {
                 </div>
 
                 <div>
-                <div className='trade_box '>
+                <div className='trade_box trade_box_staking'>
                             <nav className=' pb-2 mb-4'>
                                 <div class="nav nav-tabs t-t-bor" id="nav-tab" role="tablist">
                                     <button class="nav-link btn_t02 btn_t03 wc active" id="nav-home-tab_t1" data-bs-toggle="tab" data-bs-target="#nav-home_t1" type="button" role="tab" aria-controls="nav-home_t1" aria-selected="true">Staking History</button>

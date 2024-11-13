@@ -20,14 +20,14 @@ const Footer = () => {
                     </div>
                     <div className='col-lg-9 col-md-9'>
                         <div className='row'>
-                            <div className='col-lg-3 col-md-3 col-sm-6'>
+                            <div className='col-lg-3 col-md-3 col-sm-6 col-6'>
                                 <h4 className='footer_title'>The Platform</h4>
                                 <ul className='footer_list'>
                                     <li className='footer_list_item'><a harf='/'>Market</a></li>
                                     <li className='footer_list_item'><a harf='/'>Fees</a></li>
                                 </ul>
                             </div>
-                            <div className='col-lg-3 col-md-3 col-sm-6'>
+                            <div className='col-lg-3 col-md-3 col-sm-6 col-6'>
                                 <h4 className='footer_title'>Support</h4>
                                 <ul className='footer_list'>
                                     <li className='footer_list_item'><a harf='/'>Contact Support</a></li>
@@ -35,14 +35,14 @@ const Footer = () => {
                                     <li className='footer_list_item'><a harf='/'>Privacy & Policy</a></li>
                                 </ul>
                             </div>
-                            <div className='col-lg-3 col-md-3 col-sm-6'>
+                            <div className='col-lg-3 col-md-3 col-sm-6 col-6'>
                                 <h4 className='footer_title'>Resources</h4>
                                 <ul className='footer_list'>
                                     <li className='footer_list_item'><a harf='/'>Mobile Application</a></li>
                                     <li className='footer_list_item'><a harf='/'>Bring Your Crew</a></li>
                                 </ul>
                             </div>
-                            <div className='col-lg-3 col-md-3 col-sm-6'>
+                            <div className='col-lg-3 col-md-3 col-sm-6 col-6'>
                                 <h4 className='footer_title'>Company</h4>
                                 <ul className='footer_list'>
                                     <li className='footer_list_item'><a harf='/'>About Us</a></li>
