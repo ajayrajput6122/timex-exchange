@@ -3,7 +3,7 @@ import React from 'react'
 const Kycverification04 = () => {
   return (
     <>
-     <h4 className="text-center wc mb-4"> <span>04</span> Other Document Verification </h4>
+     <h4 className="text-center wc mb-4"> <span>03</span> Other Document Verification </h4>
      <div className="border_box_p mt-4">
         <form>
         <div className="row">

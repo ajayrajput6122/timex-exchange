@@ -101,6 +101,17 @@ const Withdraw = () => {
   };
 
   const handleSubmit = async (values, { resetForm }) => {
+    if (
+      !values.coin ||
+      !values.network ||
+      !values.amount ||
+      !values.walletAddress ||
+      !values.otp
+    ) {
+      toast.dismiss();
+      toast.error("Please Fill in the details");
+      return;
+    }
     try {
       const response = await axios.post(
         `${base_url}/api/withdrawrequest`,
@@ -119,17 +130,20 @@ const Withdraw = () => {
       );
 
       if (response.data.success) {
-        toast.success("Withdrawal request submitted successfully!");
+        toast.dismiss();
+        toast.success(response.data.message);
         resetForm();
         setSelectedCoin(null);
         setSelectedNetwork(null);
         setTokenId(null);
         setNetworkId(null);
       } else {
-        throw new Error(response.data.message || "Withdrawal request failed");
+        toast.dismiss();
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.error("Error submitting withdrawal request:", error);
+      toast.dismiss();
       toast.error(
         error.response?.data?.message ||
           error.message ||
@@ -345,7 +359,13 @@ const Withdraw = () => {
                             autoComplete="off"
                           />
                           <h4 className="WC f_g_text alin_c">
-                            <span className="otp_btn wc" type='button' onClick={handleOtp}>OTP</span>
+                            <span
+                              className="otp_btn wc"
+                              type="button"
+                              onClick={handleOtp}
+                            >
+                              OTP
+                            </span>
                           </h4>
                         </div>
                       </div>

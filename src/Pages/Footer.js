@@ -1,5 +1,6 @@
-import React from 'react'
-import Logo from '../Img/logo.png'
+import React from "react";
+import Logo from "../Img/logo.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -56,7 +57,7 @@ const Footer = () => {
             </div>
         </footer>
     </>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

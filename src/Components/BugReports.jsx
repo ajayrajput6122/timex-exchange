@@ -12,7 +12,7 @@ const BugReports = () => {
     title: "",
     url: "",
     description: "",
-  });
+  }); 
 
   const getDashboardData = async () => {
     setLoading(true);
@@ -28,7 +28,7 @@ const BugReports = () => {
       );
       setDashboardData(response.data.data);
     } catch (error) {
-      console.error("Error fetching dashboard data:", error);
+      console.error("Error fetching bug history data:", error);
     } finally {
       setLoading(false);
     }
@@ -70,6 +70,7 @@ const BugReports = () => {
       if (response.data.success) {
         toast.dismiss();
         toast.success(response.data.message);
+        getDashboardData();
         setFormData({ title: "", url: "", description: "" });
         // saveAuthData({
         //   token: response.data.user.accessToken,

@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
 import { AuthContext } from "../Contextapi/Auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Forgotpassword = () => {
   const { logout } = useContext(AuthContext);
@@ -201,7 +201,7 @@ const Forgotpassword = () => {
                 Forgot Password{" "}
               </button>
               <h5 className="text text-center mt-4">
-              Have an account? <a className="wc">Log In here</a>
+              Have an account? <Link className="wc" to={'/login'}>Log In here</Link>
               </h5>
             </form>
           </div>
