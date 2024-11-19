@@ -430,11 +430,11 @@ table {
 
 .accordion-button {
   background-color: var(--box-border) !important;
-  box-shadow: -1px 0px 7px var(--box-s);
+  box-shadow: -1px 0px 7px var(--box-s) !important;
   border: none !important;
   border-radius: 10px !important;
   color: var(--secondary-color) !important;
-  box-shadow: none !important;
+  /* box-shadow: none !important; */
   outline: none !important;
 }
 
@@ -1260,3 +1260,6 @@ select.input_l.w-100.wc option { background-color: var(--primary-color) !importa
 .dropdown-item:hover {
   background-color: rgb(192, 184, 184) !important;
 }
+
+
+.popup_main { z-index: 999999999999999999999999 !important;}
