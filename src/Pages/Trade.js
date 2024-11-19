@@ -5,6 +5,7 @@ import { base_url } from "../ApiService/BaseUrl";
 
 const Trade = () => {
   const [coin, setCoin] = useState([]);
+  
   const [selectedCoin, setSelectedCoin] = useState([]);
   const FetchMarketData = async () => {
     try {
