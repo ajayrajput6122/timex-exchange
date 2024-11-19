@@ -6,13 +6,17 @@ import Qr from "../Img/qr.png";
 import axios from "axios";
 import { base_url } from "../ApiService/BaseUrl";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Contextapi/Auth";
 
 const Register = () => {
+  let location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const sponsorId = params.get("sponsorId");
   const { saveAuthData } = useContext(AuthContext);
   const [formData, setFormData] = useState({
+    sponser_id: sponsorId ? sponsorId : "",
     email: "",
     otp: "",
     password: "",
@@ -65,8 +69,7 @@ const Register = () => {
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword
-    ) {
+    if (formData.password !== formData.confirmPassword) {
       toast.dismiss();
       toast.error("Password don't match");
       return;
@@ -110,7 +113,7 @@ const Register = () => {
     <>
       <section className="sec01_login">
         <div className="container">
-        <h2 class="title_h2 wc text-center title_h2_mb"> Register</h2>
+          <h2 class="title_h2 wc text-center title_h2_mb"> Register</h2>
           <div className="">
             <div className="register_f">
               <div className="login_box">
@@ -159,6 +162,28 @@ const Register = () => {
                   >
                     <div className="login_f">
                       <form onSubmit={handleRegisterSubmit}>
+                        {sponsorId ? (
+                          <div className="form_t">
+                            <h5 className="trade_box_title_l wc">
+                              Sponsor Id
+                            </h5>
+                            <div className="f_group_l d-flex j_con">
+                              <input
+                                type="text"
+                                name="sponser_id"
+                                value={sponsorId}
+                                onChange={handleChange}
+                                className="input_l w-100 wc"
+                                autoComplete="off"
+                              />
+                              <h4 className="WC f_g_text alin_c">
+                                <i class="fa-solid fa-user fa-beat"></i>
+                              </h4>
+                            </div>
+                          </div>
+                        ) : (
+                          ""
+                        )}
                         <div className="form_t">
                           <h5 className="trade_box_title_l wc">
                             Email Address

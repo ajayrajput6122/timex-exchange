@@ -31,7 +31,7 @@ const FAQ = () => {
                 <div className='col-lg-8'>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link tab_btn active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Timex</button>
+                            <button class="nav-link tab_btn active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">TomAX</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link tab_btn" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Cryptocurrency</button>

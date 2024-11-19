@@ -81,7 +81,7 @@ const Earnings = () => {
                             <div className='sec4_box'>
                                 <img className='sece_box_img' src={Network} />
                                 <h4 className='sec4_box_title wc'>Share Your Code and Link</h4>
-                                <p className='sec4_box_text'>You can invite your friends to use Timex products with just one referral code.</p>
+                                <p className='sec4_box_text'>You can invite your friends to use TomAX products with just one referral code.</p>
                             </div>
                         </div>
                         <div className='col-lg-4 col-md-4 col-sm-4 mt-3'>
@@ -95,7 +95,7 @@ const Earnings = () => {
                             <div className='sec4_box'>
                                 <img className='sece_box_img' src={Reward} />
                                 <h4 className='sec4_box_title wc'>Get Multiple Rewards</h4>
-                                <p className='sec4_box_text'>Automatically get Trading Commissions through Timex Card Rewards.</p>
+                                <p className='sec4_box_text'>Automatically get Trading Commissions through TomAX Card Rewards.</p>
                             </div>
                         </div>
                     </div>

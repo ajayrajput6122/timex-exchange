@@ -26,7 +26,7 @@ const Swap = () => {
                                         <div className="WC f_g_text alin_c">
                                             <select className='swap_sel'>
                                                 <option>RBC</option>
-                                                <option>Timex</option>
+                                                <option>TomAX</option>
                                             </select>
                                         </div>
                                     </div>
@@ -39,7 +39,7 @@ const Swap = () => {
                                         <div className="WC f_g_text alin_c">
                                             <select className='swap_sel'>
                                                 <option>RBC</option>
-                                                <option>Timex</option>
+                                                <option>TomAX</option>
                                             </select>
                                         </div>
                                     </div>

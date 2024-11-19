@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useState } from "react";
-import Logo from "../Img/logo.png";
+import Logo from "../Img/tomex.png";
 import Baner from "../Img/baner_i.png";
 import Signup from "../Img/sign-up.png";
 import Growth from "../Img/stock (1).png";
@@ -32,10 +32,10 @@ const Home = () => {
           <div className="banner_w text-center">
             <h1 className="baner_title wc">
               Discover Seamless Exchanges for Your Digital Coins{" "}
-              <span className="bc timex">Timex</span>
+              <span className="bc timex">TomAX</span>
             </h1>
             <p className="text">
-              Experience top-notch trading with Timex, the leading crypto
+              Experience top-notch trading with TomAX, the leading crypto
               exchange. Start trading with us today and take your investment
               journey to the next level!
             </p>
@@ -45,7 +45,7 @@ const Home = () => {
             {authData?.token ? (
               <button className="btn_timex">Potential Rewards </button>
             ) : (
-              <NavLink to='/register' className="btn_timex d-inline-block">Join Timex</NavLink>
+              <NavLink to='/register' className="btn_timex d-inline-block">Join TomAX</NavLink>
             )}
           </div>
         </div>
@@ -181,7 +181,7 @@ const Home = () => {
               <h2 className="title_h2 wc">Get the App Now</h2>
               <p className="text ">
                 Don't miss out on the opportunity to dive into the future of
-                finance with Timex ! Trade swiftly on the go and access our
+                finance with TomAX ! Trade swiftly on the go and access our
                 platform anytime, anywhere. Live without limits." Join us today
                 and experience the freedom and flexibility to trade whenever and
                 wherever inspiration strikes.

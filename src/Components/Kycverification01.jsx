@@ -4,10 +4,10 @@ import toast from "react-hot-toast";
 import { base_url } from "../ApiService/BaseUrl";
 import { AuthContext } from "../Contextapi/Auth";
 
-const Kycverification01 = () => {
+const Kycverification01 = ({ data, onNext }) => {
   const { authData } = useContext(AuthContext);
   const [country, setCountry] = useState([]);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState(data || {
     firstname: "",
     lastname: "",
     country: "",
@@ -38,7 +38,8 @@ const Kycverification01 = () => {
       !formData.firstname ||
       !formData.lastname ||
       !formData.country ||
-      !formData.address
+      !formData.address ||
+      !formData.gender
     ) {
       toast.dismiss();
       toast.error("Please fill in all fields");
@@ -58,14 +59,7 @@ const Kycverification01 = () => {
       if (response.data.success) {
         toast.dismiss();
         toast.success(response.data.message);
-        localStorage.setItem("formData", formData);
-        setFormData({
-          firstname: "",
-          lastname: "",
-          country: "",
-          address: "",
-          gender: "",
-        });
+        onNext(formData);
       } else {
         toast.dismiss();
         toast.error(response.data.message);
@@ -156,6 +150,7 @@ const Kycverification01 = () => {
                       name="country"
                       onChange={handleChange}
                     >
+                      <option selected value={''}>Select Country</option>
                       {country?.map((country) => (
                         <option value={country.name.common}>
                           {country.name.common}
@@ -211,7 +206,7 @@ const Kycverification01 = () => {
             </div>
             <div className="form_btn_prof">
               <button type="submit" className="btn_login wc">
-                Submit
+              Next
               </button>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import Logo from "../Img/logo.png";
+import Logo from "../Img/tomex.png";
+import LogoLight from "../Img/tomex-light.png";
 import Sun from "../Img/sun.png";
 import Moon from "../Img/moon.png";
 import { Link, NavLink, useLocation } from "react-router-dom";
@@ -42,7 +43,10 @@ const Header = () => {
           <nav className="navbar navbar-expand-lg py-0">
             <div className="container px-0">
               <NavLink className="navbar-brand" to="/">
-                <img className="logo" src={Logo} alt="Logo" />
+              {isDarkTheme ? 
+                <img className="logo" src={Logo} alt="Logo" />:
+                <img className="logo" src={LogoLight} alt="Logo" />
+              }
               </NavLink>
               <button
                 className="navbar-toggler"
@@ -260,7 +264,7 @@ const Header = () => {
                       <NavLink
                         className="t_f_btn t_f_btn2 wc mt-0"
                         to="register"
-                      >
+                      >   
                         Register
                       </NavLink>
                     </div>

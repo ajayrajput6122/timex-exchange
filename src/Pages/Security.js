@@ -1,7 +1,7 @@
 import React from "react";
 import Btc from "../Img/btc.png";
 import Securityi from "../Img/Security_pg.png";
-import Logo from "../Img/logo.png";
+import Logo from "../Img/tomex.png";
 const Security = () => {
   return (
     <>
@@ -14,10 +14,10 @@ const Security = () => {
             <div className="col-lg-6 col-md-7 col-sm-7 alin_c text-center">
               <h4 className="sub_title bc">.. Security ..</h4>
               <h2 className="title_h2 wc">
-                Security at Timex Your Crypto’s Safety is Our Top Priority
+                Security at TomAX Your Crypto’s Safety is Our Top Priority
               </h2>
               <p className="text ">
-                At Timex, we take security seriously. Our multi-layered security
+                At TomAX, we take security seriously. Our multi-layered security
                 system includes advanced firewalls and real-time detection of
                 suspicious activities to keep your assets safe.
               </p>
