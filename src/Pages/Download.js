@@ -1,5 +1,5 @@
 import React from 'react'
-import Faqi from '../Img/download-js.png'
+import Faqi from '../Img/Down.png'
 
 const Download = () => {
   return (

@@ -154,15 +154,15 @@ const BugReports = () => {
             Report bugs and earn up to 1000 crypto as a bug bonus!
           </h5>
           <p className="sec4_box_text text-center">
-            If you encounter any bugs or errors on our platform, let us know,
-            and we'll reward you generously with up to 1000 crypto as a bug
-            bonus!
+          Discovering bugs or errors on our platform? We want to hear from you! Your insights are incredibly valuable in ensuring that our platform delivers the best possible performance and user experience.
+
           </p>
           <p className="sec4_box_text text-center">
-            Your feedback is invaluable in helping us enhance our platform's
-            performance and user experience. Don't hesitate to report any issues
-            you come across—your contribution not only helps us improve but also
-            earns you crypto rewards.
+          To show our appreciation for your efforts, we’re offering a generous reward of up to 1000 crypto as a bug bounty bonus! If you come across any issues, no matter how small, don’t hesitate to report them. By sharing your findings, you not only help us enhance the platform for all users but also get the chance to earn exciting crypto rewards.
+          </p>
+
+          <p className="sec4_box_text text-center">
+          Your feedback plays a crucial role in shaping the future of our platform. Together, we can identify and fix any problems, ensuring a seamless experience for everyone. So, keep an eye out for bugs or errors, and let us know right away. Remember, your contribution makes a difference—and gets rewarded too!
           </p>
         </div>
       </div>

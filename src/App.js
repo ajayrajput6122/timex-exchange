@@ -35,6 +35,7 @@ const FAQ = React.lazy(() => import("./Pages/FAQ"));
 const ForgotPassword = React.lazy(() => import("./Pages/Forgotpassword"));
 const Staking = React.lazy(() => import("./Pages/Staking"));
 const Swap = React.lazy(() => import("./Pages/Swap"));
+const Overview = React.lazy(() => import("./Pages/Overview"));
 const RefundCancellation = React.lazy(() =>
   import("./Pages/RefundCancellation")
 );
@@ -84,7 +85,7 @@ function App() {
                 </Suspense>
               }
             />
-            
+
             <Route
               path="withdraw"
               element={
@@ -227,6 +228,14 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <Register />
+              </Suspense>
+            }
+          />
+          <Route
+            path="overview"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Overview />
               </Suspense>
             }
           />

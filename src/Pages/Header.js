@@ -244,8 +244,9 @@ const Header = () => {
                     <i className="fa-solid fa-user me-2 align-self-center"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu_header p-2" aria-labelledby="dropdownMenuLink">
-                      <li><span className="align-self-center user_id"><i className="fa-solid fa-user me-2 align-self-center"></i> {authData?.user.username}</span></li>
-                      <li><button className=" logout wc" type="button" onClick={logout}>
+                      <li className="mt-2"><span className="align-self-center user_id"><i class="fa-solid fa-envelope me-2 align-self-center"></i> {authData?.user.username}</span></li>
+                      <li className="mt-2"><span className="align-self-center user_id"><i className="fa-solid fa-user me-2 align-self-center"></i> {authData?.user.username}</span></li>
+                      <li><button className=" logout " type="button" onClick={logout}>
                         Logout
                       </button>
                       </li>
@@ -256,7 +257,7 @@ const Header = () => {
                     <div className="d-flex j_con">
                       <NavLink
                         to="login"                
-                        className="t_f_btn t_f_btn1 wc mt-0"
+                        className="t_f_btn t_f_btn1 mt-0"
                         type="button"
                       >
                         Login
