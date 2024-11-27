@@ -178,9 +178,9 @@ const Staking = () => {
           <div>
             <div className="trade_box ">
               <nav className=" pb-2 mb-4">
-                <div class="nav nav-tabs t-t-bor" id="nav-tab" role="tablist">
+                <div class="nav nav-tabs t_t_btn_g t_t_btn_g02" id="nav-tab" role="tablist">
                   <button
-                    class="nav-link btn_t02 btn_t03 wc active"
+                    class="nav-link btn_t02 t_t_btn02 wc mt-0 active"
                     id="nav-home-tab_t1"
                     data-bs-toggle="tab"
                     data-bs-target="#nav-home_t1"
@@ -192,7 +192,7 @@ const Staking = () => {
                     Staking History
                   </button>
                   <button
-                    class="nav-link btn_t02 btn_t04 wc"
+                    class="nav-link btn_t02 t_t_btn02 mt-0 wc"
                     id="nav-profile-tab_t1"
                     data-bs-toggle="tab"
                     data-bs-target="#nav-profile_t1"

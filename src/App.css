@@ -89,6 +89,10 @@ body {
   background-color: var(--primary-color);
 }
 
+.logout, .t_f_btn1 { color: #fff;}
+
+.t_f_btn2 { color: var(--gold-color);}
+
 .navbar_list_h .list_h_item .active {
   color: #c38807 !important;
 }
@@ -258,7 +262,7 @@ section {
 }
 
 .sec03_h {
-  padding: 60px 20px;
+  padding: 60px 20px 0px;
   background-color: var(--sec-bg);
 }
 
@@ -549,16 +553,17 @@ footer {
   border: none !important;
 }
 
-.t_t_btn {
+.t_t_btn {  width: 50% !important;}
+
+.t_t_btn, .t_t_btn02 {
   font-size: 12px;
-  width: 50% !important;
   padding: 4px !important;
   border-radius: 8px !important;
   font-weight: 700;
   border: none !important;
 }
 
-.nav-link.t_t_btn.active {
+.nav-link.t_t_btn.active, .nav-link.t_t_btn02.active {
   background-color: #c38807;
 }
 
@@ -648,6 +653,10 @@ select:focus-visible {
   height: 402.5px;
 }
 
+.t_t_btn_g02 { justify-content: space-between;
+  box-shadow: -1px 0px 7px var(--box-s);
+}
+
 .trade_box_chart {
   height: 340px;
 }
@@ -655,6 +664,11 @@ select:focus-visible {
 .t-t-bor {
   border: none !important;
 }
+
+.t_t_btn02 { width: 20%;
+            font-size: 16px;}
+
+.nav-link.t_t_btn02:hover { color: var(--secondary-color);}
 
 .btn_t02 {
   padding: 2px 20px;
@@ -906,12 +920,12 @@ img.btc {
 
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.179);
-  background-color: #f5f5f5;
+  background-color: #f5f5f500;
 }
 
 ::-webkit-scrollbar {
   width: 6px;
-  background-color: #f5f5f5;
+  background-color: #f5f5f500;
   height: 5px;
 }
 
@@ -925,6 +939,12 @@ img.btc {
 
 .tabs_d-flex {
   display: flex;
+}
+
+.search_input {
+  background-color: transparent;
+  border: none;
+  color: var(--secondary-color);
 }
 
 .nav.nav_tab_sid.flex-column.nav-pills {
@@ -974,6 +994,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: 351px;
 }
 
+.usdt {
+  width: 34px;
+  margin-right: 15px;
+}
+
 .swap_sel {
   background-color: var(--gold-color);
   color: var(--btn-color);
@@ -1000,6 +1025,10 @@ select.input_l.w-100.wc option {
 
 .sec01_staking {
   padding: 0px 20px 60px;
+}
+
+.nav-link.t_t_btn02.active {
+  color: #fff !important;
 }
 
 @media (max-width: 1240px) {
@@ -1344,10 +1373,18 @@ select.input_l.w-100.wc option {
   display: none !important;
 }
 
-.trade_box.trade_box1.o_d {
-  overflow-y: auto;
-}
-.btn-complete{
-  background-color: #c38807 !important;
-  color: white !important;
-}
+
+option:hover {
+  background-color: #198754 !important;
+  color: #fff;
+  }
+  
+  option:focus{
+  background-color: #198754 !important;
+  color: #fff;
+  }
+  
+  option:active{
+  background-color: #198754 !important;
+  color: #fff;
+  }

@@ -8,7 +8,7 @@ import Funding from "../Img/funding.png";
 import Verified from "../Img/verified.png";
 import Ellipse from "../Img/Ellipse.png";
 import Sparkle from "../Img/sparkle.png";
-import Btc from "../Img/btc.png";
+import Btc from "../Img/Down.png";
 import Investment from "../Img/investment.png";
 import Stock from "../Img/stock.png";
 import Encrypted from "../Img/encrypted.png";
