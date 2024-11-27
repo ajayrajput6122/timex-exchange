@@ -13,7 +13,7 @@ import Investment from "../Img/investment.png";
 import Stock from "../Img/stock.png";
 import Encrypted from "../Img/encrypted.png";
 import Profits from "../Img/profits.png";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Contextapi/Auth";
 
 const Home = () => {
@@ -43,7 +43,7 @@ const Home = () => {
               Join the Crypto Revolution - Turn Your Dreams into Reality Today!
             </p>
             {authData?.token ? (
-              <button className="btn_timex">Potential Rewards </button>
+              <Link to={'earnings'} className="btn_timex">Potential Rewards </Link>
             ) : (
               <NavLink to='/register' className="btn_timex d-inline-block">Join TomAX</NavLink>
             )}

@@ -6,7 +6,22 @@ import Staking from '../Img/Staking.png'
 import Support from '../Img/support.png'
 import Network from '../Img/network.png'
 import Reward from '../Img/reward.png'
+import { Link, useNavigate } from 'react-router-dom'
 const Earnings = () => {
+
+    const navigate = useNavigate();
+
+    const handleInviteClick = () => {
+      navigate('/myprofile', { state: { activeTab: 'settings' } });
+    };
+    
+    const handleKycClick = () => {
+      navigate('/myprofile', { state: { activeTab: 'profile' } });
+    };
+    const handleBugClick = () => {
+      navigate('/myprofile', { state: { activeTab: 'settings2' } });
+    };
+
   return (
     <>
       <section className='sec01_e'>
@@ -19,7 +34,7 @@ const Earnings = () => {
                     <h4 className='sub_title bc'>.. Earn with Referrals ..</h4>
                     <h2 className='title_h2 wc'>Invite a Friend and Claim 25,000 Shiba Inu! </h2>
                     <p className='text '>Invite your friends to join Time-X and instantly receive 25,000 Shiba Inu credited to your account. Use these tokens to explore the platform, access exclusive features, and grow your crypto portfolio. Plus, you'll unlock even more rewards and perks that make Time-X the go-to destination for crypto enthusiasts.</p>
-                    <button className='btn_timex'>Invite Friends</button>                
+                    <button className='btn_timex' onClick={handleInviteClick}>Invite Friends</button>                
                 </div>
             </div>
         </div>
@@ -31,7 +46,7 @@ const Earnings = () => {
                     <h4 className='sub_title bc'>.. Earn with KYC Completion ..</h4>
                     <h2 className='title_h2 wc'>Complete your KYC verification and receive 1 ETH as a token of our appreciation</h2>
                     <p className='text '>It's our way of thanking you for trusting us with your verification. But that’s just the beginning—successfully completing KYC unlocks access to enhanced security features, safeguarding your assets and elevating your overall trading experience.</p>
-                    <button className='btn_timex'>Complete KYC</button>                
+                    <button className='btn_timex' onClick={handleKycClick}>Complete KYC</button>                
                 </div>
                 <div className='col-lg-6 col-md-5 col-sm-5 text-center alin_c'>
                     <img className='Kyc' src={Kyc} />
@@ -49,7 +64,7 @@ const Earnings = () => {
                     <h4 className='sub_title bc'>.. Help Us Improve and Earn Crypto Rewards ..</h4>
                     <h2 className='title_h2 wc'>Spot a bug? Report it and earn up to 1,000 crypto as a reward</h2>
                     <p className='text '>If you come across any issues or errors on our platform, let us know and we’ll thank you with a generous bug bounty. Your feedback is crucial in helping us enhance the platform's performance and user experience. Don’t miss out—your contribution not only helps us improve but also earns you crypto rewards!</p>
-                    <button className='btn_timex'>Report a Bug</button>                
+                    <button className='btn_timex' onClick={handleBugClick}>Report a Bug</button>                
                 </div>
             </div>
         </div>
@@ -61,7 +76,7 @@ const Earnings = () => {
                     <h4 className='sub_title bc'>.. Earn with Staking ..</h4>
                     <h2 className='title_h2 wc'>Stack USDT and Earn 0.36% Daily on Time-X Exchange</h2>
                     <p className='text '>Invest in stability by staking your USDT on Time-X Exchange and earn 0.36% daily for 18 months! Your assets are protected by our cutting-edge security measures, and our transparent platform makes it easy to track your earnings. With a proven track record of reliability, Time-X offers a secure and consistent way to grow your wealth. Take advantage of this opportunity to enjoy passive income while keeping your investments safe. Start staking USDT on Time-X today—terms and conditions apply.</p>
-                    <button className='btn_timex'>Stake Now</button>                
+                    <Link to='/staking' className='btn_timex'>Stake Now</Link>                
                 </div>
                 <div className='col-lg-6 col-md-5 col-sm-5 text-center alin_c'>
                     <img className='Staking' src={Staking} />

@@ -106,7 +106,7 @@ const MyProfil = () => {
       <div className="d-flex j_con">
         <div>
           <h4 className="p_tile wc">My Profile</h4>
-          <span className="p_span wc"> UID: {formData._id.slice(0,4)}</span>
+          <span className="p_span wc"> UID: {authData?.user.username}</span>
         </div>
         <div>
           <h4 className="p_tile wc">KYC Status :-</h4>

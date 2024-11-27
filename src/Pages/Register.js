@@ -21,7 +21,7 @@ const Register = () => {
     otp: "",
     password: "",
     confirmPassword: "",
-    referralCode: "",
+    // referralCode: "",
     register_type: "email",
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -162,7 +162,7 @@ const Register = () => {
                   >
                     <div className="login_f">
                       <form onSubmit={handleRegisterSubmit}>
-                        {sponsorId ? (
+                        {/* {sponsorId ? (
                           <div className="form_t">
                             <h5 className="trade_box_title_l wc">
                               Sponsor Id
@@ -183,7 +183,7 @@ const Register = () => {
                           </div>
                         ) : (
                           ""
-                        )}
+                        )} */}
                         <div className="form_t">
                           <h5 className="trade_box_title_l wc">
                             Email Address
@@ -295,7 +295,25 @@ const Register = () => {
                             </h4>
                           </div>
                         </div>
-                        <div className="form_t mt-4">
+                          <div className="form_t">
+                            <h5 className="trade_box_title_l wc">
+                              Sponsor Id
+                            </h5>
+                            <div className="f_group_l d-flex j_con">
+                              <input
+                                type="text"
+                                name="sponser_id"
+                                value={sponsorId}
+                                onChange={handleChange}
+                                className="input_l w-100 wc"
+                                autoComplete="off"
+                              />
+                              <h4 className="WC f_g_text alin_c">
+                                <i class="fa-solid fa-user fa-beat"></i>
+                              </h4>
+                            </div>
+                          </div>
+                        {/* <div className="form_t mt-4">
                           <h5 className="trade_box_title_l wc">
                             Referral Code (Optional)
                           </h5>
@@ -312,7 +330,7 @@ const Register = () => {
                               <i class="fa-solid fa-comment fa-beat"></i>
                             </h4>
                           </div>
-                        </div>
+                        </div> */}
                         {/* <h5 className='trade_box_title_l wc'><a>Forgot Password?</a></h5> */}
 
                         <button className="btn_login wc" type="submit">
@@ -394,7 +412,7 @@ const Register = () => {
                             </h4>
                           </div>
                         </div>
-                        <div className="form_t mt-4">
+                        {/* <div className="form_t mt-4">
                           <h5 className="trade_box_title_l wc">
                             Referral Code (Optional)
                           </h5>
@@ -408,7 +426,7 @@ const Register = () => {
                               <i class="fa-solid fa-comment fa-beat"></i>
                             </h4>
                           </div>
-                        </div>
+                        </div> */}
                         {/* <h5 className='trade_box_title_l wc'><a>Forgot Password?</a></h5> */}
 
                         <button className="btn_login wc" type="submit">

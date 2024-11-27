@@ -13,15 +13,35 @@ const ReferralEarn = () => {
   const linkReferral = `${host}/register?sponsorId=${code}`;
 
   const copyToClipboard = (text) => {
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          toast.dismiss();
+          toast.success("Copied to clipboard!");
+        })
+        .catch((err) => {
+          console.error("Failed to copy text: ", err);
+          toast.error("Failed to copy text!");
+        });
+    } else {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed"; 
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try {
+        document.execCommand("copy");
         toast.dismiss();
         toast.success("Copied to clipboard!");
-      })
-      .catch((err) => {
-        console.error("Failed to copy text: ", err);
-      });
+      } catch (err) {
+        console.error("Fallback copy failed: ", err);
+        toast.error("Failed to copy text!");
+      }
+      document.body.removeChild(textarea);
+    }
   };
 
   const getReferralMembers = async () => {

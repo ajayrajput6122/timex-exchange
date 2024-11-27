@@ -8,6 +8,7 @@ import { AuthContext } from "../Contextapi/Auth";
 
 const Withdraw = () => {
   const [coins, setCoins] = useState([]);
+  const [bal, setBal] = useState("");
   const [tokenid, setTokenId] = useState(null);
   const [networkid, setNetworkId] = useState(null);
   const [selectedCoin, setSelectedCoin] = useState(null);
@@ -50,7 +51,9 @@ const Withdraw = () => {
       console.error("Error fetching token details:", error);
     }
   };
-
+  useEffect(()=>{
+    getWalletBal();
+  },[selectedCoin]);
   useEffect(() => {
     fetchCoins();
   }, []);
@@ -97,6 +100,27 @@ const Withdraw = () => {
       toast.error(
         error.response?.data?.message || error.message || "Error sending OTP"
       );
+    }
+  };
+
+  const getWalletBal = async () => {
+    if (!selectedCoin) {
+      setBal("");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        `${base_url}/api/userwalletbalance`,
+        { tokenName: selectedCoin.coinName },
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
+      setBal(response.data.balance);
+    } catch (error) {
+      console.error("Error fetching wallet balance:", error);
     }
   };
 
@@ -378,12 +402,12 @@ const Withdraw = () => {
                         Minimum 2 USDT is required in order to initiate the
                         transaction
                       </h5>
-                      <h5 className="text mt-4">Available Balance:</h5>
-                      <h5 className="text mt-4">Minimum Withdrawal:</h5>
-                      <h5 className="text mt-4">Fees:</h5>
-                      <h5 className="text mt-4">
+                      <h5 className="text mt-4">Available Balance: {parseFloat(bal).toFixed(4)}</h5>
+                      {/* <h5 className="text mt-4">Minimum Withdrawal:</h5> */}
+                      {/* <h5 className="text mt-4">Fees:</h5> */}
+                      {/* <h5 className="text mt-4">
                         Remaining daily withdrawal amount:
-                      </h5>
+                      </h5> */}
                     </Form>
                   )}
                 </Formik>

@@ -9,7 +9,7 @@ import ChartG from "../Img/chart_G.png";
 import ChartR from "../Img/chart_R.png";
 import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Market = () => {
   const [dashboardData, setDashboardData] = useState([]);
@@ -184,35 +184,39 @@ const Market = () => {
           <div className="row">
             {dashboardData.slice(0, 6).map((coin, index) => (
               <div className="col-lg-4 mb-3" key={index}>
-                <div className="sec4_box">
-                  <div className="d-flex d_box p-2">
-                    <div className="icon-box d-flex">
-                      <div className="icon-box-icon alin_c">
-                        <img
-                          className="box1_img"
-                          src={coin.image}
-                          alt={coin.name}
-                        />
+                <Link to={`/trade?symbol=${coin.symbol}`}>
+                  <div className="sec4_box">
+                    <div className="d-flex d_box p-2">
+                      <div className="icon-box d-flex">
+                        <div className="icon-box-icon alin_c">
+                          <img
+                            className="box1_img"
+                            src={coin.image}
+                            alt={coin.name}
+                          />
+                        </div>
+                        <div className="icon-box-con">
+                          <h5 className="box_title box_title1 wc">
+                            {coin.name}
+                          </h5>
+                          <p className="box1_text wc mb-0">
+                            <span className="me-1">≈</span>{" "}
+                            {coin.price.toFixed(2)}
+                          </p>
+                        </div>
                       </div>
-                      <div className="icon-box-con">
-                        <h5 className="box_title box_title1 wc">{coin.name}</h5>
-                        <p className="box1_text wc mb-0">
-                          <span className="me-1">≈</span>{" "}
-                          {coin.price.toFixed(2)}
+                      <div className="alin_c">
+                        <p
+                          className={`box1_text wc mb-0 ${
+                            coin.percent_change_1h < 0 ? "rc" : "gc"
+                          }`}
+                        >
+                          {coin.percent_change_1h.toFixed(2)}
                         </p>
                       </div>
                     </div>
-                    <div className="alin_c">
-                      <p
-                        className={`box1_text wc mb-0 ${
-                          coin.percent_change_1h < 0 ? "rc" : "gc"
-                        }`}
-                      >
-                        {coin.percent_change_1h.toFixed(2)}
-                      </p>
-                    </div>
                   </div>
-                </div>
+                </Link>
               </div>
             ))}
           </div>
@@ -276,10 +280,16 @@ const Market = () => {
                       {/* {coin.percent_change_24h.toFixed(2)} */}
                     </td>
                     <td className="table_data b_boot">
-                      <NavLink className="table_btn wc me-2" to={"/trade"}>
+                      <NavLink
+                        className="table_btn wc me-2"
+                        to={`/trade?symbol=${coin.symbol}`}
+                      >
                         Trade
                       </NavLink>
-                      <NavLink className="table_btn wc" to={"/trade"}>
+                      <NavLink
+                        className="table_btn wc"
+                        to={`/trade?symbol=${coin.symbol}`}
+                      >
                         Buy/Sell
                       </NavLink>
                     </td>

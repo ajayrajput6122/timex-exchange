@@ -43,10 +43,11 @@ const Header = () => {
           <nav className="navbar navbar-expand-lg py-0">
             <div className="container px-0">
               <NavLink className="navbar-brand" to="/">
-              {isDarkTheme ? 
-                <img className="logo" src={Logo} alt="Logo" />:
-                <img className="logo" src={LogoLight} alt="Logo" />
-              }
+                {isDarkTheme ? (
+                  <img className="logo" src={Logo} alt="Logo" />
+                ) : (
+                  <img className="logo" src={LogoLight} alt="Logo" />
+                )}
               </NavLink>
               <button
                 className="navbar-toggler"
@@ -239,23 +240,48 @@ const Header = () => {
                   </div> */}
                   {authData.token ? (
                     <>
-                     <div class="dropdown">
-                    <a class=" dropdown-toggle wc" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i className="fa-solid fa-user me-2 align-self-center"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu_header p-2" aria-labelledby="dropdownMenuLink">
-                      <li><span className="align-self-center user_id"><i className="fa-solid fa-user me-2 align-self-center"></i> {authData?.user.username}</span></li>
-                      <li><button className=" logout wc" type="button" onClick={logout}>
-                        Logout
-                      </button>
-                      </li>
-                    </ul>
-                  </div>
+                      <div class="dropdown">
+                        <a
+                          class=" dropdown-toggle wc"
+                          href="#"
+                          role="button"
+                          id="dropdownMenuLink"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          <i className="fa-solid fa-user me-2 align-self-center"></i>
+                        </a>
+                        <ul
+                          class="dropdown-menu dropdown-menu_header p-2"
+                          aria-labelledby="dropdownMenuLink"
+                        >
+                          <li>
+                            <span className="align-self-center user_id">
+                              <i className="fa-solid fa-user me-2 align-self-center"></i>{" "}
+                              {authData?.user.username}
+                            </span>
+                          </li>
+                          <li className="mt-1 text-white">
+                            <Link className="text-white" to={"myprofile"}>
+                              My Profile
+                            </Link>
+                          </li>
+                          <li>
+                            <button
+                              className=" logout wc"
+                              type="button"
+                              onClick={logout}
+                            >
+                              Logout
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
                     </>
                   ) : (
                     <div className="d-flex j_con">
                       <NavLink
-                        to="login"                
+                        to="login"
                         className="t_f_btn t_f_btn1 wc mt-0"
                         type="button"
                       >
@@ -264,7 +290,7 @@ const Header = () => {
                       <NavLink
                         className="t_f_btn t_f_btn2 wc mt-0"
                         to="register"
-                      >   
+                      >
                         Register
                       </NavLink>
                     </div>

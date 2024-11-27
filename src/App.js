@@ -69,6 +69,14 @@ function App() {
               }
             />
             <Route
+              path="myprofile"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <MyProfile />
+                </Suspense>
+              }
+            />
+            <Route
               path="deposit"
               element={
                 <Suspense fallback={<div>Loading...</div>}>
@@ -138,14 +146,6 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <PrivacyPolicy />
-              </Suspense>
-            }
-          />
-          <Route
-            path="myprofile"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <MyProfile />
               </Suspense>
             }
           />

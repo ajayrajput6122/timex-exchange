@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useCallback } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -7,15 +7,21 @@ import { base_url } from "../ApiService/BaseUrl";
 import { useNavigate } from "react-router-dom";
 
 const Kycverification05 = ({ onPrevious }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const webcamRef = useRef(null);
   const [selfieImage, setSelfieImage] = useState(null);
+  const [imgSrc, setImgSrc] = useState(null); // For preview
   const { authData } = useContext(AuthContext);
 
-  const captureSelfie = () => {
+  // Capture selfie from webcam
+  const captureSelfie = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
-    if (!imageSrc) return;
-
+    if (!imageSrc) {
+      toast.error("Failed to capture selfie. Please try again.");
+      return;
+    }
+    setImgSrc(imageSrc);
+    // Convert base64 image to File
     const byteString = atob(imageSrc.split(",")[1]);
     const mimeString = imageSrc.split(",")[0].split(":")[1].split(";")[0];
     const ab = new ArrayBuffer(byteString.length);
@@ -25,10 +31,10 @@ const Kycverification05 = ({ onPrevious }) => {
     }
     const blob = new Blob([ab], { type: mimeString });
     const file = new File([blob], "selfie.jpg", { type: mimeString });
-
     setSelfieImage(file);
-  };
+  }, [webcamRef]);
 
+  // Upload selfie image to the server
   const uploadSelfieImage = async () => {
     if (!selfieImage) {
       toast.dismiss();
@@ -38,28 +44,29 @@ const Kycverification05 = ({ onPrevious }) => {
 
     try {
       const formData = new FormData();
-      console.log(selfieImage);
       formData.append("signatureImage", selfieImage);
       const response = await axios.post(
         `${base_url}/api/upload_signature_image`,
         formData,
         {
           headers: {
-            authorization: authData?.token,
+            Authorization: authData?.token,
           },
         }
       );
 
-      if (response.data.success===1) {
+      if (response.data.success === 1) {
         toast.dismiss();
         toast.success(response.data.message);
-        navigate('/dashboard');
+        navigate("/dashboard");
       } else {
         toast.dismiss();
         toast.error(response.data.message || "Error uploading selfie image.");
       }
     } catch (error) {
       console.error("Error uploading selfie:", error);
+      toast.dismiss();
+      toast.error("An error occurred while uploading the selfie. Please try again.");
     }
   };
 
@@ -84,7 +91,7 @@ const Kycverification05 = ({ onPrevious }) => {
                   screenshotFormat="image/jpeg"
                   width="100%"
                   videoConstraints={{
-                    facingMode: "user", // Optional: specify front-facing camera
+                    facingMode: "user",
                   }}
                 />
               </div>
@@ -97,12 +104,12 @@ const Kycverification05 = ({ onPrevious }) => {
                   Capture Selfie
                 </button>
               </div>
-              {selfieImage && (
+              {imgSrc && (
                 <div className="text-center mt-3">
                   <img
-                    src={URL.createObjectURL(selfieImage)}
-                    alt="Selfie"
-                    width="200"
+                    src={imgSrc}
+                    alt="Captured Selfie"
+                    style={{ width: "200px", height: "200px", borderRadius: "10px" }}
                   />
                 </div>
               )}
@@ -113,7 +120,7 @@ const Kycverification05 = ({ onPrevious }) => {
             <button
               type="button"
               className="btn_login wc"
-              onClick={() => onPrevious()}
+              onClick={onPrevious}
             >
               Previous
             </button>

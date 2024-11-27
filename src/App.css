@@ -1343,3 +1343,11 @@ select.input_l.w-100.wc option {
 .tradingview-widget-copyright {
   display: none !important;
 }
+
+.trade_box.trade_box1.o_d {
+  overflow-y: auto;
+}
+.btn-complete{
+  background-color: #c38807 !important;
+  color: white !important;
+}

@@ -80,7 +80,7 @@ const ChangePassword1 = () => {
       if (response.data.success) {
         toast.dismiss();
         toast.success(response.data.message);
-        setFormData({ email: "", otp: "", password: "", confirmPassword:"" });
+        setFormData({ email: "", otp: "", password: "", confirmPassword: "" });
         // logout();
         // navigate("/login");
       } else {
@@ -96,7 +96,7 @@ const ChangePassword1 = () => {
   return (
     <>
       <h4 className="text-center wc">Change Password</h4>
-      <form>
+      <form onSubmit={handleForgotPassword}>
         <div className="row">
           <div className="col-lg-6 col-md-6 col-sm-6 ">
             <div className="form_t mt-4">
@@ -111,13 +111,7 @@ const ChangePassword1 = () => {
                   autoComplete="off"
                 />
                 <h4 className="WC f_g_text alin_c">
-                  <span
-                    className="otp_btn wc"
-                    type="button"
-                    onClick={handleOtpClick}
-                  >
-                    OTP
-                  </span>
+                  <i className="fa-solid fa-envelope fa-beat wc"></i>
                 </h4>
               </div>
             </div>
@@ -135,7 +129,13 @@ const ChangePassword1 = () => {
                   autoComplete="off"
                 />
                 <h4 className="WC f_g_text alin_c">
-                  <i className="fa-solid fa-envelope fa-beat wc"></i>
+                  <span
+                    className="otp_btn wc"
+                    type="button"
+                    onClick={handleOtpClick}
+                  >
+                    OTP
+                  </span>
                 </h4>
               </div>
             </div>

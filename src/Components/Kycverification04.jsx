@@ -12,6 +12,8 @@ const Kycverification04 = ({
   onPrevious,
 }) => {
   const { authData } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false); // Add loading state
+
   const [formData, setFormData] = useState({
     documentType: "",
     documentNumber: "",
@@ -58,11 +60,10 @@ const Kycverification04 = ({
       );
 
       if (response.data.success === 1) {
-        toast.dismiss();
-        toast.success(response.data.message);
+        // toast.dismiss();
+        console.log(response.data.message);
       } else {
-        toast.dismiss();
-        toast.error(
+        console.error(
           response.data.message || "Error while uploading proof documents"
         );
       }
@@ -73,12 +74,15 @@ const Kycverification04 = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Show loader
 
     const { documentType, documentNumber, frontImageFile, backImageFile } =
       formData;
 
     if (!documentType || !documentNumber || !frontImageFile || !backImageFile) {
+      toast.dismiss();
       toast.error("Please fill all fields and upload both images.");
+      setLoading(false); // Stop loader on validation failure
       return;
     }
 
@@ -98,7 +102,6 @@ const Kycverification04 = ({
         }
       );
 
-      console.log(response);
       if (response.data.success === 1) {
         toast.dismiss();
         toast.success(response.data.message);
@@ -112,6 +115,8 @@ const Kycverification04 = ({
       }
     } catch (error) {
       console.error("Error during document details API call:", error);
+    } finally {
+      setLoading(false); // Stop loader
     }
   };
 
@@ -238,6 +243,7 @@ const Kycverification04 = ({
               type="button"
               className="btn_login wc"
               onClick={() => onPrevious()}
+              disabled={loading}
             >
               Previous
             </button>
@@ -245,8 +251,9 @@ const Kycverification04 = ({
               type="submit"
               className="btn_login wc"
               onClick={handleSubmit}
+              disabled={loading}
             >
-              Next
+              {loading ? "Submitting..." : "Next"}
             </button>
           </div>
         </form>

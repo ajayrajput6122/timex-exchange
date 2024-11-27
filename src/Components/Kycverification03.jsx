@@ -39,11 +39,11 @@ const Kycverification03 = ({ data, onNext, onPrevious, panImageFile }) => {
         );
 
         if (response.data.success === 1) {
-          toast.dismiss();
-          toast.success(response.data.message);
+          // toast.dismiss();
+          console.log(response.data.message);
         } else {
-          toast.dismiss();
-          toast.error(response.data.message);
+          // toast.dismiss();
+          console.error(response.data.message);
         }
       } catch (error) {
         console.error("Image upload failed", error);
