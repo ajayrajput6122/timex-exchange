@@ -2,7 +2,7 @@ import React from 'react'
 import Kyc from '../Img/KYC.png'
 import Referrals from '../Img/Referrals.png'
 import Rewards from '../Img/Rewards.png'
-import Staking from '../Img/Staking.png'
+import Staking from '../Img/businessman-with-gold-coin.png'
 import Support from '../Img/support.png'
 import Network from '../Img/network.png'
 import Reward from '../Img/reward.png'
@@ -103,7 +103,7 @@ const Earnings = () => {
                             <div className='sec4_box'>
                                 <img className='sece_box_img' src={Support} />
                                 <h4 className='sec4_box_title wc'>Connect with Your Friends</h4>
-                                <p className='sec4_box_text'>Your friends will be associated with you after<br></br> they Sign Up.</p>
+                                <p className='sec4_box_text'>Your friends will be associated with you after they Sign Up.</p>
                             </div>
                         </div>
                         <div className='col-lg-4 col-md-4 col-sm-4 mt-3'>

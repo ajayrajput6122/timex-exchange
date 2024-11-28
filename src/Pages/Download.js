@@ -4,7 +4,7 @@ import Faqi from '../Img/Down.png'
 const Download = () => {
   return (
     <>
-      <section className='sec01_e'>
+      <section className='sec01_e pb-0'>
       <div className='container '>
             <div className='row'>
                 <div className='col-lg-6 col-md-5 col-sm-5 text-center'>

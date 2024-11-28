@@ -16,6 +16,7 @@
   --box-s: #0000005c;
   --dropdown-bg: #000;
   --bg-p-box: #000;
+  --otp-btn:#ffffff1a;
 }
 
 .dark-theme {
@@ -29,6 +30,7 @@
   --box-s: #0000005c;
   --dropdown-bg: #fff;
   --bg-p-box: #fff;
+  --otp-btn:#c38807;
 }
 
 h1,
@@ -74,6 +76,9 @@ ul {
 
 .dropdown-menu_header {
   background-color: var(--dropdown-bg) !important;
+  margin-top: 15px !important;
+  padding: 20px !important;
+  margin-left: -50px !important;
 }
 
 .dark_li {
@@ -111,7 +116,7 @@ body {
 }
 
 .wc {
-  color: var(--secondary-color);
+  color: var(--secondary-color) !important;
 }
 
 .head_bg {
@@ -262,7 +267,7 @@ section {
 }
 
 .sec03_h {
-  padding: 60px 20px 0px;
+  padding: 60px 20px;
   background-color: var(--sec-bg);
 }
 
@@ -298,7 +303,7 @@ section {
 }
 
 .sec4_box_title.wc {
-  font-size: 22px;
+  font-size: 17px;
   margin-top: 15px;
 }
 
@@ -318,6 +323,9 @@ section {
   width: 45px;
   margin-right: 20px;
 }
+
+.t_f_btn2.active { background-color: #C38807;
+            }
 
 .box1_text {
   color: #a29c9c;
@@ -346,6 +354,7 @@ table {
 
 .table_img {
   width: 25px;
+  height: 25px;
 }
 
 .table_data,
@@ -601,7 +610,7 @@ footer {
 }
 
 .f_group {
-  border: 1px solid #ffffff29;
+  border: 1px solid var(--border-color);
   padding: 3px 13px;
   border-radius: 10px;
   margin: 10px 0px;
@@ -668,7 +677,7 @@ select:focus-visible {
 .t_t_btn02 { width: 20%;
             font-size: 16px;}
 
-.nav-link.t_t_btn02:hover { color: var(--secondary-color);}
+.nav-link.t_t_btn02:hover, .t_t_btn:hover { color: var(--secondary-color);}
 
 .btn_t02 {
   padding: 2px 20px;
@@ -801,9 +810,10 @@ select:focus-visible {
 
 span.otp_btn {
   font-size: 16px;
-  background: #ffffff1a;
+  background: var(--otp-btn);
   border-radius: 17px;
   padding: 6px 9px;
+  color: #fff !important;
 }
 
 .t_table_main.login_box {
@@ -847,6 +857,7 @@ span.otp_btn {
   background-color: #c38807;
   border-radius: 33px;
   font-size: 18px;
+  color: #fff;
   /* width: 100%; */
   padding: 12px 20px;
   border: none;
@@ -1135,6 +1146,10 @@ select.input_l.w-100.wc option {
     font-size: 34px;
   }
 
+  .t_t_btn02 {
+    font-size: 15px;
+}
+
   .btn_login {
     padding: 8px 20px;
   }
@@ -1221,7 +1236,7 @@ select.input_l.w-100.wc option {
   }
 
   .sec01_d {
-    padding: 30px 20px;
+    padding: 30px 20px 0px;
   }
 
   .m_boot {
@@ -1270,6 +1285,10 @@ select.input_l.w-100.wc option {
   .column-rever_sm {
     flex-direction: column-reverse;
   }
+
+  .t_t_btn_g02 .nav-link.btn_t02.t_t_btn02 { width: 40%;}
+
+  .t_t_btn02 { width: auto !important;}
 }
 
 @media (max-width: 575px) {
@@ -1351,6 +1370,8 @@ select.input_l.w-100.wc option {
     width: 241px;
     margin-bottom: 20px;
   }
+
+  .form_btn_prof.d-flex.justify-content-between.mt-4 .btn_login { margin-top: 0px;}
 }
 
 /* Raman work */
@@ -1360,12 +1381,12 @@ select.input_l.w-100.wc option {
 .header_ul .nav-item .active {
   color: #c38807 !important;
 }
-.dropdown-options {
+/* .dropdown-options {
   background-color: white !important;
 }
 .dropdown-item:hover {
   background-color: rgb(192, 184, 184) !important;
-}
+} */
 .popup_main {
   z-index: 999999999999999999999999 !important;
 }
@@ -1373,18 +1394,11 @@ select.input_l.w-100.wc option {
   display: none !important;
 }
 
+.dropdown-menu_header li .dropdown-item:hover {color: #fff !important;}
 
-option:hover {
-  background-color: #198754 !important;
-  color: #fff;
-  }
-  
-  option:focus{
-  background-color: #198754 !important;
-  color: #fff;
-  }
-  
-  option:active{
-  background-color: #198754 !important;
-  color: #fff;
-  }
+
+  .form_btn_prof.d-flex.justify-content-between.mt-4 { column-gap: 18px;}
+
+  .radio_i { accent-color: #C38807 !important;}
+
+ .trade_box.trade_box1.o_d { overflow-y: hidden;}

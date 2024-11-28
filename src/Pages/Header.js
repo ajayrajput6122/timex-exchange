@@ -261,8 +261,9 @@ const Header = () => {
                               {authData?.user.username}
                             </span>
                           </li>
-                          <li className="mt-1 text-white">
-                            <Link className="text-white" to={"myprofile"}>
+                          <li className="mt-1 ">
+                            <Link className="user_id" to={"myprofile"}>
+                            <i class="fa-solid fa-address-card me-2"></i>
                               My Profile
                             </Link>
                             
@@ -283,13 +284,13 @@ const Header = () => {
                     <div className="d-flex j_con">
                       <NavLink
                         to="login"
-                        className="t_f_btn t_f_btn1 wc mt-0"
+                        className="t_f_btn2 wc mt-0 me-2"
                         type="button"
                       >
                         Login
                       </NavLink>
                       <NavLink
-                        className="t_f_btn t_f_btn2 wc mt-0"
+                        className="t_f_btn2 wc mt-0"
                         to="register"
                       >
                         Register
