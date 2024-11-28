@@ -231,7 +231,7 @@ const Trade = () => {
       const response = await axios.post(
         `${base_url}/api/trading_orders`,
         {
-          status: "PENDING",
+          status: "PARTIALFILLED",
           tokenId: selectedCoin?._id,
         },
         {
