@@ -898,7 +898,19 @@ const Trade = () => {
                     aria-controls="nav-profile_t1"
                     aria-selected="false"
                   >
-                    Past Orders
+                    Pending Orders
+                  </button>
+                  <button
+                    class="nav-link t_t_btn02 mt-0 wc"
+                    id="nav-profile-tab_t10"
+                    data-bs-toggle="tab"
+                    data-bs-target="#nav-profile_t10"
+                    type="button"
+                    role="tab"
+                    aria-controls="nav-profile_t10"
+                    aria-selected="false"
+                  >
+                    Completed Orders
                   </button>
                 </div>
               </nav>
@@ -1007,6 +1019,46 @@ const Trade = () => {
                       </table>
                     </div>
                   </div>
+                </div>
+                <div
+                  class="tab-pane fade wc"
+                  id="nav-profile_t10"
+                  role="tabpanel"
+                  aria-labelledby="nav-profile-tab10"
+                >
+                <div className="table_over">
+                    <div className="table_scroll">
+                      <table className="trade_table_222">
+                        <tr>
+                          <th className="t_t_heading wc b_boot">
+                            Trading Pair
+                          </th>
+                          <th className="t_t_heading wc b_boot"> Date</th>
+                          <th className="t_t_heading wc b_boot"> Type</th>
+                          <th className="t_t_heading wc b_boot"> All</th>
+                          <th className="t_t_heading wc b_boot"> Price</th>
+                          <th className="t_t_heading wc b_boot"> Amount</th>
+                          <th className="t_t_heading wc b_boot"> Remaining</th>
+                          <th className="t_t_heading wc b_boot"> Filled</th>
+                          <th className="t_t_heading wc b_boot"> Total</th>
+                          <th className="t_t_heading wc b_boot"> Action </th>
+                        </tr>
+                        <tr>
+                          <td className="t_t_data b_boot wc">0</td>
+                          <td className="t_t_data b_boot wc">0</td>
+                          <td className="t_t_data b_boot wc">0</td>
+                          <td className="t_t_data b_boot wc">0</td>
+                          <td className="t_t_data b_boot wc">0</td>
+                          <td className="t_t_data b_boot wc">0</td>
+                          <td className="t_t_data b_boot wc">0</td>
+                          <td className="t_t_data b_boot wc">0</td>
+                          <td className="t_t_data b_boot wc">0</td>
+                          <td className="t_t_data b_boot wc">0</td>
+                        </tr>
+                        </table>
+                        </div>
+                        </div>
+
                 </div>
               </div>
             </div>
