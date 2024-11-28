@@ -25,15 +25,11 @@ const Trade = () => {
   const [tradeData, setTradeData] = useState([]);
   const [openTrades, setopenTrades] = useState([]);
   const [pastTrades, setPastTrades] = useState([]);
+  const [groupBy, setGroupby] = useState("4");
   const navigate = useNavigate();
   const location = useLocation();
   const buyTotal = useRef();
   const sellTotal = useRef();
-  const [groupBy, setGroupBy] = useState("0.00001");
-
-  const handleGroupByChange = (event) => {
-    setGroupBy(event.target.value);
-  };
 
   const openTrade = async () => {
     try {
@@ -368,25 +364,15 @@ const Trade = () => {
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
 
-      // const newTrade = {
-      //   price: parseFloat(data.p).toFixed(2),
-      //   quantity: parseFloat(data.q).toFixed(2),
-      //   total: (parseFloat(data.p) * parseFloat(data.q)).toFixed(2),
-      // };
-      const roundToGroup = (value, groupBy) =>
-        (Math.floor(value / groupBy) * groupBy).toFixed(
-          groupBy.split(".")[1]?.length || 0
-        );
-
       const newTrade = {
-        price: roundToGroup(parseFloat(data.p), groupBy),
-        quantity: roundToGroup(parseFloat(data.q), groupBy),
-        total: roundToGroup(parseFloat(data.p) * parseFloat(data.q), groupBy),
+        price: parseFloat(data.p).toFixed(2),
+        quantity: parseFloat(data.q).toFixed(groupBy),
+        total: (parseFloat(data.p) * parseFloat(data.q)).toFixed(2),
       };
 
       setTradeData((prev) => {
         if (prev.length === 0 || prev[0].price !== newTrade.price) {
-          return [newTrade, ...prev].slice(0, 20);
+          return [newTrade, ...prev];
         }
         return prev;
       });
@@ -517,12 +503,12 @@ const Trade = () => {
                       <select
                         className="t_from"
                         value={groupBy}
-                        onChange={handleGroupByChange}
+                        onChange={(e) => setGroupby(e.target.value)}
                       >
-                        <option value={'0.00001'}>0.00001</option>
-                        <option value={'0.0001'}>0.0001</option>
-                        <option value={'0.001'}>0.001</option>
-                        <option value={'0.01'}>0.01</option>
+                        <option value={"4"}>0.00001</option>
+                        <option value={"3"}>0.0001</option>
+                        <option value={"2"}>0.001</option>
+                        <option value={"1"}>0.01</option>
                       </select>
                     </div>
                   </div>
@@ -721,13 +707,13 @@ const Trade = () => {
                           ) : (
                             <div className="d-flex j_con">
                               <Link
-                                to={"login"}
+                                to={"/login"}
                                 className="t_f_btn t_f_btn1 wc"
                               >
                                 Login
                               </Link>
                               <Link
-                                to={"register"}
+                                to={"/register"}
                                 className="t_f_btn t_f_btn2 wc"
                               >
                                 Register
@@ -865,13 +851,13 @@ const Trade = () => {
                           ) : (
                             <div className="d-flex j_con">
                               <Link
-                                to={"login"}
+                                to={"/login"}
                                 className="t_f_btn t_f_btn1 wc"
                               >
                                 Login
                               </Link>
                               <Link
-                                to={"register"}
+                                to={"/register"}
                                 className="t_f_btn t_f_btn2 wc"
                               >
                                 Register
@@ -942,7 +928,7 @@ const Trade = () => {
                         </tr>
                         {pendingOrder && pendingOrder.length > 0 ? (
                           pendingOrder.map((pending, index) => (
-                            <tr>
+                            <tr key={index}>
                               <td className="t_t_data b_boot wc">
                                 {pending?.tokenSymbol}/
                                 {pending?.pairCurrencySymbol}

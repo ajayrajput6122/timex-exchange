@@ -17,7 +17,7 @@ const FAQ = () => {
                 <div className='col-lg-6 col-md-7 col-sm-7 alin_c text-center'>
                     <h4 className='sub_title bc'>.. Quick Answers ..</h4>
                     <h2 className='title_h2 wc'>FAQ</h2>
-                    <p className='text '>Feeling overwhelmed by crypto? Our FAQ section is here to guide you through the world of Time-X. Find clear, step-by-step answers and uncover the mysteries of crypto with ease. Let’s navigate this adventure together!</p>
+                    <p className='text '>Feeling overwhelmed by crypto? Our FAQ section is here to guide you through the world of TomAX. Find clear, step-by-step answers and uncover the mysteries of crypto with ease. Let’s navigate this adventure together!</p>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@ const FAQ = () => {
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingOne">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                     Want to join Time-X?
+                                     Want to join TomAX?
                                     </button>
                                     </h2>
                                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -60,12 +60,12 @@ const FAQ = () => {
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingTwo">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Getting Your Time-X Wallets Ready for Investment
+                                    Getting Your TomAX Wallets Ready for Investment
                                     </button>
                                     </h2>
                                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                       <p>Once you’ve signed up with Time-X, you’ll receive three wallets to manage your crypto assets. To get these wallets ready for your investments, start by navigating to the Transactions tab and selecting the Deposit option. A prompt will appear, letting you choose your cryptocurrency (USDT (BEP 20), USDT (TRC 20), RBC, GLC) and network, and then select the appropriate address.
+                                       <p>Once you’ve signed up with TomAX, you’ll receive three wallets to manage your crypto assets. To get these wallets ready for your investments, start by navigating to the Transactions tab and selecting the Deposit option. A prompt will appear, letting you choose your cryptocurrency (USDT (BEP 20), USDT (TRC 20), RBC, GLC) and network, and then select the appropriate address.
 
 A QR code will be generated that you can either copy or scan using MetaMask, Coinbase, Trust Wallet, or any other preferred wallet. Simply paste or scan the code into your wallet, and you’re all set to start making transactions. Happy investing!</p>
                                     </div>
@@ -79,7 +79,7 @@ A QR code will be generated that you can either copy or scan using MetaMask, Coi
                                     </h2>
                                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <p>Withdrawing your assets from Time-X is straightforward. Simply go to the "Wallet" tab, click "Withdraw," and select the asset you wish to withdraw. Enter the required details, complete our 2FA security process, and you’re all set. After submission, you'll receive a confirmation notification for your successful withdrawal. Rest assured, at Time-X, your security is our top priority, so your assets are always in safe hands.</p>
+                                        <p>Withdrawing your assets from TomAX is straightforward. Simply go to the "Wallet" tab, click "Withdraw," and select the asset you wish to withdraw. Enter the required details, complete our 2FA security process, and you’re all set. After submission, you'll receive a confirmation notification for your successful withdrawal. Rest assured, at TomAX, your security is our top priority, so your assets are always in safe hands.</p>
                                     </div>
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@ A QR code will be generated that you can either copy or scan using MetaMask, Coi
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <p>Don’t worry—Time-X is here to guide you through every step of the journey. Our platform is designed with newcomers in mind, ensuring a smooth and intuitive introduction to crypto investing. If you ever feel unsure, our comprehensive guides are available to help you get up to speed quickly. Ready to start this exciting adventure? Join Time-X today and explore the captivating world of crypto with us!</p>
+                                    <p>Don’t worry—TomAX is here to guide you through every step of the journey. Our platform is designed with newcomers in mind, ensuring a smooth and intuitive introduction to crypto investing. If you ever feel unsure, our comprehensive guides are available to help you get up to speed quickly. Ready to start this exciting adventure? Join TomAX today and explore the captivating world of crypto with us!</p>
                                 </div>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@ A QR code will be generated that you can either copy or scan using MetaMask, Coi
                                 </h2>
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <p>Yes, trading crypto does come with inherent risks. However, at Time-X, we’re dedicated to safeguarding your funds. We follow industry-standard security protocols and adhere to regulatory requirements to minimize these risks. While uncertainty is part of trading, you can trust that your assets are well-protected with us.</p>
+                                    <p>Yes, trading crypto does come with inherent risks. However, at TomAX, we’re dedicated to safeguarding your funds. We follow industry-standard security protocols and adhere to regulatory requirements to minimize these risks. While uncertainty is part of trading, you can trust that your assets are well-protected with us.</p>
                                 </div>
                                 </div>
                             </div>

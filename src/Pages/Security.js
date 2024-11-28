@@ -27,7 +27,7 @@ const Security = () => {
                 is always on alert to address any potential issues promptly.
               </p>
               <p className="text ">
-                For a secure and reliable crypto exchange, choose Time-X. Focus
+                For a secure and reliable crypto exchange, choose TomAX. Focus
                 on your crypto journey with peace of mind, knowing we’ve got
                 your back.
               </p>

@@ -33,7 +33,7 @@ const Earnings = () => {
                 <div className='col-lg-6 col-md-7 col-sm-7 alin_c'>
                     <h4 className='sub_title bc'>.. Earn with Referrals ..</h4>
                     <h2 className='title_h2 wc'>Invite a Friend and Claim 25,000 Shiba Inu! </h2>
-                    <p className='text '>Invite your friends to join Time-X and instantly receive 25,000 Shiba Inu credited to your account. Use these tokens to explore the platform, access exclusive features, and grow your crypto portfolio. Plus, you'll unlock even more rewards and perks that make Time-X the go-to destination for crypto enthusiasts.</p>
+                    <p className='text '>Invite your friends to join TomAX and instantly receive 25,000 Shiba Inu credited to your account. Use these tokens to explore the platform, access exclusive features, and grow your crypto portfolio. Plus, you'll unlock even more rewards and perks that make TomAX the go-to destination for crypto enthusiasts.</p>
                     <button className='btn_timex' onClick={handleInviteClick}>Invite Friends</button>                
                 </div>
             </div>
@@ -74,8 +74,8 @@ const Earnings = () => {
             <div className='row column-rever_p'>
             <div className='col-lg-6 col-md-7 col-sm-7 alin_c'>
                     <h4 className='sub_title bc'>.. Earn with Staking ..</h4>
-                    <h2 className='title_h2 wc'>Stack USDT and Earn 0.36% Daily on Time-X Exchange</h2>
-                    <p className='text '>Invest in stability by staking your USDT on Time-X Exchange and earn 0.36% daily for 18 months! Your assets are protected by our cutting-edge security measures, and our transparent platform makes it easy to track your earnings. With a proven track record of reliability, Time-X offers a secure and consistent way to grow your wealth. Take advantage of this opportunity to enjoy passive income while keeping your investments safe. Start staking USDT on Time-X today—terms and conditions apply.</p>
+                    <h2 className='title_h2 wc'>Stack USDT and Earn 0.36% Daily on TomAX Exchange</h2>
+                    <p className='text '>Invest in stability by staking your USDT on TomAX Exchange and earn 0.36% daily for 18 months! Your assets are protected by our cutting-edge security measures, and our transparent platform makes it easy to track your earnings. With a proven track record of reliability, TomAX offers a secure and consistent way to grow your wealth. Take advantage of this opportunity to enjoy passive income while keeping your investments safe. Start staking USDT on TomAX today—terms and conditions apply.</p>
                     <Link to='/staking' className='btn_timex'>Stake Now</Link>                
                 </div>
                 <div className='col-lg-6 col-md-5 col-sm-5 text-center alin_c'>

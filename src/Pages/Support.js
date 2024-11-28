@@ -11,7 +11,7 @@ const Support = () => {
       <div className='container text-center'>
         <h4 className='sub_title bc'>.. Support ..</h4>
         <h2 className='title_h2 wc'>Welcome to TomAX Support!</h2>
-        <p className='text support_text'>At Time-X, we’re dedicated to ensuring you have the best experience possible. If you have any questions or run into issues, our support team is ready to assist. Whether it’s account setup, trading, security features, or any other concern, we’re here to help you every step of the way.</p>
+        <p className='text support_text'>At TomAX, we’re dedicated to ensuring you have the best experience possible. If you have any questions or run into issues, our support team is ready to assist. Whether it’s account setup, trading, security features, or any other concern, we’re here to help you every step of the way.</p>
            <div className='margin-top'>
             <div className='row'>
                 <div className='col-lg-6 col-md-5 col-sm-5 text-center'>
