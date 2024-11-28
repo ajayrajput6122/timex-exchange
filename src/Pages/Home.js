@@ -173,7 +173,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="sec03_h">
+      <section className="sec03_h pb-0">
         <div className="container ">
           <div className="row column-rever_p">
             <div className="col-lg-6 col-md-7 col-sm-7 alin_c">
@@ -198,7 +198,7 @@ const Home = () => {
       <section className="sec04_h">
         <div className="container text-center">
           {/* <h4 className="sub_title bc">.. Benefits ..</h4> */}
-          <h2 className="title_h2 wc title_h2_mb">Why Cryptocurrency is a Top Market for Investment ?</h2>
+          <h2 className="title_h2 wc title_h2_mb">Why Cryptocurrency is a Top Market for Investment</h2>
           {/* <p className="text ">
             Don't settle for average; level up your crypto game one step at a
             time. You'll be boasting about us in no time!

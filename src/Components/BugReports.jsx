@@ -106,7 +106,7 @@ const BugReports = () => {
                   autoComplete="off"
                 />
                 <h4 className="WC f_g_text alin_c">
-                  <i className="fa-solid fa-mobile-screen-button fa-beat"></i>
+                <i class="fa-solid fa-pen-to-square fa-beat wc"></i>
                 </h4>
               </div>
             </div>
@@ -122,7 +122,7 @@ const BugReports = () => {
                   autoComplete="off"
                 />
                 <h4 className="WC f_g_text alin_c">
-                  <i className="fa-solid fa-mobile-screen-button fa-beat"></i>
+                <i class="fa-solid fa-link fa-beat wc"></i>                
                 </h4>
               </div>
             </div>
@@ -140,7 +140,7 @@ const BugReports = () => {
                   autoComplete="off"
                 />
                 <h4 className="WC f_g_text alin_c">
-                  <i className="fa-solid fa-mobile-screen-button fa-beat"></i>
+                <i class="fa-solid fa-info fa-beat wc"></i>
                 </h4>
               </div>
             </div>

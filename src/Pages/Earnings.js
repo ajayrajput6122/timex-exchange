@@ -2,7 +2,7 @@ import React from 'react'
 import Kyc from '../Img/KYC.png'
 import Referrals from '../Img/Referrals.png'
 import Rewards from '../Img/Rewards.png'
-import Staking from '../Img/Staking.png'
+import Staking from '../Img/businessman-with-gold-coin.png'
 import Support from '../Img/support.png'
 import Network from '../Img/network.png'
 import Reward from '../Img/reward.png'
@@ -76,7 +76,7 @@ const Earnings = () => {
                     <h4 className='sub_title bc'>.. Earn with Staking ..</h4>
                     <h2 className='title_h2 wc'>Stack USDT and Earn 0.36% Daily on Time-X Exchange</h2>
                     <p className='text '>Invest in stability by staking your USDT on Time-X Exchange and earn 0.36% daily for 18 months! Your assets are protected by our cutting-edge security measures, and our transparent platform makes it easy to track your earnings. With a proven track record of reliability, Time-X offers a secure and consistent way to grow your wealth. Take advantage of this opportunity to enjoy passive income while keeping your investments safe. Start staking USDT on Time-X today—terms and conditions apply.</p>
-                    <Link to='/staking' className='btn_timex'>Stake Now</Link>                
+                    <Link to='/staking' className='btn_timex d-inline-block'>Stake Now</Link>                
                 </div>
                 <div className='col-lg-6 col-md-5 col-sm-5 text-center alin_c'>
                     <img className='Staking' src={Staking} />
@@ -103,7 +103,7 @@ const Earnings = () => {
                             <div className='sec4_box'>
                                 <img className='sece_box_img' src={Support} />
                                 <h4 className='sec4_box_title wc'>Connect with Your Friends</h4>
-                                <p className='sec4_box_text'>Your friends will be associated with you after<br></br> they Sign Up.</p>
+                                <p className='sec4_box_text'>Your friends will be associated with you after they Sign Up.</p>
                             </div>
                         </div>
                         <div className='col-lg-4 col-md-4 col-sm-4 mt-3'>

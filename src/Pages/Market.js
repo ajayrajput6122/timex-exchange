@@ -183,7 +183,7 @@ const Market = () => {
           </div> */}
           <div className="row">
             {dashboardData.slice(0, 6).map((coin, index) => (
-              <div className="col-lg-4 mb-3" key={index}>
+              <div className="col-lg-4 col-md-4 col-sm-6 mb-3" key={index}>
                 <Link to={`/trade?symbol=${coin.symbol}`}>
                   <div className="sec4_box">
                     <div className="d-flex d_box p-2">

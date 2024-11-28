@@ -155,12 +155,12 @@ const ChangePassword1 = () => {
                 <h4 className="WC f_g_text alin_c">
                   {!showPassword ? (
                     <i
-                      className="fa-solid text-white fa-lock fa-beat"
+                      className="fa-solid text-white fa-lock fa-beat wc"
                       onClick={handleShow}
                     ></i>
                   ) : (
                     <i
-                      className="fa-solid text-white fa-unlock fa-beat"
+                      className="fa-solid text-white fa-unlock fa-beat wc"
                       onClick={handleShow}
                     ></i>
                   )}
@@ -183,12 +183,12 @@ const ChangePassword1 = () => {
                 <h4 className="WC f_g_text alin_c">
                   {!showConfirmPassword ? (
                     <i
-                      className="fa-solid text-white fa-lock fa-beat"
+                      className="fa-solid text-white fa-lock fa-beat wc"
                       onClick={handleShowConfirmPassword}
                     ></i>
                   ) : (
                     <i
-                      className="fa-solid text-white fa-unlock fa-beat"
+                      className="fa-solid text-white fa-unlock fa-beat wc"
                       onClick={handleShowConfirmPassword}
                     ></i>
                   )}

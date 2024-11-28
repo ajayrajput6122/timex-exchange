@@ -79,7 +79,7 @@ const Kycverification = () => {
         )}
         {!showForm ? (
           <button
-            className="btn btn-complete mb-4"
+            className="sub_01 wc mb-4"
             onClick={() => setShowForm(true)}
           >
             Complete KYC

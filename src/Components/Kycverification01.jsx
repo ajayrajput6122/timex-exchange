@@ -150,9 +150,9 @@ const Kycverification01 = ({ data, onNext }) => {
                       name="country"
                       onChange={handleChange}
                     >
-                      <option selected value={''}>Select Country</option>
+                      <option  selected value={''}>Select Country</option>
                       {country?.map((country) => (
-                        <option value={country.name.common}>
+                        <option className="jkhefhwhe" value={country.name.common}>
                           {country.name.common}
                         </option>
                       ))}

@@ -210,7 +210,7 @@ const Login = () => {
                           </div>
                         </div>
                         <h5 className="trade_box_title_l wc text-end">
-                          <NavLink className={'text-white'} to={'/forgotpassword'}>Forgot Password?</NavLink>
+                          <NavLink className={'wc'} to={'/forgotpassword'}>Forgot Password?</NavLink>
                         </h5>
 
                         <button className="btn_login wc" type="submit">
