@@ -198,7 +198,7 @@ const Home = () => {
       <section className="sec04_h">
         <div className="container text-center">
           {/* <h4 className="sub_title bc">.. Benefits ..</h4> */}
-          <h2 className="title_h2 wc title_h2_mb">Why Cryptocurrency is a Top Market for Investment</h2>
+          <h2 className="title_h2 wc title_h2_mb">Why Cryptocurrency is a Top Market for Investment?</h2>
           {/* <p className="text ">
             Don't settle for average; level up your crypto game one step at a
             time. You'll be boasting about us in no time!

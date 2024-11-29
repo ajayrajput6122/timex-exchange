@@ -231,7 +231,7 @@ const Trade = () => {
       const response = await axios.post(
         `${base_url}/api/trading_orders`,
         {
-          status: "PENDING",
+          status: "PARTIALFILLED",
           tokenId: selectedCoin?._id,
         },
         {
@@ -639,7 +639,7 @@ const Trade = () => {
                               </h4>
                             </div>
                           </div>
-                          <div className="form_t">
+                          <div className="form_t ">
                             <div className="f_group d-flex j_con">
                               <input
                                 ref={buyTotal}
@@ -651,7 +651,7 @@ const Trade = () => {
                             </div>
                           </div>
                           <div className="d-flex j_con">
-                            <div className="f_group">
+                            <div className="f_group pro012">
                               <h4
                                 className="WC f_g_text alin_c"
                                 type="button"
@@ -661,7 +661,7 @@ const Trade = () => {
                                 25%
                               </h4>
                             </div>
-                            <div className="f_group">
+                            <div className="f_group pro012">
                               <h4
                                 className="WC f_g_text alin_c"
                                 type="button"
@@ -671,7 +671,7 @@ const Trade = () => {
                                 50%
                               </h4>
                             </div>
-                            <div className="f_group">
+                            <div className="f_group pro012">
                               <h4
                                 className="WC f_g_text alin_c"
                                 type="button"
@@ -681,7 +681,7 @@ const Trade = () => {
                                 75%
                               </h4>
                             </div>
-                            <div className="f_group">
+                            <div className="f_group pro012">
                               <h4
                                 className="WC f_g_text alin_c"
                                 type="button"
@@ -796,7 +796,7 @@ const Trade = () => {
                             </div>
                           </div>
                           <div className="d-flex j_con">
-                            <div className="f_group">
+                            <div className="f_group pro012">
                               <h4
                                 className="WC f_g_text alin_c"
                                 type="button"
@@ -806,7 +806,7 @@ const Trade = () => {
                                 25%
                               </h4>
                             </div>
-                            <div className="f_group">
+                            <div className="f_group pro012">
                               <h4
                                 className="WC f_g_text alin_c"
                                 type="button"
@@ -816,7 +816,7 @@ const Trade = () => {
                                 50%
                               </h4>
                             </div>
-                            <div className="f_group">
+                            <div className="f_group pro012">
                               <h4
                                 className="WC f_g_text alin_c"
                                 type="button"
@@ -826,7 +826,7 @@ const Trade = () => {
                                 75%
                               </h4>
                             </div>
-                            <div className="f_group">
+                            <div className="f_group pro012">
                               <h4
                                 className="WC f_g_text alin_c"
                                 type="button"
@@ -914,7 +914,7 @@ const Trade = () => {
                   </button>
                 </div>
               </nav>
-              <div class="tab-content" id="nav-tabContent">
+              <div class="tab-content mt-3" id="nav-tabContent">
                 <div
                   class="tab-pane fade show wc active"
                   id="nav-home_t1"
