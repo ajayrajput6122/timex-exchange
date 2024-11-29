@@ -173,7 +173,7 @@ const ChangePassword1 = () => {
               <h5 className="trade_box_title_l wc">Confirm Password</h5>
               <div className="f_group_l d-flex j_con">
                 <input
-                  type={!showPassword ? "password" : "text"}
+                  type={!showConfirmPassword ? "password" : "text"}
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}

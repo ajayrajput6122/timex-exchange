@@ -27,6 +27,7 @@ const Kycverification01 = ({ data, onNext }) => {
         setCountry(response.data);
       }
     } catch (error) {
+      toast.error('--');
       console.error("Country Data failed", error);
     }
   };

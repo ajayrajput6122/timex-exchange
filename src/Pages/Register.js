@@ -297,7 +297,7 @@ const Register = () => {
                         </div>
                           <div className="form_t">
                             <h5 className="trade_box_title_l wc">
-                              Sponsor Id
+                              Sponsor Id (Optional)
                             </h5>
                             <div className="f_group_l d-flex j_con">
                               <input

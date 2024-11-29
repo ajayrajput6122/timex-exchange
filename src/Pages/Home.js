@@ -13,12 +13,25 @@ import Investment from "../Img/investment.png";
 import Stock from "../Img/stock.png";
 import Encrypted from "../Img/encrypted.png";
 import Profits from "../Img/profits.png";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contextapi/Auth";
 
 const Home = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const { authData } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const handleInviteClick = () => {
+    navigate("/myprofile", { state: { activeTab: "settings" } });
+  };
+
+  const handleKycClick = () => {
+    navigate("/myprofile", { state: { activeTab: "profile" } });
+  };
+  const handleBugClick = () => {
+    navigate("/myprofile", { state: { activeTab: "settings2" } });
+  };
 
   const handleToggle = () => {
     setIsDarkTheme(!isDarkTheme);
@@ -43,29 +56,39 @@ const Home = () => {
               Join the Crypto Revolution - Turn Your Dreams into Reality Today!
             </p>
             {authData?.token ? (
-              <Link to={'earnings'} className="btn_timex">Potential Rewards </Link>
+              <Link to={"earnings"} className="btn_timex">
+                Potential Rewards{" "}
+              </Link>
             ) : (
-              <NavLink to='/register' className="btn_timex d-inline-block">Join TomAX</NavLink>
+              <NavLink to="/register" className="btn_timex d-inline-block">
+                Join TomAX
+              </NavLink>
             )}
           </div>
         </div>
       </section>
       <section className="sec02_h">
         <div className="started">
-          <div className="start_box start_box1">
-            <div className="icon-box d-flex">
-              <div className="icon-box-icon alin_c">
-                <img className="box_img" src={Signup} />
-              </div>
-              <div className="icon-box-con">
-                <h5 className="box_title box_title1 wc">Sign Up</h5>
-                <p className="boxt_text mb-0">
-                  Keep Your Wallet Safe and Join the Crypto Community Today!
-                </p>
+          <Link to={"/register"}>
+            <div className="start_box start_box1">
+              <div className="icon-box d-flex">
+                <div className="icon-box-icon alin_c">
+                  <img className="box_img" src={Signup} />
+                </div>
+                <div className="icon-box-con">
+                  <h5 className="box_title box_title1 wc">Sign Up</h5>
+                  <p className="boxt_text mb-0">
+                    Keep Your Wallet Safe and Join the Crypto Community Today!
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="start_box start_box2">
+          </Link>
+          <div
+            className="start_box start_box2"
+            onClick={handleKycClick}
+            style={{ cursor: "pointer" }}
+          >
             <div className="icon-box d-flex">
               <div className="icon-box-icon alin_c">
                 <img className="box_img" src={Verified} />
@@ -78,7 +101,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="start_box start_box3">
+          <div className="start_box start_box3" style={{ cursor: "pointer" }}>
             <div className="icon-box d-flex">
               <div className="icon-box-icon alin_c">
                 <img className="box_img" src={Funding} />
@@ -92,19 +115,21 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="start_box start_box4">
-            <div className="icon-box d-flex">
-              <div className="icon-box-icon alin_c">
-                <img className="box_img" src={Growth} />
-              </div>
-              <div className="icon-box-con">
-                <h5 className="box_title box_title1 wc">Trade</h5>
-                <p className="boxt_text mb-0">
-                  Keep Your Wallet Safe and Join the Crypto Community Today!
-                </p>
+          <Link to={"/trade?symbol=ETH"}>
+            <div className="start_box start_box4">
+              <div className="icon-box d-flex">
+                <div className="icon-box-icon alin_c">
+                  <img className="box_img" src={Growth} />
+                </div>
+                <div className="icon-box-con">
+                  <h5 className="box_title box_title1 wc">Trade</h5>
+                  <p className="boxt_text mb-0">
+                    Keep Your Wallet Safe and Join the Crypto Community Today!
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
 
           <img className="Sparkle" src={Sparkle} />
         </div>
@@ -186,7 +211,7 @@ const Home = () => {
                 and experience the freedom and flexibility to trade whenever and
                 wherever inspiration strikes.
               </p>
-              <button className="btn_timex">Downloads App </button>
+              <button className="btn_timex">Download App </button>
             </div>
             <div className="col-lg-6 col-md-5 col-sm-5 text-center alin_c">
               <img className="btc" src={Btc} />
@@ -198,7 +223,9 @@ const Home = () => {
       <section className="sec04_h">
         <div className="container text-center">
           {/* <h4 className="sub_title bc">.. Benefits ..</h4> */}
-          <h2 className="title_h2 wc title_h2_mb">Why Cryptocurrency is a Top Market for Investment</h2>
+          <h2 className="title_h2 wc title_h2_mb">
+            Why Cryptocurrency is a Top Market for Investment
+          </h2>
           {/* <p className="text ">
             Don't settle for average; level up your crypto game one step at a
             time. You'll be boasting about us in no time!
@@ -210,7 +237,10 @@ const Home = () => {
                 <img className="sec4_box_img" src={Investment} />
                 <h4 className="sec4_box_title wc">Investment Choice </h4>
                 <p className="sec4_box_text">
-                Cryptocurrencies are a popular investment choice today because of their potential for high returns, global access, and growing use in real life. Here’s a quick look at why many people consider investing in crypto.
+                  Cryptocurrencies are a popular investment choice today because
+                  of their potential for high returns, global access, and
+                  growing use in real life. Here’s a quick look at why many
+                  people consider investing in crypto.
                 </p>
               </div>
             </div>
@@ -219,7 +249,10 @@ const Home = () => {
                 <img className="sec4_box_img" src={Stock} />
                 <h4 className="sec4_box_title wc">Big Return Potential</h4>
                 <p className="sec4_box_text">
-                Cryptocurrencies like Bitcoin and Ethereum have shown huge growth over the years. Many investors are attracted to crypto because prices can rise rapidly, offering big returns, though with some risk.
+                  Cryptocurrencies like Bitcoin and Ethereum have shown huge
+                  growth over the years. Many investors are attracted to crypto
+                  because prices can rise rapidly, offering big returns, though
+                  with some risk.
                 </p>
               </div>
             </div>
@@ -228,7 +261,10 @@ const Home = () => {
                 <img className="sec4_box_img" src={Encrypted} />
                 <h4 className="sec4_box_title wc">More Popular</h4>
                 <p className="sec4_box_text">
-                Big companies & financial firms are getting involved in crypto. Banks & companies are offering crypto-related products, which makes crypto more stable & trustworthy. This support from big names is drawing in new investors.
+                  Big companies & financial firms are getting involved in
+                  crypto. Banks & companies are offering crypto-related
+                  products, which makes crypto more stable & trustworthy. This
+                  support from big names is drawing in new investors.
                 </p>
               </div>
             </div>
@@ -237,7 +273,10 @@ const Home = () => {
                 <img className="sec4_box_img" src={Profits} />
                 <h4 className="sec4_box_title wc">Easy Access for Everyone </h4>
                 <p className="sec4_box_text">
-                The crypto market is open 24/7 and accessible from anywhere. You can buy or sell at any time from any part of the world, which isn’t possible in traditional stock markets. This worldwide access is a big draw for new investors.
+                  The crypto market is open 24/7 and accessible from anywhere.
+                  You can buy or sell at any time from any part of the world,
+                  which isn’t possible in traditional stock markets. This
+                  worldwide access is a big draw for new investors.
                 </p>
               </div>
             </div>

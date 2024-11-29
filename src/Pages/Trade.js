@@ -5,6 +5,7 @@ import { base_url } from "../ApiService/BaseUrl";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contextapi/Auth";
 import toast from "react-hot-toast";
+import Pagination from "../Components/Pagination";
 
 const Trade = () => {
   const { authData } = useContext(AuthContext);
@@ -12,10 +13,17 @@ const Trade = () => {
   const [sellBalance, setSellBallance] = useState("");
   const [buyamount, setBuymount] = useState("");
   const [sellamount, setSellamount] = useState("");
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 5,
+    total: 0,
+  });
   const [coin, setCoin] = useState([]);
   const [selectedCoin, setSelectedCoin] = useState([]);
   const [pairCurrency, setPairCurrency] = useState([]);
+  const [openOrder, setOpenOrder] = useState([]);
   const [pendingOrder, setPendingOrder] = useState([]);
+  const [completeOrder, setCompleteOrder] = useState([]);
   const [recentTrade, setRecentTrade] = useState([]);
   const [latestPrice, setLatestPrice] = useState("");
   const [sellLimit, setSellLimit] = useState("MARKET");
@@ -102,6 +110,11 @@ const Trade = () => {
         toast.success(response.data.message);
         setBuymount("");
         GetBallance();
+        getOpenOrder();
+        getOpenOrder();
+        getPendingOrder();
+        getCompletedOrder();
+        getRecentTrade();
         buyTotal.current.value.reset();
       } else {
         toast.dismiss();
@@ -149,6 +162,11 @@ const Trade = () => {
         toast.success(response.data.message);
         GetSellBallance();
         setSellamount("");
+        getOpenOrder();
+        getPendingOrder();
+        getCompletedOrder();
+        getRecentTrade();
+        // getOrder();
         sellTotal.current.value.reset();
       } else {
         toast.dismiss();
@@ -226,7 +244,7 @@ const Trade = () => {
     }
   };
 
-  const getOrder = async () => {
+  const getOpenOrder = async () => {
     try {
       const response = await axios.post(
         `${base_url}/api/trading_orders`,
@@ -241,7 +259,69 @@ const Trade = () => {
         }
       );
       if (response.data.success) {
+        setOpenOrder(response.data.orders);
+        console.log(response.data.message);
+      } else {
+        console.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("unable to fetch data", error);
+    }
+  };
+
+  const handlePageChange = (page, pageSize) => {
+    getCompletedOrder(page, pageSize);
+  };
+
+  const getPendingOrder = async () => {
+    try {
+      const response = await axios.post(
+        `${base_url}/api/trading_orders`,
+        {
+          status: "PENDING",
+          tokenId: selectedCoin?._id,
+        },
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
+      if (response.data.success) {
         setPendingOrder(response.data.orders);
+        console.log(response.data.message);
+      } else {
+        console.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("unable to fetch data", error);
+    }
+  };
+  const getCompletedOrder = async (page = 1, pageSize = 10) => {
+    try {
+      const skip = (page - 1) * pageSize;
+      const response = await axios.post(
+        `${base_url}/api/trading_orders`,
+        {
+          status: "COMPLETED",
+          tokenId: selectedCoin?._id,
+          limit: pageSize,
+          skip,
+        },
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
+      if (response.data.success) {
+        setCompleteOrder(response.data.orders);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
         console.log(response.data.message);
       } else {
         console.error(response.data.message);
@@ -277,7 +357,9 @@ const Trade = () => {
 
   useEffect(() => {
     if (selectedCoin?.symbol) {
-      getOrder();
+      getOpenOrder();
+      getPendingOrder();
+      getCompletedOrder();
       getRecentTrade();
     }
   }, [selectedCoin]);
@@ -645,7 +727,7 @@ const Trade = () => {
                                 ref={buyTotal}
                                 type="text"
                                 className="t_t_input w-100 wc"
-                                value={latestPrice * buyamount}
+                                value={(latestPrice * buyamount).toFixed(4)}
                               />
                               <h4 className="WC f_g_text alin_c">Total</h4>
                             </div>
@@ -790,7 +872,7 @@ const Trade = () => {
                                 ref={sellTotal}
                                 type="text"
                                 className="t_t_input w-100 wc"
-                                value={latestPrice * sellamount}
+                                value={(latestPrice * sellamount).toFixed(4)}
                               />
                               <h4 className="WC f_g_text alin_c">Total</h4>
                             </div>
@@ -875,7 +957,11 @@ const Trade = () => {
           <div className="col-lg-9 p-1">
             <div className="trade_box ">
               <nav className=" pb-2 mb">
-                <div class="nav nav-tabs t_t_btn_g t_t_btn_g02" id="nav-tab" role="tablist">
+                <div
+                  class="nav nav-tabs t_t_btn_g t_t_btn_g02"
+                  id="nav-tab"
+                  role="tablist"
+                >
                   <button
                     class="nav-link t_t_btn02 mt-0 wc active"
                     id="nav-home-tab_t1"
@@ -898,7 +984,19 @@ const Trade = () => {
                     aria-controls="nav-profile_t1"
                     aria-selected="false"
                   >
-                    Past Orders
+                    Pending Orders
+                  </button>
+                  <button
+                    class="nav-link t_t_btn02 mt-0 wc"
+                    id="nav-profile-tab_t10"
+                    data-bs-toggle="tab"
+                    data-bs-target="#nav-profile_t10"
+                    type="button"
+                    role="tab"
+                    aria-controls="nav-profile_t10"
+                    aria-selected="false"
+                  >
+                    Completed Orders
                   </button>
                 </div>
               </nav>
@@ -908,6 +1006,73 @@ const Trade = () => {
                   id="nav-home_t1"
                   role="tabpanel"
                   aria-labelledby="nav-home-tab"
+                >
+                  <div className="table_over">
+                    <div className="table_scroll">
+                      <table className="trade_table_222">
+                        <tr>
+                          <th className="t_t_heading wc b_boot">
+                            Trading Pair
+                          </th>
+                          <th className="t_t_heading wc b_boot"> Date</th>
+                          <th className="t_t_heading wc b_boot"> Type</th>
+                          <th className="t_t_heading wc b_boot"> All</th>
+                          <th className="t_t_heading wc b_boot"> Price</th>
+                          <th className="t_t_heading wc b_boot"> Amount</th>
+                          <th className="t_t_heading wc b_boot"> Remaining</th>
+                          <th className="t_t_heading wc b_boot"> Filled</th>
+                          <th className="t_t_heading wc b_boot"> Total</th>
+                          <th className="t_t_heading wc b_boot"> Action </th>
+                        </tr>
+                        {openOrder && openOrder.length > 0 ? (
+                          openOrder.map((pending, index) => (
+                            <tr key={index}>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenSymbol}/
+                                {pending?.pairCurrencySymbol}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {new Date(pending.createdAt).toLocaleString()}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.orderType}
+                              </td>
+                              <td className="t_t_data b_boot wc">0</td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenPrice}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenQuantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenPendingquantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenQuantity -
+                                  pending?.tokenPendingquantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenQuantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.mode}
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr className="text-center" aria-colspan={10}>
+                            No History Found
+                          </tr>
+                        )}
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade wc"
+                  id="nav-profile_t1"
+                  role="tabpanel"
+                  aria-labelledby="nav-profile-tab"
                 >
                   <div className="table_over">
                     <div className="table_scroll">
@@ -972,9 +1137,9 @@ const Trade = () => {
                 </div>
                 <div
                   class="tab-pane fade wc"
-                  id="nav-profile_t1"
+                  id="nav-profile_t10"
                   role="tabpanel"
-                  aria-labelledby="nav-profile-tab"
+                  aria-labelledby="nav-profile-tab10"
                 >
                   <div className="table_over">
                     <div className="table_scroll">
@@ -984,29 +1149,70 @@ const Trade = () => {
                             Trading Pair
                           </th>
                           <th className="t_t_heading wc b_boot"> Date</th>
+                          <th className="t_t_heading wc b_boot"> Type</th>
                           <th className="t_t_heading wc b_boot"> All</th>
-                          <th className="t_t_heading wc b_boot">
-                            {" "}
-                            Average Filled Price{" "}
-                          </th>
-                          <th className="t_t_heading wc b_boot"> Executed</th>
+                          <th className="t_t_heading wc b_boot"> Price</th>
+                          <th className="t_t_heading wc b_boot"> Amount</th>
+                          <th className="t_t_heading wc b_boot"> Remaining</th>
+                          <th className="t_t_heading wc b_boot"> Filled</th>
                           <th className="t_t_heading wc b_boot"> Total</th>
-                          <th className="t_t_heading wc b_boot"> Order Type</th>
-                          <th className="t_t_heading wc b_boot"> Status</th>
+                          <th className="t_t_heading wc b_boot"> Action </th>
                         </tr>
-                        <tr>
-                          <td className="t_t_data b_boot wc">0</td>
-                          <td className="t_t_data b_boot wc">0</td>
-                          <td className="t_t_data b_boot wc">0</td>
-                          <td className="t_t_data b_boot wc">0</td>
-                          <td className="t_t_data b_boot wc">0</td>
-                          <td className="t_t_data b_boot wc">0</td>
-                          <td className="t_t_data b_boot wc">0</td>
-                          <td className="t_t_data b_boot wc">0</td>
-                        </tr>
+                        {completeOrder && completeOrder.length > 0 ? (
+                          completeOrder.map((pending, index) => (
+                            <tr key={index}>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenSymbol}/
+                                {pending?.pairCurrencySymbol}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {new Date(pending.createdAt).toLocaleString()}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.orderType}
+                              </td>
+                              <td className="t_t_data b_boot wc">0</td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenPrice}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenQuantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenPendingquantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenQuantity -
+                                  pending?.tokenPendingquantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenQuantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.mode}
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr className="text-center" aria-colspan={10}>
+                            No History Found
+                          </tr>
+                        )}
                       </table>
                     </div>
                   </div>
+                  {completeOrder && completeOrder.length > 0 ? (
+                    <div className="text-center">
+                      <Pagination
+                        total={pagination.total}
+                        pageSize={pagination.pageSize}
+                        current={pagination.current}
+                        onChange={handlePageChange}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>
