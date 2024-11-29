@@ -139,6 +139,14 @@ function App() {
             />
           </Route>
           <Route
+            path="userdeals"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <UserDeals />
+              </Suspense>
+            }
+          />
+          <Route
             path="trade"
             element={
               <Suspense fallback={<div>Loading...</div>}>
@@ -247,15 +255,6 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <Hello />
-              </Suspense>
-            }
-          />
-          
-        <Route
-            path="userDeals"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <UserDeals />
               </Suspense>
             }
           />

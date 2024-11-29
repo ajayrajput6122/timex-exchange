@@ -17,6 +17,7 @@ const Header = () => {
     "/dashboard",
     "/deposit",
     "/withdraw",
+    "/userdeals",
     "/deposithistory",
     "/withdrawhistory",
     "/staking",
@@ -134,6 +135,11 @@ const Header = () => {
                           <li>
                             <Link className="dropdown-item" to="withdraw">
                               Withdraw
+                            </Link>
+                          </li>
+                          <li>
+                            <Link className="dropdown-item" to="userdeals">
+                              User Deals
                             </Link>
                           </li>
                           <li>
