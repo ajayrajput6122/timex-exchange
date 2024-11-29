@@ -78,7 +78,7 @@ ul {
   background-color: var(--dropdown-bg) !important;
   margin-top: 15px !important;
   padding: 20px !important;
-  margin-left: -50px !important;
+  margin-left: -82px !important;
 }
 
 .dark_li {
@@ -757,6 +757,7 @@ select:focus-visible {
   font-size: 18px;
   background-color: transparent !important;
   border: none !important;
+  margin-right: 10px;
 }
 
 .f_group_l {
@@ -814,6 +815,7 @@ span.otp_btn {
   border-radius: 17px;
   padding: 6px 9px;
   color: #fff !important;
+  margin-right: -8px;
 }
 
 .t_table_main.login_box {
@@ -902,6 +904,8 @@ span.otp_btn {
   z-index: 9999;
 }
 
+.pro012 h4 { font-size: 13px;}
+
 .nav.nav_tab_sid.flex-column.nav-pills.me-3 {
   height: 100%;
 }
@@ -956,7 +960,11 @@ img.btc {
   background-color: transparent;
   border: none;
   color: var(--secondary-color);
+  width: 100%;
 }
+
+.title_h022 { font-size: 28px;
+            margin-top: 10px;}
 
 .nav.nav_tab_sid.flex-column.nav-pills {
   margin-right: 15px;
@@ -1042,6 +1050,34 @@ select.input_l.w-100.wc option {
   color: #fff !important;
 }
 
+.ao_title { font-size: 24px;}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; 
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-left-color: white;
+  animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cd_o .dropdown-options { background-color: var(--primary-color);
+  box-shadow: -1px 0px 7px var(--box-s);
+}
+
 @media (max-width: 1240px) {
   .withdrawhistory {
     width: 1240px;
@@ -1052,6 +1088,9 @@ select.input_l.w-100.wc option {
   .trade_table_222 {
     width: 992px;
   }
+
+ .dropdown-menu_header { margin-left: 0px !important;
+                         margin-top: 15px !important;}
 
   .footer_col-02 {
     padding-left: 15px !important;
@@ -1402,4 +1441,7 @@ select.input_l.w-100.wc option {
   .radio_i { accent-color: #C38807 !important;}
 
  .trade_box.trade_box1.o_d { overflow-y: hidden;}   
- 
+
+ .pro012 { width: 20%;
+          text-align: center;
+          padding: 3px 0px !important;}

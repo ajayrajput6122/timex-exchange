@@ -225,7 +225,7 @@ const Header = () => {
                     </>
                   )}
                 </ul>
-                <div className="alin_c d-flex">
+                <div className="alin_c d-flex ">
                   {/* <div class="dropdown">
                     <a class=" dropdown-toggle wc" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                     <i className="fa-solid fa-user me-2 align-self-center"></i>

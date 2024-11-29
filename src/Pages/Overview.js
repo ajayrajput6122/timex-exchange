@@ -3,6 +3,7 @@ import Overview1 from '../Components/MainAccountHistory'
 import Overview2 from '../Components/TradingAccountHistory'
 import Overview3 from '../Components/FundingAccountHistory'
 import Overview4 from '../Components/TransferHistory'
+import Overview5 from '../Components/AssetsOverview'
 const Overview = () => {
   return (
     <>
@@ -31,7 +32,7 @@ const Overview = () => {
                   <div className="trade_box ">
                   <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show wc active" id="nav-home_t" role="tabpanel" aria-labelledby="nav-home-tab_t">
-                     
+                      <Overview5 />
                     </div>
                     <div class="tab-pane fade wc" id="nav-profile_t" role="tabpanel" aria-labelledby="nav-profile-tab" >
                      <Overview1 />

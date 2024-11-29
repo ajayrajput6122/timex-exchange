@@ -37,6 +37,7 @@ const Staking = React.lazy(() => import("./Pages/Staking"));
 const Swap = React.lazy(() => import("./Pages/Swap"));
 const Overview = React.lazy(() => import("./Pages/Overview"));
 const Hello = React.lazy(() => import("./Pages/hello"));
+const UserDeals = React.lazy(() => import("./Pages/UserDeals"));
 
 const RefundCancellation = React.lazy(() =>
   import("./Pages/RefundCancellation")
@@ -246,6 +247,15 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <Hello />
+              </Suspense>
+            }
+          />
+          
+        <Route
+            path="userDeals"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <UserDeals />
               </Suspense>
             }
           />

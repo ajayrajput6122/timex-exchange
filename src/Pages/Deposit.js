@@ -159,7 +159,7 @@ const Deposit = () => {
                       <h5 className="trade_box_title_l wc">Select a Coin</h5>
                       <div className="f_group_l d-flex j_con">
                         <div
-                          className="custom-dropdown w-100"
+                          className="custom-dropdown cd_o w-100"
                           onClick={() => setShowCoinDropdown(!showCoinDropdown)}
                           style={{
                             position: "relative",
@@ -172,7 +172,7 @@ const Deposit = () => {
                                 <img
                                   src={selectedCoin.image}
                                   alt={selectedCoin.coinName}
-                                  style={{ width: "40px", marginRight: "10px" }}
+                                  style={{ width: "24px", marginRight: "10px" }}
                                 />
                                 {selectedCoin.coinName}
                               </>
@@ -182,7 +182,7 @@ const Deposit = () => {
                           </div>
                           {showCoinDropdown && (
                             <div
-                              className="dropdown-options"
+                              className="dropdown-options wc"
                               style={{
                                 position: "absolute",
                                 top: "100%",
@@ -225,7 +225,7 @@ const Deposit = () => {
                       <h5 className="trade_box_title_l wc">Select Network</h5>
                       <div className="f_group_l d-flex j_con">
                         <div
-                          className="custom-dropdown w-100"
+                          className="custom-dropdown cd_o w-100"
                           onClick={() =>
                             setShowNetworkDropdown(!showNetworkDropdown)
                           }
@@ -240,7 +240,7 @@ const Deposit = () => {
                                 <img
                                   src={selectedCoin?.image}
                                   alt={selectedNetwork.Network}
-                                  style={{ width: "40px", marginRight: "10px" }}
+                                  style={{ width: "24px", marginRight: "10px" }}
                                 />
                                 {selectedNetwork.Network}
                               </>
@@ -250,7 +250,7 @@ const Deposit = () => {
                           </div>
                           {showNetworkDropdown && (
                             <div
-                              className="dropdown-options"
+                              className="dropdown-options wc"
                               style={{
                                 position: "absolute",
                                 top: "100%",
