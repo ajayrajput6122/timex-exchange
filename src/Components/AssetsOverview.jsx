@@ -69,6 +69,11 @@ const AssetsOverview = () => {
             {balance ? parseFloat(balance).toFixed(4) : "-"} USDT
           </h5>
         </div>
+        <div>
+          <form>
+            <button className="btn_timex">Transfer</button>
+          </form>
+        </div>
         {/* <div>
           <form>
             <div className="f_group_l d-flex j_con">
