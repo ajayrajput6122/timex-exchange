@@ -56,10 +56,24 @@ const Market = () => {
     <>
       <section className="sec01_d">
         <div className="container ">
-          <h2 className="title_h2 wc text-center">Market Coins</h2>
-          <p className="text text-center m_boot">
-            Glorious, not only for your eyes.
-          </p>
+
+        <div className="row">
+            <div className="col-lg-9 col-md-8 col-sm-8">
+              <h2 className="title_h2 wc">Market Coins</h2>
+              <p className="text"> Glorious, not only for your eyes.</p>
+            </div>
+            <div className="col-lg-3 col-md-4 col-sm-4 alin_c">
+               <form>
+                        <div className='f_group_l d-flex j_con'>
+                            <div className='WC f_g_text alin_c'>
+                                <i class="fa-solid fa-magnifying-glass fa-beat-fade wc"></i> 
+                            </div>
+                            <input className='search_input ms-2' type='search' placeholder="Search" />
+                        </div>
+                    </form> 
+            </div>
+          </div>
+         
           {/* <div className="row">
             <div className="col-lg-4 mt-3">
               <div className="sec4_box">

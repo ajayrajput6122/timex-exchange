@@ -56,111 +56,22 @@ const Dashboard = () => {
     <>
       <section className="sec01_d">
         <div className="container ">
-          <h2 className="title_h2 wc text-center">Welcome To Dashboard</h2>
-          <p className="text text-center ">Glorious, not only for your eyes.</p>
-          {/* <div className="row">
-            <div className="col-lg-4 col-md-4 col-sm-6 mt-3">
-              <div className="sec4_box">
-                <div className="d-flex d_box b_boot pb-4">
-                  <div className="icon-box d-flex">
-                    <div className="icon-box-icon alin_c">
-                      <img className="box1_img" src={BC} />
-                    </div>
-                    <div className="icon-box-con">
-                      <h5 className="box_title box_title1 wc">Bitcoin Cash</h5>
-                      <p className="box1_text wc mb-0"> 2342.42730</p>
-                    </div>
-                  </div>
-                  <div className="alin_c">
-                    <p className="box1_text wc mb-0 gc"> 2.296</p>
-                  </div>
-                </div>
-
-                <div className="d-flex d_box mt-4">
-                  <div className="icon-box d-flex">
-                    <div className="icon-box-icon alin_c">
-                      <img className="box1_img" src={BNB} />
-                    </div>
-                    <div className="icon-box-con">
-                      <h5 className="box_title box_title1 wc">BNB</h5>
-                      <p className="box1_text wc mb-0"> 2342.42730</p>
-                    </div>
-                  </div>
-                  <div className="alin_c">
-                    <p className="box1_text wc mb-0 rc"> 2.296</p>
-                  </div>
-                </div>
-              </div>
+          <div className="row">
+            <div className="col-lg-9 col-md-8 col-sm-8">
+              <h2 className="title_h2 wc">Welcome To Dashboard</h2>
+              <p className="text">Glorious, not only for your eyes.</p>
             </div>
-
-            <div className="col-lg-4 col-md-4 col-sm-6 mt-3">
-              <div className="sec4_box">
-                <div className="d-flex d_box b_boot pb-4">
-                  <div className="icon-box d-flex">
-                    <div className="icon-box-icon alin_c">
-                      <img className="box1_img" src={XRP} />
-                    </div>
-                    <div className="icon-box-con">
-                      <h5 className="box_title box_title1 wc">XRP</h5>
-                      <p className="box1_text wc mb-0"> 2342.42730</p>
-                    </div>
-                  </div>
-                  <div className="alin_c">
-                    <p className="box1_text wc mb-0 rc"> 2.296</p>
-                  </div>
-                </div>
-
-                <div className="d-flex d_box mt-4">
-                  <div className="icon-box d-flex">
-                    <div className="icon-box-icon alin_c">
-                      <img className="box1_img" src={Shiba} />
-                    </div>
-                    <div className="icon-box-con">
-                      <h5 className="box_title box_title1 wc">Shiba Inu</h5>
-                      <p className="box1_text wc mb-0">2342.42730</p>
-                    </div>
-                  </div>
-                  <div className="alin_c">
-                    <p className="box1_text wc mb-0 gc"> 2.296</p>
-                  </div>
-                </div>
-              </div>
+            <div className="col-lg-3 col-md-4 col-sm-4 alin_c">
+               <form>
+                        <div className='f_group_l d-flex j_con'>
+                            <div className='WC f_g_text alin_c'>
+                                <i class="fa-solid fa-magnifying-glass fa-beat-fade wc"></i> 
+                            </div>
+                            <input className='search_input ms-2' type='search' placeholder="Search" />
+                        </div>
+                    </form> 
             </div>
-
-            <div className="col-lg-4 col-md-4 col-sm-6 mt-3">
-              <div className="sec4_box">
-                <div className="d-flex d_box b_boot pb-4">
-                  <div className="icon-box d-flex">
-                    <div className="icon-box-icon alin_c">
-                      <img className="box1_img" src={TRON} />
-                    </div>
-                    <div className="icon-box-con">
-                      <h5 className="box_title box_title1 wc">TRON</h5>
-                      <p className="box1_text wc mb-0"> 2342.42730</p>
-                    </div>
-                  </div>
-                  <div className="alin_c">
-                    <p className="box1_text wc mb-0 rc"> 2.296</p>
-                  </div>
-                </div>
-
-                <div className="d-flex d_box mt-4">
-                  <div className="icon-box d-flex">
-                    <div className="icon-box-icon alin_c">
-                      <img className="box1_img" src={Bitcoin} />
-                    </div>
-                    <div className="icon-box-con">
-                      <h5 className="box_title box_title1 wc">Bitcoin</h5>
-                      <p className="box1_text wc mb-0"> 2342.42730</p>
-                    </div>
-                  </div>
-                  <div className="alin_c">
-                    <p className="box1_text wc mb-0 gc"> 2.296</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
+          </div>
           <div className="row">
             {dashboardData.slice(0, 6).map((coin, index) => (
               <div className="col-lg-4 col-md-4 col-sm-6 mb-3" key={index}>
