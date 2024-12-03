@@ -7,7 +7,10 @@ import { AuthContext } from "../Contextapi/Auth";
 const TransferHistory = () => {
   const { authData } = useContext(AuthContext);
   const [balance, setBallance] = useState("");
-  const [search, setSearch] = useState("");
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(""); 
+  const [filteredData, setFilteredData] = useState([]);
 
   const GetBallance = async () => {
     try {
@@ -34,6 +37,48 @@ const TransferHistory = () => {
     GetBallance();
   }, []);
 
+  const getAllTransfer = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        `${base_url}/api/all_token_deposit_transactions`,
+        {
+          transactionType: "transfer",
+        },
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
+      if (response.data.success) {
+        setData(response.data.data);
+        setFilteredData(response.data.data);
+        console.log(response.data.message);
+      } else {
+        console.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("unable to fetch data", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getAllTransfer();
+  }, []);
+
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    const filtered = data.filter((item) =>
+      item.tokenName?.toLowerCase().includes(query)
+    );
+    setFilteredData(filtered);
+  };
+
   return (
     <>
       <h2 className="title_h2 wc text-center">Transfer History</h2>
@@ -55,8 +100,8 @@ const TransferHistory = () => {
                 className="search_input ms-2"
                 type="search"
                 placeholder="Search"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                value={searchQuery}
+                onChange={handleSearch}
               />
             </div>
           </form>
@@ -64,30 +109,44 @@ const TransferHistory = () => {
       </div>
 
       <div className="mt-3">
-        <div className="trade_box ">
-          <div className="table_over">
-            <div className="table_scroll">
-              <table className="trade_table_222">
-                <tr>
-                  <th className="t_t_heading wc b_boot">S No. </th>
-                  <th className="t_t_heading wc b_boot"> Token Name </th>
-                  <th className="t_t_heading wc b_boot"> Amount </th>
-                  <th className="t_t_heading wc b_boot"> From </th>
-                  <th className="t_t_heading wc b_boot"> To </th>
-                  <th className="t_t_heading wc b_boot"> Date & Time</th>
-                </tr>
-                <tr>
-                  <td className="t_t_data b_boot wc">0</td>
-                  <td className="t_t_data b_boot wc">0</td>
-                  <td className="t_t_data b_boot wc">0</td>
-                  <td className="t_t_data b_boot wc">0</td>
-                  <td className="t_t_data b_boot wc">0</td>
-                  <td className="t_t_data b_boot wc">0</td>
-                </tr>
-              </table>
+        {loading ? (
+          <div className="spinner-container">
+            <div className="spinner"></div>
+          </div>
+        ) : (
+          <div className="trade_box ">
+            <div className="table_over">
+              <div className="table_scroll">
+                <table className="trade_table_222">
+                  <tr>
+                    <th className="t_t_heading wc b_boot">S No. </th>
+                    <th className="t_t_heading wc b_boot"> Token Name </th>
+                    <th className="t_t_heading wc b_boot"> Amount </th>
+                    <th className="t_t_heading wc b_boot"> From </th>
+                    <th className="t_t_heading wc b_boot"> To </th>
+                    <th className="t_t_heading wc b_boot"> Date & Time</th>
+                  </tr>
+                  {filteredData && filteredData.length > 0
+                    ? filteredData?.map((data, index) => (
+                        <tr key={index}>
+                          <td className="t_t_data b_boot wc">{index + 1}</td>
+                          <td className="t_t_data b_boot wc">
+                            {data.tokenName}
+                          </td>
+                          <td className={`t_t_data b_boot wc ${data.amount>0?'gc':'rc'}`}>{data.amount}</td>
+                          <td className="t_t_data b_boot wc">{data.from}</td>
+                          <td className="t_t_data b_boot wc">{data.to}</td>
+                          <td className="t_t_data b_boot wc">
+                            {new Date(data.createdAt).toLocaleString()}
+                          </td>
+                        </tr>
+                      ))
+                    : "No Data Available"}
+                </table>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

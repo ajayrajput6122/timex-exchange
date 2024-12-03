@@ -389,20 +389,12 @@ const Trade = () => {
       coin.find(
         (c) => c.symbol === symbol || c.symbol === symbol?.replace("USDT", "")
       ) || coin[0];
-    // const defaultCoin = coin.find((c) => c.symbol === symbol) || coin[0];
     setSelectedCoin(defaultCoin);
   }, [location.search, coin]);
 
   const handleCoinChange = (newCoin) => {
     setSelectedCoin(newCoin);
-    navigate(
-      `?symbol=${
-        newCoin.symbol.includes("USDT")
-          ? newCoin.symbol
-          : `${newCoin.symbol}USDT`
-      }`
-    );
-    // navigate(`?symbol=${newCoin.symbol}`);
+    navigate(`?symbol=${newCoin.symbol}USDT`);
   };
 
   useEffect(() => {

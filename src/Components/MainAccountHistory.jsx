@@ -26,7 +26,7 @@ const MainAccountHistory = () => {
         }
       );
       if (response.data.success) {
-        setBallance(response.data.balance);
+        setBallance(response.data.wallets.main_wallet.balance);
         setData(response.data.wallets.main_wallet.wallets);
       }
     } catch (error) {

@@ -6,35 +6,77 @@ import { AuthContext } from "../Contextapi/Auth";
 import { base_url } from "../ApiService/BaseUrl";
 import { useNavigate } from "react-router-dom";
 
-const Kycverification05 = ({ onPrevious }) => {
+export default function Kycverification05({ onPrevious }) {
   const navigate = useNavigate();
   const webcamRef = useRef(null);
   const [selfieImage, setSelfieImage] = useState(null);
-  const [imgSrc, setImgSrc] = useState(null); // For preview
+  const [imgSrc, setImgSrc] = useState(null);
   const { authData } = useContext(AuthContext);
 
-  // Capture selfie from webcam
-  const captureSelfie = useCallback(() => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    if (!imageSrc) {
-      toast.error("Failed to capture selfie. Please try again.");
-      return;
-    }
-    setImgSrc(imageSrc);
-    // Convert base64 image to File
-    const byteString = atob(imageSrc.split(",")[1]);
-    const mimeString = imageSrc.split(",")[0].split(":")[1].split(";")[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    const blob = new Blob([ab], { type: mimeString });
-    const file = new File([blob], "selfie.jpg", { type: mimeString });
-    setSelfieImage(file);
-  }, [webcamRef]);
+  const captureSelfie = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: "user",
+          width: { ideal: 640 },
+          height: { ideal: 480 },
+        },
+      });
 
-  // Upload selfie image to the server
+      const video = document.createElement("video");
+      video.srcObject = stream;
+
+      await new Promise((resolve) => {
+        video.onloadedmetadata = () => {
+          video.play();
+          resolve();
+        };
+      });
+
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(video, 0, 0);
+
+      // Convert canvas to Blob and create a File object
+      const blob = await new Promise((resolve) =>
+        canvas.toBlob(resolve, "image/jpeg")
+      );
+      const file = new File([blob], "selfie.jpg", { type: "image/jpeg" });
+
+      setSelfieImage(file); // Set the file as the selfieImage
+      setImgSrc(URL.createObjectURL(file)); // Create an object URL for preview
+
+      // Stop video stream
+      stream.getTracks().forEach((track) => track.stop());
+    } catch (error) {
+      console.error("Selfie capture error:", error);
+      toast.error("Camera access failed. Check browser permissions.");
+    }
+  };
+
+  // const captureSelfie = useCallback(() => {
+  //   const imageSrc = webcamRef.current.getScreenshot();
+  //   if (!imageSrc) {
+  //     toast.dismiss();
+  //     toast.error("Failed to capture selfie. Please try again.");
+  //     return;
+  //   }
+  //   setImgSrc(imageSrc);
+  //   const byteString = atob(imageSrc.split(",")[1]);
+  //   const mimeString = imageSrc.split(",")[0].split(":")[1].split(";")[0];
+  //   const ab = new ArrayBuffer(byteString.length);
+  //   const ia = new Uint8Array(ab);
+  //   for (let i = 0; i < byteString.length; i++) {
+  //     ia[i] = byteString.charCodeAt(i);
+  //   }
+  //   const blob = new Blob([ab], { type: mimeString });
+  //   const file = new File([blob], "selfie.jpg", { type: mimeString });
+  //   setSelfieImage(file);
+  // }, [webcamRef]);
+
   const uploadSelfieImage = async () => {
     if (!selfieImage) {
       toast.dismiss();
@@ -66,7 +108,9 @@ const Kycverification05 = ({ onPrevious }) => {
     } catch (error) {
       console.error("Error uploading selfie:", error);
       toast.dismiss();
-      toast.error("An error occurred while uploading the selfie. Please try again.");
+      toast.error(
+        "An error occurred while uploading the selfie. Please try again."
+      );
     }
   };
 
@@ -109,7 +153,11 @@ const Kycverification05 = ({ onPrevious }) => {
                   <img
                     src={imgSrc}
                     alt="Captured Selfie"
-                    style={{ width: "200px", height: "200px", borderRadius: "10px" }}
+                    style={{
+                      width: "200px",
+                      height: "200px",
+                      borderRadius: "10px",
+                    }}
                   />
                 </div>
               )}
@@ -117,11 +165,7 @@ const Kycverification05 = ({ onPrevious }) => {
           </div>
 
           <div className="form_btn_prof d-flex justify-content-between mt-4">
-            <button
-              type="button"
-              className="btn_login wc"
-              onClick={onPrevious}
-            >
+            <button type="button" className="btn_login wc" onClick={onPrevious}>
               Previous
             </button>
 
@@ -137,6 +181,4 @@ const Kycverification05 = ({ onPrevious }) => {
       </div>
     </div>
   );
-};
-
-export default Kycverification05;
+}

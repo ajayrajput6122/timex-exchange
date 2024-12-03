@@ -26,7 +26,7 @@ const FundingAccountHistory = () => {
         }
       );
       if (response.data.success) {
-        setBallance(response.data.balance);
+        setBallance(response.data.wallets.funding_wallet.balance);
         setData(response.data.wallets.funding_wallet.wallets);
       }
     } catch (error) {
