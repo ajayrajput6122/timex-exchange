@@ -11,14 +11,15 @@ const AssetsOverview = () => {
                     <h5 className="trade_box_title_l wc"> <img className='usdt' src={usdt} /> 595.0688355921807 USDT</h5>
                 </div>
                 <div>
-                    <form>
+                    <button className="btn_timex">Transfer</button>
+                    {/* <form>
                         <div className='f_group_l d-flex j_con'>
                             <div className='WC f_g_text alin_c'>
                                 <i class="fa-solid fa-magnifying-glass fa-beat-fade wc"></i> 
                             </div>
                             <input className='search_input ms-2' type='search' placeholder="Search" />
                         </div>
-                    </form>
+                    </form> */}
                 </div>
             </div>
 
