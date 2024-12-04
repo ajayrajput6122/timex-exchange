@@ -47,7 +47,7 @@ const FundingAccountHistory = () => {
   return (
     <>
       <h2 className="title_h2 wc text-center">Funding Account History</h2>
-      <div className="d-flex j_con mb-3">
+      <div className="dflexdw j_con mb-3">
         <div className="alin_c">
           <h5 className="trade_box_title_l wc">
             {" "}

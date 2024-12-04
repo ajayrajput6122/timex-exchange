@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import Overview1 from "../Components/MainAccountHistory";
 import Overview2 from "../Components/TradingAccountHistory";
 import Overview3 from "../Components/FundingAccountHistory";
@@ -7,7 +7,9 @@ import Overview5 from "../Components/AssetsOverview";
 import { useLocation } from "react-router-dom";
 const Overview = () => {
   const location = useLocation();
-
+  const [open, setOpen] = useState(false);
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false)
   const activeTab = location.state?.activeTab || "t";
 
   useEffect(() => {
@@ -140,4 +142,6 @@ const Overview = () => {
   );
 };
 
-export default Overview;
+
+ 
+export default Overview

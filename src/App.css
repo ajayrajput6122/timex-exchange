@@ -1078,6 +1078,8 @@ select.input_l.w-100.wc option {
   box-shadow: -1px 0px 7px var(--box-s);
 }
 
+.dflexdw { display: flex;}
+
 @media (max-width: 1240px) {
   .withdrawhistory {
     width: 1240px;
@@ -1409,6 +1411,9 @@ select.input_l.w-100.wc option {
     width: 241px;
     margin-bottom: 20px;
   }
+
+  
+.dflexdw { display: block;}
 
   .form_btn_prof.d-flex.justify-content-between.mt-4 .btn_login { margin-top: 0px;}
 }
