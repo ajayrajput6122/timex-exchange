@@ -204,7 +204,7 @@ const Withdraw = () => {
                         <h5 className="trade_box_title_l wc">Select a Coin</h5>
                         <div className="f_group_l d-flex j_con">
                           <div
-                            className="custom-dropdown w-100"
+                            className="custom-dropdown cd_o w-100"
                             onClick={() =>
                               setShowCoinDropdown(!showCoinDropdown)
                             }
@@ -220,7 +220,7 @@ const Withdraw = () => {
                                     src={selectedCoin.image}
                                     alt={selectedCoin.coinName}
                                     style={{
-                                      width: "40px",
+                                      width: "30px",
                                       marginRight: "10px",
                                     }}
                                   />
@@ -261,7 +261,7 @@ const Withdraw = () => {
                                         marginRight: "10px",
                                       }}
                                     />
-                                    <span>{coin.coinName}</span>
+                                    <span className="wc">{coin.coinName}</span>
                                   </div>
                                 ))}
                               </div>
@@ -275,7 +275,7 @@ const Withdraw = () => {
                         <h5 className="trade_box_title_l wc">Select Network</h5>
                         <div className="f_group_l d-flex j_con">
                           <div
-                            className="custom-dropdown w-100"
+                            className="custom-dropdown cd_o w-100"
                             onClick={() =>
                               setShowNetworkDropdown(!showNetworkDropdown)
                             }
@@ -291,7 +291,7 @@ const Withdraw = () => {
                                     src={selectedCoin?.image}
                                     alt={selectedNetwork.Network}
                                     style={{
-                                      width: "40px",
+                                      width: "30px",
                                       marginRight: "10px",
                                     }}
                                   />
@@ -334,7 +334,7 @@ const Withdraw = () => {
                                         marginRight: "10px",
                                       }}
                                     />
-                                    <span>{network.Network}</span>
+                                    <span className="wc">{network.Network}</span>
                                   </div>
                                 ))}
                               </div>

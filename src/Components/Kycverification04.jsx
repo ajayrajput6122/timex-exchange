@@ -37,6 +37,7 @@ const Kycverification04 = ({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  
   const handleFileChange = (e, field) => {
     const file = e.target.files[0];
     setFormData((prev) => ({ ...prev, [field]: file }));

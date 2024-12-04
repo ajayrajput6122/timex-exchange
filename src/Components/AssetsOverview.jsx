@@ -3,8 +3,8 @@ import usdt from "../Img/usdt.png";
 import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
 import { AuthContext } from "../Contextapi/Auth";
-import { useNavigate } from "react-router-dom";
-
+import { NavLink, useNavigate } from "react-router-dom";
+import Transfermodul from "./Transfermodul";
 const AssetsOverview = () => {
   const { authData } = useContext(AuthContext);
   const [balance, setBallance] = useState("");
@@ -13,7 +13,9 @@ const AssetsOverview = () => {
   const [fundingbalance, setFundingBallance] = useState("");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [open, setOpen] = useState(false);
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
   const navigate = useNavigate();
 
   const main = () => {
@@ -61,7 +63,7 @@ const AssetsOverview = () => {
   return (
     <>
       <h2 className="title_h022 wc text-center">Assets Overview</h2>
-      <div className="d-flex j_con mb-3">
+      <div className="dflexdw j_con mb-3">
         <div className="alin_c">
           <h5 className="trade_box_title_l wc">
             {" "}
@@ -70,9 +72,10 @@ const AssetsOverview = () => {
           </h5>
         </div>
         <div>
-          <form>
-            <button className="btn_timex">Transfer</button>
-          </form>
+          {/* <form>
+            <button className="btn_timex"  onClick={onOpenModal} >Transfer</button>
+          </form> */}
+          <NavLink className='btn_timex' onClick={onOpenModal}>Transfer</NavLink>
         </div>
         {/* <div>
           <form>
@@ -130,6 +133,15 @@ const AssetsOverview = () => {
           </div>
         </div>
       </div>
+
+      <Transfermodul
+                open={open}
+                onClose={onCloseModal}
+                onCloseModal={onCloseModal}
+            />
+
+
+
     </>
   );
 };

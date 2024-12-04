@@ -211,7 +211,7 @@ const Deposit = () => {
                                       marginRight: "10px",
                                     }}
                                   />
-                                  <span>{coin.coinName}</span>
+                                  <span className="wc">{coin.coinName}</span>
                                 </div>
                               ))}
                             </div>

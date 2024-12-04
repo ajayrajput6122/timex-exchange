@@ -39,6 +39,7 @@ const Overview = React.lazy(() => import("./Pages/Overview"));
 const Hello = React.lazy(() => import("./Pages/hello"));
 const UserDeals = React.lazy(() => import("./Pages/UserDeals"));
 const About = React.lazy(() => import("./Pages/About"));
+const TokenTransactionHistory = React.lazy(() => import("./Pages/TokenTransactionHistory"));
 
 
 const RefundCancellation = React.lazy(() =>
@@ -268,8 +269,17 @@ function App() {
               </Suspense>
             }
           />
+            <Route
+            path="tokenTransactionHistory"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <TokenTransactionHistory />
+              </Suspense>
+            }
+          />
 
           {/* <Route
+          
             path="*"
             element={
               <Suspense fallback={<div>Loading...</div>}>
