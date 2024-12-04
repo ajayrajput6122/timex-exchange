@@ -10,6 +10,7 @@ export default function Kycverification05({ onPrevious }) {
   const navigate = useNavigate();
   const webcamRef = useRef(null);
   const [selfieImage, setSelfieImage] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [imgSrc, setImgSrc] = useState(null);
   const { authData } = useContext(AuthContext);
 
@@ -78,9 +79,12 @@ export default function Kycverification05({ onPrevious }) {
   // }, [webcamRef]);
 
   const uploadSelfieImage = async () => {
+    setLoading(true);
+
     if (!selfieImage) {
       toast.dismiss();
       toast.error("Please capture a selfie first.");
+      setLoading(false);
       return;
     }
 
@@ -111,6 +115,8 @@ export default function Kycverification05({ onPrevious }) {
       toast.error(
         "An error occurred while uploading the selfie. Please try again."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -173,7 +179,9 @@ export default function Kycverification05({ onPrevious }) {
               type="button"
               className="btn_login wc"
               onClick={uploadSelfieImage}
+              disabled={loading}
             >
+              {loading ? <i className="fa fa-spinner fa-spin me-2"></i> : ""}
               Next
             </button>
           </div>

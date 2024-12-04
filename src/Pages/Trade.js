@@ -34,6 +34,8 @@ const Trade = () => {
   const [openTrades, setopenTrades] = useState([]);
   const [pastTrades, setPastTrades] = useState([]);
   const [groupBy, setGroupby] = useState("4");
+  const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const buyTotal = useRef();
@@ -74,11 +76,13 @@ const Trade = () => {
 
   const handleBuy = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       if (buyLimit === "LIMIT") {
         if (!latestPrice || !buyamount) {
           toast.dismiss();
           toast.error("Please fill all feilds");
+          setLoading(false);
           return;
         }
       }
@@ -86,6 +90,7 @@ const Trade = () => {
         if (!buyamount) {
           toast.dismiss();
           toast.error("Please fill Amount");
+          setLoading(false);
           return;
         }
       }
@@ -122,15 +127,19 @@ const Trade = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
   const handleSell = async (e) => {
     e.preventDefault();
+    setLoading1(true);
     try {
       if (sellLimit === "LIMIT") {
         if (!latestPrice || !sellamount) {
           toast.dismiss();
           toast.error("Please fill all feilds");
+          setLoading1(false);
           return;
         }
       }
@@ -138,6 +147,7 @@ const Trade = () => {
         if (!sellamount) {
           toast.dismiss();
           toast.error("Please fill Amount");
+          setLoading1(false);
           return;
         }
       }
@@ -174,6 +184,8 @@ const Trade = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading1(false);
     }
   };
 
@@ -543,7 +555,11 @@ const Trade = () => {
                                   <p className="rate_title wc">
                                     {coin.price.toFixed(4)}
                                   </p>
-                                  <p className="rate_text gc">
+                                  <p
+                                    className={`rate_text ${
+                                      coin.percent_change_24h > 0 ? "gc" : "rc"
+                                    }`}
+                                  >
                                     {coin.percent_change_24h}
                                   </p>
                                 </div>
@@ -605,7 +621,11 @@ const Trade = () => {
                             <td className="t_t_data b_boot wc">
                               {trade.price}
                             </td>
-                            <td className="t_t_data b_boot wc">
+                            <td
+                              className={`t_t_data b_boot wc ${
+                                trade.quantity > 0 ? "gc" : "rc"
+                              }`}
+                            >
                               {trade.quantity}
                             </td>
                             <td className="t_t_data b_boot wc">
@@ -771,7 +791,13 @@ const Trade = () => {
                               <button
                                 className="t_f_btn t_f_btn1 wc w-100"
                                 type="submit"
+                                disabled={loading}
                               >
+                                {loading ? (
+                                  <i className="fa fa-spinner fa-spin me-2"></i>
+                                ) : (
+                                  " "
+                                )}
                                 Buy
                               </button>
                               {/* <button className="t_f_btn t_f_btn2 wc">
@@ -918,7 +944,13 @@ const Trade = () => {
                               <button
                                 className="t_f_btn t_f_btn1 wc w-100"
                                 type="submit"
+                                disabled={loading1}
                               >
+                                {loading1 ? (
+                                  <i className="fa fa-spinner fa-spin me-2"></i>
+                                ) : (
+                                  " "
+                                )}
                                 Sell
                               </button>
                             </div>

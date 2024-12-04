@@ -14,6 +14,7 @@ const Swap = () => {
   const [getAmount, setGetAmount] = useState("");
   const [bal, setBal] = useState("");
   const { authData } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const getTokenList = async () => {
     try {
@@ -64,10 +65,12 @@ const Swap = () => {
 
   const handleSwap = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       if (!payCoin || !getCoin || !payAmount || !getAmount) {
         toast.dismiss();
         toast.error("Please select coin and enter amount");
+        setLoading(false);
         return;
       }
 
@@ -90,12 +93,17 @@ const Swap = () => {
         toast.success(response.data.message);
         setPayAmount("");
         setGetAmount("");
+        setPayCoin("");
+        setGetCoin("");
+        setBal("");
       } else {
         toast.dismiss();
         toast.error(response.data.message);
       }
     } catch (error) {
       console.error("Failed to swap", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -151,7 +159,8 @@ const Swap = () => {
               </div>
               <div>
                 <h5 className="trade_box_title_l wc">
-                  Available Token Balance: {bal?parseFloat(bal).toFixed(4):0}
+                  Available Token Balance:{" "}
+                  {bal ? parseFloat(bal).toFixed(4) : 0}
                 </h5>
               </div>
             </div>
@@ -174,11 +183,13 @@ const Swap = () => {
                         value={payCoin}
                       >
                         <option value="">Select Coin</option>
-                        {dashboardData.map((coin) => (
-                          <option key={coin._id} value={coin.coinName}>
-                            {coin.coinName}
-                          </option>
-                        ))}
+                        {dashboardData
+                          .filter((coin) => coin.coinName !== getCoin)
+                          .map((coin) => (
+                            <option key={coin._id} value={coin.coinName}>
+                              {coin.coinName}
+                            </option>
+                          ))}
                       </select>
                     </div>
                   </div>
@@ -207,17 +218,28 @@ const Swap = () => {
                         value={getCoin}
                       >
                         <option value="">Select Coin</option>
-                        {dashboardData.map((coin) => (
-                          <option key={coin._id} value={coin.coinName}>
-                            {coin.coinName}
-                          </option>
-                        ))}
+                        {dashboardData
+                          .filter((coin) => coin.coinName !== payCoin)
+                          .map((coin) => (
+                            <option key={coin._id} value={coin.coinName}>
+                              {coin.coinName}
+                            </option>
+                          ))}
                       </select>
                     </div>
                   </div>
                 </div>
-                <button className="btn_login wc" type="submit">
-                  <i className="fa-solid fa-id-card fa-shake me-2"></i> Swap
+                <button
+                  className="btn_login wc"
+                  type="submit"
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <i className="fa fa-spinner fa-spin me-2"></i>
+                  ) : (
+                    <i className="fa-solid fa-id-card fa-shake me-2"></i>
+                  )}{" "}
+                  Swap
                 </button>
               </form>
             </div>

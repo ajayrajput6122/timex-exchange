@@ -10,10 +10,10 @@ const PrivacyPolicy = () => {
           <div className="row column-rever_sm">
             <div className="col-lg-6 col-md-6 alin_c text-center">
               <h4 className="sub_title bc">.. Privacy Policy ..</h4>
-              <h2 className="title_h2 wc">Privacy Policy for TomAX</h2>
+              <h2 className="title_h2 wc">Privacy Policy for Tomax</h2>
 
               <p className="text ">
-                Welcome to TomAX.We are committed to protecting your personal
+                Welcome to Tomax.We are committed to protecting your personal
                 information and your right to privacy. This Privacy Policy
                 explains how we collect your personal information, including
                 your name, email address, phone number, payment information,
@@ -39,7 +39,7 @@ const PrivacyPolicy = () => {
               <h4 className="sub_title bc">
                 Email:{" "}
                 <Link>
-                  <span className="wc">tomAX@gmail.com</span>
+                  <span className="wc">Tomax@gmail.com</span>
                 </Link>
               </h4>
             </div>

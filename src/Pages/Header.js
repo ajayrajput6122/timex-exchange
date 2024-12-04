@@ -157,7 +157,7 @@ const Header = () => {
                           </li>
                         </ul>
                       </li>
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <NavLink
                           to="/staking"
                           className={({ isActive }) =>
@@ -166,7 +166,7 @@ const Header = () => {
                         >
                           Staking
                         </NavLink>
-                      </li>
+                      </li> */}
                       <li className="nav-item">
                         <NavLink
                           to="/swap"

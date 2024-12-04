@@ -13,7 +13,7 @@ const HelpCenter = () => {
                     <h4 className='sub_title bc'>.. Help Center ..</h4>
                     <h2 className='title_h2 wc'>Contact with us</h2>
 
-                    <p className='text '>Need help with TomAX ? Visit our Support Center to get in touch with our dedicated support team, available 24/7. For other inquiries, connect with us below.</p>
+                    <p className='text '>Need help with Tomax ? Visit our Support Center to get in touch with our dedicated support team, available 24/7. For other inquiries, connect with us below.</p>
                     <div className='d-flex j_con b_boot'>
                         <p className='text wc'> <span className='wc'> Press Inquiries</span></p>
                         <p className='text '> <span className='gc'> info@timex.io</span></p>

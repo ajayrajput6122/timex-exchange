@@ -13,6 +13,7 @@ import { base_url } from "../ApiService/BaseUrl";
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const getDashboardData = async () => {
     setLoading(true);
@@ -52,6 +53,13 @@ const Dashboard = () => {
     );
   }
 
+  const filteredData = dashboardData.filter((coin) => {
+    return (
+      coin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      coin.symbol.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+
   return (
     <>
       <section className="sec01_d">
@@ -62,14 +70,20 @@ const Dashboard = () => {
               <p className="text">Glorious, not only for your eyes.</p>
             </div>
             <div className="col-lg-3 col-md-4 col-sm-4 alin_c">
-               <form>
-                        <div className='f_group_l d-flex j_con'>
-                            <div className='WC f_g_text alin_c'>
-                                <i class="fa-solid fa-magnifying-glass fa-beat-fade wc"></i> 
-                            </div>
-                            <input className='search_input ms-2' type='search' placeholder="Search" />
-                        </div>
-                    </form> 
+              <form>
+                <div className="f_group_l d-flex j_con">
+                  <div className="WC f_g_text alin_c">
+                    <i class="fa-solid fa-magnifying-glass fa-beat-fade wc"></i>
+                  </div>
+                  <input
+                    className="search_input ms-2"
+                    type="search"
+                    placeholder="Search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+              </form>
             </div>
           </div>
           <div className="row">
@@ -130,7 +144,7 @@ const Dashboard = () => {
                   <th className="table_heading wc b_boot ">Action</th>
                   <th className="table_heading wc b_boot ">Market</th>
                 </tr>
-                {dashboardData.map((coin) => (
+                {filteredData.map((coin) => (
                   <tr key={coin.id}>
                     <td className="table_data b_boot">
                       <div className="d-flex">
@@ -173,13 +187,13 @@ const Dashboard = () => {
                     <td className="table_data b_boot">
                       <NavLink
                         className="table_btn wc me-2"
-                        to={`/trade?symbol=${coin.symbol}`}
+                        to={`/trade?symbol=${coin.symbol}USDT`}
                       >
                         Trade
                       </NavLink>
                       <NavLink
                         className="table_btn wc"
-                        to={`/trade?symbol=${coin.symbol}`}
+                        to={`/trade?symbol=${coin.symbol}USDT`}
                       >
                         Buy/Sell
                       </NavLink>

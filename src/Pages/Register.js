@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import email2 from "../Img/email2.png";
 import Mobile from "../Img/email-marketing.png";
 import Loginbg from "../Img/qr_code_img_bg.png";
@@ -15,6 +15,7 @@ const Register = () => {
   const params = new URLSearchParams(location.search);
   const sponsorId = params.get("sponsorId");
   const { saveAuthData } = useContext(AuthContext);
+  const [timer, setTimer] = useState(0);
   const [formData, setFormData] = useState({
     sponser_id: sponsorId ? sponsorId : "",
     email: "",
@@ -56,6 +57,7 @@ const Register = () => {
       if (response.data.success) {
         toast.dismiss();
         toast.success(response.data.message);
+        setTimer(180);
       } else {
         toast.dismiss();
         toast.error(response.data.message);
@@ -108,6 +110,15 @@ const Register = () => {
       console.error("Registeration failed", error);
     }
   };
+
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer]);
 
   return (
     <>
@@ -216,13 +227,21 @@ const Register = () => {
                               autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
-                              <span
-                                className="otp_btn"
-                                type="button"
-                                onClick={handleOtpClick}
-                              >
-                                OTP
-                              </span>
+                              {timer > 0 ? (
+                                <span className="otp_btn wc">{`${Math.floor(
+                                  timer / 60
+                                )}:${timer % 60 < 10 ? "0" : ""}${
+                                  timer % 60
+                                }`}</span>
+                              ) : (
+                                <span
+                                  className="otp_btn wc"
+                                  type="button"
+                                  onClick={handleOtpClick}
+                                >
+                                  OTP
+                                </span>
+                              )}
                             </h4>
                           </div>
                         </div>
@@ -295,24 +314,24 @@ const Register = () => {
                             </h4>
                           </div>
                         </div>
-                          <div className="form_t">
-                            <h5 className="trade_box_title_l wc">
-                              Sponsor Id (Optional)
-                            </h5>
-                            <div className="f_group_l d-flex j_con">
-                              <input
-                                type="text"
-                                name="sponser_id"
-                                value={sponsorId}
-                                onChange={handleChange}
-                                className="input_l w-100 wc"
-                                autoComplete="off"
-                              />
-                              <h4 className="WC f_g_text alin_c">
-                                <i class="fa-solid fa-user fa-beat"></i>
-                              </h4>
-                            </div>
+                        <div className="form_t">
+                          <h5 className="trade_box_title_l wc">
+                            Sponsor Id (Optional)
+                          </h5>
+                          <div className="f_group_l d-flex j_con">
+                            <input
+                              type="text"
+                              name="sponser_id"
+                              value={sponsorId}
+                              onChange={handleChange}
+                              className="input_l w-100 wc"
+                              autoComplete="off"
+                            />
+                            <h4 className="WC f_g_text alin_c">
+                              <i class="fa-solid fa-user fa-beat"></i>
+                            </h4>
                           </div>
+                        </div>
                         {/* <div className="form_t mt-4">
                           <h5 className="trade_box_title_l wc">
                             Referral Code (Optional)

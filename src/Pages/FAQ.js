@@ -20,7 +20,7 @@ const FAQ = () => {
               <h2 className="title_h2 wc">FAQ</h2>
               <p className="text ">
                 Feeling overwhelmed by crypto? Our FAQ section is here to guide
-                you through the world of TomAX. Find clear, step-by-step answers
+                you through the world of Tomax. Find clear, step-by-step answers
                 and uncover the mysteries of crypto with ease. Let’s navigate
                 this adventure together!
               </p>
@@ -47,7 +47,7 @@ const FAQ = () => {
                       aria-controls="home"
                       aria-selected="true"
                     >
-                      TomAX
+                      Tomax
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
@@ -97,7 +97,7 @@ const FAQ = () => {
                             aria-expanded="true"
                             aria-controls="collapseOne"
                           >
-                            Want to join TomAX?
+                            Want to join Tomax?
                           </button>
                         </h2>
                         <div
@@ -136,7 +136,7 @@ const FAQ = () => {
                             aria-expanded="false"
                             aria-controls="collapseTwo"
                           >
-                            Getting Your TomAX Wallets Ready for Investment
+                            Getting Your Tomax Wallets Ready for Investment
                           </button>
                         </h2>
                         <div
@@ -147,7 +147,7 @@ const FAQ = () => {
                         >
                           <div class="accordion-body">
                             <p>
-                              Once you’ve signed up with TomAX, you’ll receive
+                              Once you’ve signed up with Tomax, you’ll receive
                               three wallets to manage your crypto assets. To get
                               these wallets ready for your investments, start by
                               navigating to the Transactions tab and selecting
@@ -185,14 +185,14 @@ const FAQ = () => {
                         >
                           <div class="accordion-body">
                             <p>
-                              Withdrawing your assets from TomAX is
+                              Withdrawing your assets from Tomax is
                               straightforward. Simply go to the "Wallet" tab,
                               click "Withdraw," and select the asset you wish to
                               withdraw. Enter the required details, complete our
                               2FA security process, and you’re all set. After
                               submission, you'll receive a confirmation
                               notification for your successful withdrawal. Rest
-                              assured, at TomAX, your security is our top
+                              assured, at Tomax, your security is our top
                               priority, so your assets are always in safe hands.
                             </p>
                           </div>
@@ -258,13 +258,13 @@ const FAQ = () => {
                         >
                           <div class="accordion-body">
                             <p>
-                              Don’t worry—TomAX is here to guide you through
+                              Don’t worry—Tomax is here to guide you through
                               every step of the journey. Our platform is
                               designed with newcomers in mind, ensuring a smooth
                               and intuitive introduction to crypto investing. If
                               you ever feel unsure, our comprehensive guides are
                               available to help you get up to speed quickly.
-                              Ready to start this exciting adventure? Join TomAX
+                              Ready to start this exciting adventure? Join Tomax
                               today and explore the captivating world of crypto
                               with us!
                             </p>
@@ -293,7 +293,7 @@ const FAQ = () => {
                           <div class="accordion-body">
                             <p>
                               Yes, trading crypto does come with inherent risks.
-                              However, at TomAX, we’re dedicated to safeguarding
+                              However, at Tomax, we’re dedicated to safeguarding
                               your funds. We follow industry-standard security
                               protocols and adhere to regulatory requirements to
                               minimize these risks. While uncertainty is part of

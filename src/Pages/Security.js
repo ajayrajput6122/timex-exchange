@@ -14,10 +14,10 @@ const Security = () => {
             <div className="col-lg-6 col-md-7 col-sm-7 alin_c text-center">
               <h4 className="sub_title bc">.. Security ..</h4>
               <h2 className="title_h2 wc">
-                Security at TomAX Your Crypto’s Safety is Our Top Priority
+                Security at Tomax Your Crypto’s Safety is Our Top Priority
               </h2>
               <p className="text ">
-                At TomAX, we take security seriously. Our multi-layered security
+                At Tomax, we take security seriously. Our multi-layered security
                 system includes advanced firewalls and real-time detection of
                 suspicious activities to keep your assets safe.
               </p>
@@ -27,7 +27,7 @@ const Security = () => {
                 is always on alert to address any potential issues promptly.
               </p>
               <p className="text ">
-                For a secure and reliable crypto exchange, choose TomAX. Focus
+                For a secure and reliable crypto exchange, choose Tomax. Focus
                 on your crypto journey with peace of mind, knowing we’ve got
                 your back.
               </p>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
@@ -9,6 +9,7 @@ const Forgotpassword = () => {
   const { logout } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [timer, setTimer] = useState(0);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -47,6 +48,7 @@ const Forgotpassword = () => {
       if (response.data.success) {
         toast.dismiss();
         toast.success(response.data.message);
+        setTimer(180);
       } else {
         toast.dismiss();
         toast.error(response.data.message);
@@ -98,6 +100,15 @@ const Forgotpassword = () => {
     }
   };
 
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer]);
+
   return (
     <>
       <section className="sec01_login">
@@ -135,13 +146,19 @@ const Forgotpassword = () => {
                     autoComplete="off"
                   />
                   <h4 className="WC f_g_text alin_c">
-                    <span
-                      className="otp_btn wc"
-                      type="button"
-                      onClick={handleOtpClick}
-                    >
-                      OTP
-                    </span>
+                    {timer > 0 ? (
+                      <span className="otp_btn wc">{`${Math.floor(
+                        timer / 60
+                      )}:${timer % 60 < 10 ? "0" : ""}${timer % 60}`}</span>
+                    ) : (
+                      <span
+                        className="otp_btn wc"
+                        type="button"
+                        onClick={handleOtpClick}
+                      >
+                        OTP
+                      </span>
+                    )}
                   </h4>
                 </div>
               </div>
@@ -201,7 +218,10 @@ const Forgotpassword = () => {
                 Forgot Password{" "}
               </button>
               <h5 className="text text-center mt-4">
-              Have an account? <Link className="wc" to={'/login'}>Log In here</Link>
+                Have an account?{" "}
+                <Link className="wc" to={"/login"}>
+                  Log In here
+                </Link>
               </h5>
             </form>
           </div>

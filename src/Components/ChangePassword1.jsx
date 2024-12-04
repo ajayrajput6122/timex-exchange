@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
@@ -6,6 +6,7 @@ import axios from "axios";
 const ChangePassword1 = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [timer, setTimer] = useState(0);
   const [formData, setFormData] = useState({
     email: "",
     otp: "",
@@ -42,6 +43,7 @@ const ChangePassword1 = () => {
       if (response.data.success) {
         toast.dismiss();
         toast.success(response.data.message);
+        setTimer(180);
       } else {
         toast.dismiss();
         toast.error(response.data.message);
@@ -52,6 +54,15 @@ const ChangePassword1 = () => {
       console.error("Failed to request OTP", error);
     }
   };
+
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer]);
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
@@ -129,13 +140,19 @@ const ChangePassword1 = () => {
                   autoComplete="off"
                 />
                 <h4 className="WC f_g_text alin_c">
-                  <span
-                    className="otp_btn wc"
-                    type="button"
-                    onClick={handleOtpClick}
-                  >
-                    OTP
-                  </span>
+                  {timer > 0 ? (
+                    <span className="otp_btn wc">{`${Math.floor(
+                      timer / 60
+                    )}:${timer % 60 < 10 ? "0" : ""}${timer % 60}`}</span>
+                  ) : (
+                    <span
+                      className="otp_btn wc"
+                      type="button"
+                      onClick={handleOtpClick}
+                    >
+                      OTP
+                    </span>
+                  )}
                 </h4>
               </div>
             </div>

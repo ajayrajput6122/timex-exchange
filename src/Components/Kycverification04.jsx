@@ -12,13 +12,13 @@ const Kycverification04 = ({
   onPrevious,
 }) => {
   const { authData } = useContext(AuthContext);
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     documentType: "",
     documentNumber: "",
-    frontImageFile: frontImage, // Set the initial image as prop
-    backImageFile: backImage, // Set the initial image as prop
+    frontImageFile: frontImage,
+    backImageFile: backImage,
   });
 
   console.log(frontImage);
@@ -42,6 +42,80 @@ const Kycverification04 = ({
     setFormData((prev) => ({ ...prev, [field]: file }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const { documentType, documentNumber, frontImageFile, backImageFile } =
+      formData;
+
+    if (!documentType || !documentNumber || !frontImageFile || !backImageFile) {
+      toast.dismiss();
+      toast.error("Please fill all fields and upload both images.");
+      setLoading(false);
+      return;
+    }
+
+    const requestData = {
+      documentType,
+      documentNumber,
+    };
+
+    try {
+      // First API call to submit document details
+      const docDetailsResponse = await axios.post(
+        `${base_url}/api/doc_details`,
+        requestData,
+        {
+          headers: {
+            authorization: authData?.token,
+          },
+        }
+      );
+
+      if (docDetailsResponse.data.success !== 1) {
+        toast.dismiss();
+        toast.error(
+          docDetailsResponse.data.message || "Error while updating doc details."
+        );
+        setLoading(false);
+        return; // Stop further execution if the document details API fails
+      }
+
+      // Second API call to upload proof images
+      const uploadProofResponse = await uploadProofImages(
+        frontImageFile,
+        backImageFile
+      );
+
+      if (uploadProofResponse?.success !== 1) {
+        toast.dismiss();
+        console.log(uploadProofResponse,"---");
+        toast.error(
+          uploadProofResponse?.message ||
+            "Error while uploading proof documents."
+        );
+        setLoading(false);
+        return; // Stop further execution if the image upload API fails
+      }
+
+      // If both API calls succeed, show only one success message
+      toast.dismiss();
+      toast.success("Documents uploaded successfully!");
+
+      // Proceed to the next page
+      onNext(requestData, frontImageFile, backImageFile);
+    } catch (error) {
+      console.error("Error during API calls:", error);
+      toast.dismiss();
+      toast.error(
+        error.response?.data?.message ||  error.message|| "An error occurred. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const uploadProofImages = async (frontImageFile, backImageFile) => {
     const formData = new FormData();
     formData.append("documentFront", frontImageFile);
@@ -60,65 +134,116 @@ const Kycverification04 = ({
       );
 
       if (response.data.success === 1) {
-        // toast.dismiss();
-        console.log(response.data.message);
+        return response.data; // Return the response for further validation
       } else {
-        console.error(
-          response.data.message || "Error while uploading proof documents"
-        );
+        return response.data;
       }
     } catch (error) {
       console.error("Error during image upload:", error);
+      return null; // Return null in case of error
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true); // Show loader
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
 
-    const { documentType, documentNumber, frontImageFile, backImageFile } =
-      formData;
+  //   const { documentType, documentNumber, frontImageFile, backImageFile } =
+  //     formData;
 
-    if (!documentType || !documentNumber || !frontImageFile || !backImageFile) {
-      toast.dismiss();
-      toast.error("Please fill all fields and upload both images.");
-      setLoading(false); // Stop loader on validation failure
-      return;
-    }
+  //   if (!documentType || !documentNumber || !frontImageFile || !backImageFile) {
+  //     toast.dismiss();
+  //     toast.error("Please fill all fields and upload both images.");
+  //     setLoading(false);
+  //     return;
+  //   }
 
-    const requestData = {
-      documentType: documentType,
-      documentNumber: documentNumber,
-    };
+  //   const requestData = {
+  //     documentType: documentType,
+  //     documentNumber: documentNumber,
+  //   };
 
-    try {
-      const response = await axios.post(
-        `${base_url}/api/doc_details`,
-        requestData,
-        {
-          headers: {
-            authorization: authData?.token,
-          },
-        }
-      );
+  //   try {
+  //     // First API call to submit document details
+  //     const docDetailsResponse = await axios.post(
+  //       `${base_url}/api/doc_details`,
+  //       requestData,
+  //       {
+  //         headers: {
+  //           authorization: authData?.token,
+  //         },
+  //       }
+  //     );
 
-      if (response.data.success === 1) {
-        toast.dismiss();
-        toast.success(response.data.message);
-        await uploadProofImages(frontImageFile, backImageFile);
-        onNext(requestData, frontImageFile, backImageFile); // Pass images to parent
-      } else {
-        toast.dismiss();
-        toast.error(
-          response.data.message || "Error while updating doc details."
-        );
-      }
-    } catch (error) {
-      console.error("Error during document details API call:", error);
-    } finally {
-      setLoading(false); // Stop loader
-    }
-  };
+  //     if (docDetailsResponse.data.success !== 1) {
+  //       toast.dismiss();
+  //       toast.error(
+  //         docDetailsResponse.data.message || "Error while updating doc details."
+  //       );
+  //       setLoading(false);
+  //       return;
+  //     }
+
+  //     toast.dismiss();
+  //     toast.success(docDetailsResponse.data.message);
+
+  //     const uploadProofResponse = await uploadProofImages(
+  //       frontImageFile,
+  //       backImageFile
+  //     );
+
+  //     if (uploadProofResponse?.success !== 1) {
+  //       toast.dismiss();
+  //       toast.error(
+  //         uploadProofResponse?.message ||
+  //           "Error while uploading proof documents."
+  //       );
+  //       setLoading(false);
+  //       return;
+  //     }
+
+  //     toast.dismiss();
+  //     toast.success("Documents uploaded successfully!");
+
+  //     onNext(requestData, frontImageFile, backImageFile);
+  //   } catch (error) {
+  //     console.error("Error during API calls:", error);
+  //     toast.dismiss();
+  //     toast.error("An error occurred. Please try again.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  // const uploadProofImages = async (frontImageFile, backImageFile) => {
+  //   const formData = new FormData();
+  //   formData.append("documentFront", frontImageFile);
+  //   formData.append("documentBack", backImageFile);
+
+  //   try {
+  //     const response = await axios.post(
+  //       `${base_url}/api/upload_proof_images`,
+  //       formData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //           authorization: authData?.token,
+  //         },
+  //       }
+  //     );
+
+  //     if (response.data.success === 1) {
+  //       return response.data; // Return the response for further validation
+  //     } else {
+  //       throw new Error(
+  //         response.data.message || "Error while uploading proof documents."
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during image upload:", error);
+  //     return null; // Return null in case of error
+  //   }
+  // };
 
   return (
     <>
@@ -169,6 +294,15 @@ const Kycverification04 = ({
                     value={formData.documentNumber}
                     onChange={handleChange}
                     autoComplete="off"
+                    placeholder={
+                      formData.documentType === "adhaar_card"
+                        ? "1234-5678-9012" // Example Aadhar format
+                        : formData.documentType === "licence"
+                        ? "DL-XX-YYYY-1234567" // Example License format
+                        : formData.documentType === "passport"
+                        ? "A1234567" // Example Passport format
+                        : "Enter Document Number"
+                    }
                   />
                   <h4 className="WC f_g_text alin_c">
                     <i className="fa-solid fa-id-card fa-beat wc"></i>
@@ -253,7 +387,8 @@ const Kycverification04 = ({
               onClick={handleSubmit}
               disabled={loading}
             >
-              {loading ? "Submitting..." : "Next"}
+              {loading ? <i className="fa fa-spinner fa-spin me-2"></i> : ""}
+              Next
             </button>
           </div>
         </form>

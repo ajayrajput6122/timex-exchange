@@ -3,21 +3,36 @@ import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { base_url } from "../ApiService/BaseUrl";
 import { AuthContext } from "../Contextapi/Auth";
+import ReactPhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const Kycverification01 = ({ data, onNext }) => {
   const { authData } = useContext(AuthContext);
   const [country, setCountry] = useState([]);
-  const [formData, setFormData] = useState(data || {
-    firstname: "",
-    lastname: "",
-    country: "",
-    address: "",
-    gender: "",
-  });
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState(
+    data || {
+      firstname: "",
+      lastname: "",
+      country: "",
+      address: "",
+      gender: "",
+      country_code: "",
+      phone: "",
+    }
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handlePhoneChange = (value, countryData, formattedValue) => {
+    setFormData((prev) => ({
+      ...prev,
+      phone: value,
+      country_code: countryData.dialCode,
+    }));
   };
 
   const getCountry = async () => {
@@ -27,23 +42,27 @@ const Kycverification01 = ({ data, onNext }) => {
         setCountry(response.data);
       }
     } catch (error) {
-      toast.error('--');
+      toast.error("--");
       console.error("Country Data failed", error);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (
       !formData.firstname ||
       !formData.lastname ||
       !formData.country ||
       !formData.address ||
-      !formData.gender
+      !formData.gender ||
+      !formData.phone ||
+      !formData.country_code
     ) {
       toast.dismiss();
       toast.error("Please fill in all fields");
+      setLoading(false);
       return;
     }
 
@@ -68,6 +87,8 @@ const Kycverification01 = ({ data, onNext }) => {
     } catch (error) {
       toast.dismiss();
       console.error("Submitation failed", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -115,6 +136,24 @@ const Kycverification01 = ({ data, onNext }) => {
                     </h4>
                   </div>
                 </div>
+                <div className="form_t">
+                  <h5 className="trade_box_title_l wc">Phone Number</h5>
+                  <div className="f_group_l d-flex j_con">
+                    <ReactPhoneInput
+                      country={"in"}
+                      value={formData.phone}
+                      onChange={handlePhoneChange}
+                      inputStyle={{
+                        width: "100%",
+                        paddingLeft: "40px",
+                        borderRadius: "5px",
+                      }}
+                    />
+                    {/* <h4 className="WC f_g_text alin_c">
+                      <i className="fa-solid fa-user-pen fa-beat wc"></i>
+                    </h4> */}
+                  </div>
+                </div>
                 {/* <div className="form_t">
                 <h5 className="trade_box_title_l wc">Mobile Number</h5>
                 <div className="f_group_l d-flex j_con">
@@ -151,9 +190,14 @@ const Kycverification01 = ({ data, onNext }) => {
                       name="country"
                       onChange={handleChange}
                     >
-                      <option  selected value={''}>Select Country</option>
+                      <option selected value={""}>
+                        Select Country
+                      </option>
                       {country?.map((country) => (
-                        <option className="jkhefhwhe" value={country.name.common}>
+                        <option
+                          className="jkhefhwhe"
+                          value={country.name.common}
+                        >
                           {country.name.common}
                         </option>
                       ))}
@@ -179,8 +223,6 @@ const Kycverification01 = ({ data, onNext }) => {
                     </h4>
                   </div>
                 </div>
-              </div>
-              <div className="col-lg-6 col-md-6 col-sm-6 ">
                 <div className="form_t mt-3">
                   <h5 className="trade_box_title_l wc">Gender</h5>
                   <input
@@ -203,11 +245,35 @@ const Kycverification01 = ({ data, onNext }) => {
                   <label className="02lable ms-2"> Female</label>
                 </div>
               </div>
+              {/* <div className="col-lg-6 col-md-6 col-sm-6 ">
+                <div className="form_t mt-3">
+                  <h5 className="trade_box_title_l wc">Gender</h5>
+                  <input
+                    className="radio_i"
+                    type="radio"
+                    name="gender"
+                    value="Male"
+                    checked={formData.gender === "Male"}
+                    onChange={handleChange}
+                  />
+                  <label className="02lable mx-2"> Male</label>
+                  <input
+                    className="radio_i"
+                    type="radio"
+                    name="gender"
+                    value="Female"
+                    checked={formData.gender === "Female"}
+                    onChange={handleChange}
+                  />
+                  <label className="02lable ms-2"> Female</label>
+                </div>
+              </div> */}
               <div className="col-lg-6 col-md-6 col-sm-6 "></div>
             </div>
             <div className="form_btn_prof">
-              <button type="submit" className="btn_login wc">
-              Next
+              <button type="submit" className="btn_login wc" disabled={loading}>
+                {loading ? <i className="fa fa-spinner fa-spin me-2"></i> : ""}{" "}
+                Next
               </button>
             </div>
           </div>

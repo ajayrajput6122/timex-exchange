@@ -9,11 +9,15 @@ const ReferralBonus = () => {
 
   const getSponsors = async () => {
     try {
-      const response = await axios.get(`${base_url}/api/get_sponser`, {
-        headers: {
-          Authorization: authData?.token,
-        },
-      });
+      const response = await axios.post(
+        `${base_url}/api/get_referral_member`,
+        {},
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
       if (response.data.success) {
         setSponsors(response.data);
       }
@@ -32,25 +36,33 @@ const ReferralBonus = () => {
         <div className="col-lg-3 col-md-6 col-sm-6 mt-3">
           <div className="p_box_k">
             <h4 className="sec4_box_title wc mt-0">Invite Bonus</h4>
-            <p className="sec4_box_text">{sponsors?.referralAmount?sponsors?.referralAmount:'-'}</p>
+            <p className="sec4_box_text">
+              {sponsors?.referralTotalAmount ? parseFloat(sponsors?.referralTotalAmount).toFixed(2) : "-"}
+            </p>
           </div>
         </div>
         <div className="col-lg-3 col-md-6 col-sm-6 mt-3">
           <div className="p_box_k">
             <h4 className="sec4_box_title wc mt-0">Invited Users</h4>
-            <p className="sec4_box_text">{sponsors?.alluser?sponsors?.alluser:"-" }</p>
+            <p className="sec4_box_text">
+              {sponsors?.totalMember ? sponsors?.totalMember : "-"}
+            </p>
           </div>
         </div>
         <div className="col-lg-3 col-md-6 col-sm-6 mt-3">
           <div className="p_box_k">
             <h4 className="sec4_box_title wc mt-0">KYC Bonus</h4>
-            <p className="sec4_box_text">{sponsors?.selfAmount?sponsors?.selfAmount:'-'}</p>
+            <p className="sec4_box_text">
+              {sponsors?.selfTotalAmount ? parseFloat(sponsors?.selfTotalAmount).toFixed(4) : "-"}
+            </p>
           </div>
         </div>
         <div className="col-lg-3 col-md-6 col-sm-6 mt-3">
           <div className="p_box_k">
             <h4 className="sec4_box_title wc mt-0">Approved Users</h4>
-            <p className="sec4_box_text">{sponsors?.approvedUser?sponsors?.approvedUser:"-"}</p>
+            <p className="sec4_box_text">
+              {sponsors?.approvedMember ? sponsors?.approvedMember : "-"}
+            </p>
           </div>
         </div>
       </div>
@@ -69,8 +81,9 @@ const ReferralBonus = () => {
               <th className="t_t_heading wc b_boot"> Type</th>
               <th className="t_t_heading wc b_boot"> Date & Time</th>
             </tr>
-            {sponsors.referralTransactions && sponsors.referralTransactions.length > 0 ? (
-              sponsors.referralTransactions.map((referral, index) => (
+            {sponsors.selfdata &&
+            sponsors.selfdata.length > 0 ? (
+              sponsors.selfdata.map((referral, index) => (
                 <tr key={referral.id}>
                   <td className="t_t_data b_boot wc">{index + 1}</td>
                   <td className="t_t_data b_boot wc">{referral.username}</td>

@@ -115,14 +115,14 @@ function App() {
                 </Suspense>
               }
             />
-            <Route
+            {/* <Route
               path="staking"
               element={
                 <Suspense fallback={<div>Loading...</div>}>
                   <Staking />
                 </Suspense>
               }
-            />
+            /> */}
             <Route
               path="swap"
               element={

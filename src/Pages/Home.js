@@ -45,10 +45,10 @@ const Home = () => {
           <div className="banner_w text-center">
             <h1 className="baner_title wc">
               Discover Seamless Exchanges for Your Digital Coins{" "}
-              <span className="bc timex">TomAX</span>
+              <span className="bc timex">Tomax</span>
             </h1>
             <p className="text">
-              Experience top-notch trading with TomAX, the leading crypto
+              Experience top-notch trading with Tomax, the leading crypto
               exchange. Start trading with us today and take your investment
               journey to the next level!
             </p>
@@ -61,7 +61,7 @@ const Home = () => {
               </Link>
             ) : (
               <NavLink to="/register" className="btn_timex d-inline-block">
-                Join TomAX
+                Join Tomax
               </NavLink>
             )}
           </div>
@@ -206,7 +206,7 @@ const Home = () => {
               <h2 className="title_h2 wc">Get the App Now</h2>
               <p className="text ">
                 Don't miss out on the opportunity to dive into the future of
-                finance with TomAX ! Trade swiftly on the go and access our
+                finance with Tomax ! Trade swiftly on the go and access our
                 platform anytime, anywhere. Live without limits." Join us today
                 and experience the freedom and flexibility to trade whenever and
                 wherever inspiration strikes.

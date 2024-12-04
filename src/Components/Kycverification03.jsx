@@ -6,6 +6,7 @@ import { AuthContext } from "../Contextapi/Auth";
 
 const Kycverification03 = ({ data, onNext, onPrevious, panImageFile }) => {
   const { authData } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(
     data || {
       pan_number: "",
@@ -23,50 +24,43 @@ const Kycverification03 = ({ data, onNext, onPrevious, panImageFile }) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
       setPanImage(selectedFile);
-      const imageFormData = new FormData();
-      imageFormData.append("pan_image", selectedFile);
-
-      try {
-        const response = await axios.post(
-          `${base_url}/api/upload_pan_image`,
-          imageFormData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: authData?.token,
-            },
-          }
-        );
-
-        if (response.data.success === 1) {
-          // toast.dismiss();
-          console.log(response.data.message);
-        } else {
-          // toast.dismiss();
-          console.error(response.data.message);
-        }
-      } catch (error) {
-        console.error("Image upload failed", error);
-        toast.error("Image upload failed");
-      }
     }
   };
 
   const handleNext = async () => {
+    setLoading(true);
+
     if (!formData.pan_number || !formData.confirmpan_number || !panImage) {
       toast.dismiss();
       toast.error("Please fill in all fields");
+      setLoading(false);
       return;
     }
 
     if (formData.pan_number !== formData.confirmpan_number) {
       toast.dismiss();
       toast.error("PAN card numbers do not match");
+      setLoading(false);
       return;
     }
 
     try {
-      const response = await axios.post(
+      // Prepare data for the image upload API
+      const imageFormData = new FormData();
+      imageFormData.append("pan_image", panImage);
+
+      const uploadImagePromise = axios.post(
+        `${base_url}/api/upload_pan_image`,
+        imageFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: authData?.token,
+          },
+        }
+      );
+
+      const submitDetailsPromise = axios.post(
         `${base_url}/api/pan_details`,
         { ...formData, pan_image: panImage },
         {
@@ -76,16 +70,35 @@ const Kycverification03 = ({ data, onNext, onPrevious, panImageFile }) => {
         }
       );
 
-      if (response.data.success) {
-        toast.dismiss();
-        toast.success(response.data.message);
-        onNext(formData, panImage); // Pass image to parent
-      } else {
-        toast.dismiss();
-        toast.error(response.data.message);
+      const [imageResponse, detailsResponse] = await Promise.all([
+        uploadImagePromise,
+        submitDetailsPromise,
+      ]);
+
+      if (imageResponse.data.success !== 1) {
+        throw new Error(imageResponse.data.message || "Image upload failed");
       }
+
+      if (!detailsResponse.data.success) {
+        throw new Error(
+          detailsResponse.data.message || "PAN details submission failed"
+        );
+      }
+
+      // Success: Navigate to the next step
+      toast.dismiss();
+      toast.success("PAN details submitted successfully");
+      onNext(formData, panImage);
     } catch (error) {
       console.error("Submission failed", error);
+      toast.dismiss();
+      toast.error(
+        error.response?.data?.message ||
+          error.message ||
+          "An error occurred during submission"
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -159,14 +172,14 @@ const Kycverification03 = ({ data, onNext, onPrevious, panImageFile }) => {
                     </div>
                   </div>
                   {panImage && (
-                      <div className="text-center mt-3">
-                        <img
-                          src={URL.createObjectURL(panImage)}
-                          alt="panImage"
-                          width="200"
-                        />
-                      </div>
-                    )}
+                    <div className="text-center mt-3">
+                      <img
+                        src={URL.createObjectURL(panImage)}
+                        alt="panImage"
+                        width="200"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -182,7 +195,9 @@ const Kycverification03 = ({ data, onNext, onPrevious, panImageFile }) => {
                 type="button"
                 className="btn_login wc"
                 onClick={handleNext}
+                disabled={loading}
               >
+                {loading ? <i className="fa fa-spinner fa-spin me-2"></i> : ""}{" "}
                 Next
               </button>
             </div>

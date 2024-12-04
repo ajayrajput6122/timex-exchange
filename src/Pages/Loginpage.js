@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import email2 from "../Img/email2.png";
 import Mobile from "../Img/email-marketing.png";
 import Loginbg from "../Img/qr_code_img_bg.png";
@@ -12,6 +12,7 @@ import { AuthContext } from "../Contextapi/Auth";
 const Login = () => {
   const { saveAuthData } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+  const [timer, setTimer] = useState(0);
   const [formData, setFormData] = useState({
     email: "",
     otp: "",
@@ -44,6 +45,7 @@ const Login = () => {
       if (response.data.success) {
         toast.dismiss();
         toast.success(response.data.message);
+        setTimer(180);
       } else {
         toast.dismiss();
         toast.error(response.data.message);
@@ -88,11 +90,20 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer]);
+
   return (
     <>
       <section className="sec01_login">
         <div className="container">
-        <h2 class="title_h2 wc text-center title_h2_mb"> Login</h2>
+          <h2 class="title_h2 wc text-center title_h2_mb"> Login</h2>
           <div className="row column-rever_sm">
             <div className="col-lg-6 col-md-6">
               <div className="login_box">
@@ -173,13 +184,21 @@ const Login = () => {
                               autoComplete="off"
                             />
                             <h4 className="WC f_g_text alin_c">
-                              <span
-                                className="otp_btn"
-                                type="button"
-                                onClick={handleOtpClick}
-                              >
-                                OTP
-                              </span>
+                              {timer > 0 ? (
+                                <span className="otp_btn wc">{`${Math.floor(
+                                  timer / 60
+                                )}:${timer % 60 < 10 ? "0" : ""}${
+                                  timer % 60
+                                }`}</span>
+                              ) : (
+                                <span
+                                  className="otp_btn wc"
+                                  type="button"
+                                  onClick={handleOtpClick}
+                                >
+                                  OTP
+                                </span>
+                              )}
                             </h4>
                           </div>
                         </div>
@@ -210,7 +229,9 @@ const Login = () => {
                           </div>
                         </div>
                         <h5 className="trade_box_title_l wc text-end">
-                          <NavLink className={'wc'} to={'/forgotpassword'}>Forgot Password?</NavLink>
+                          <NavLink className={"wc"} to={"/forgotpassword"}>
+                            Forgot Password?
+                          </NavLink>
                         </h5>
 
                         <button className="btn_login wc" type="submit">
@@ -218,7 +239,10 @@ const Login = () => {
                           Login
                         </button>
                         <h5 className="text text-center mt-4">
-                          Don't have an account? <Link to='/register' className="wc">Register</Link>
+                          Don't have an account?{" "}
+                          <Link to="/register" className="wc">
+                            Register
+                          </Link>
                         </h5>
                       </form>
                     </div>
