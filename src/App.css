@@ -1040,6 +1040,11 @@ select.input_l.w-100.wc option {
   margin: auto;
 }
 
+.popup_bg { background-color: var(--primary-color);
+            }
+
+.popup_main {z-index: 99999999 !important;}
+
 /* .btn_t02:hover { color: var(--secondary-color) !important;} */
 
 .sec01_staking {
@@ -1453,4 +1458,28 @@ select.input_l.w-100.wc option {
 
  .popup_main { z-index: 999999999999999999999999 !important;}
 
+ .table_link_btn {
+  background: #C38807;
+  color: #fff;
+  border-radius: 4px;
+  padding: 1px 5px;}
 
+  ul.ant-pagination.css-1x0dypw {
+    justify-content: center;
+    padding-top: 10px !important;
+}
+
+.anticon.anticon-left svg, .anticon.anticon-right svg { fill: var(--sec-bg);}
+
+li.ant-pagination-item.ant-pagination-item-1.ant-pagination-item-active {
+  background: #C38807;
+  border: none;
+  color: #fff;
+}
+
+.ant-select-selector { background-color: #C38807;}
+
+.ant-select-selection-search-input { color: #fff !important;}
+
+
+ /* option:hover { background-color: red !important;} */

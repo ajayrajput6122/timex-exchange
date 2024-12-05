@@ -10,7 +10,7 @@ const TransferModal = ({ isOpen, onClose }) => {
     left: 0,
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: "rgb(77 76 76 / 36%)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -19,7 +19,7 @@ const TransferModal = ({ isOpen, onClose }) => {
 
   // Styles for modal content
   const modalContentStyle = {
-    background: "#ffffff",
+    // background: "#ffffff",
     borderRadius: "8px",
     width: "90%",
     maxWidth: "500px",
@@ -58,14 +58,14 @@ const TransferModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div style={overlayStyle} onClick={handleOverlayClick}>
-      <div style={modalContentStyle}>
+    <div className="popup_main" style={overlayStyle} onClick={handleOverlayClick}>
+      <div className="popup_bg" style={modalContentStyle}>
         <div className="d-flex justify-content-between">
-          <h4 style={{ margin: "0 0 20px", fontSize: "1.5rem", color: "#333" }}>
+          <h4 className="wc" style={{ margin: "0 0 20px", fontSize: "1.5rem", color: "#333" }}>
             Transfer Funds
           </h4>
           <span
-            className="text-black"
+            className="wc"
             onClick={onClose}
             style={{ cursor: "pointer" }}
           >
@@ -74,36 +74,58 @@ const TransferModal = ({ isOpen, onClose }) => {
         </div>
         <form>
           <div style={{ marginBottom: "20px" }}>
-            <label
-              style={{
-                display: "block",
-                fontSize: "0.9rem",
-                color: "#555",
-                marginBottom: "5px",
-              }}
-            >
-              Amount
-            </label>
-            <input
-              type="number"
-              placeholder="Enter amount"
-              style={{
-                width: "100%",
-                padding: "10px",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-                fontSize: "1rem",
-                outline: "none",
-                boxSizing: "border-box",
-                transition: "border-color 0.3s",
-              }}
-            />
+          <div className="form_t mt-3">
+              <label className="trade_box_title_l wc">
+                From:
+              </label>
+              <div className="f_group_l d-flex j_con">
+              {/* <input className="input_l w-100 wc" autoComplete="off" type="number" placeholder="Enter amount" /> */}
+              <select className="input_l w-100 wc">
+                  <option value="">Main Wallet</option>
+                  <option value="">Funding Wallet</option>
+                  <option value="">Trading Wallet</option>
+              </select>
+              </div>
+            </div>
+            <div className="form_t mt-3">
+              <label className="trade_box_title_l wc">
+                To:
+              </label>
+              <div className="f_group_l d-flex j_con">
+              {/* <input className="input_l w-100 wc" autoComplete="off" type="number" placeholder="Enter amount" /> */}
+              <select className="input_l w-100 wc">
+                  <option value="">Main Wallet</option>
+                  <option value="">Funding Wallet</option>
+                  <option value="">Trading Wallet</option>
+              </select>
+              </div>
+            </div>
+            <div className="form_t mt-3">
+              <label className="trade_box_title_l wc">
+              Coins:
+              </label>
+              <div className="f_group_l d-flex j_con">
+              {/* <input className="input_l w-100 wc" autoComplete="off" type="number" placeholder="Enter amount" /> */}
+              <select className="input_l w-100 wc">
+                  <option value="">USDT</option>
+                  <option value="">BNB</option>
+                  <option value="">TRX</option>
+              </select>
+              </div>
+            </div>
+            <h5 className="trade_box_title_l wc mt-2">Balances-: 0</h5>
+            <div className="form_t ">
+              <label className="trade_box_title_l wc mt-4">
+              Amount:
+              </label>
+              <div className="f_group_l d-flex j_con">
+              <input className="input_l w-100 wc" autoComplete="off" type="number" placeholder="Enter amount" />
+              </div>
+            </div>
           </div>
           <button
             type="submit"
-            style={{
-              ...submitButtonStyle,
-            }}
+            className="btn_login wc"
           >
             Submit
           </button>
