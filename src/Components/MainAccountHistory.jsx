@@ -3,6 +3,7 @@ import usdt from "../Img/usdt.png";
 import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
 import { AuthContext } from "../Contextapi/Auth";
+import { Link } from "react-router-dom";
 
 const MainAccountHistory = () => {
   const { authData } = useContext(AuthContext);
@@ -110,7 +111,7 @@ const MainAccountHistory = () => {
                             {new Date(data.createdAt).toLocaleString()}
                           </td>
                           <td className="t_t_data b_boot wc">
-                            <button>View</button>
+                            <Link to={`/tokenTransactionHistory?tokenId=${data.tokenId}`}>View</Link>
                           </td>
                         </tr>
                       ))

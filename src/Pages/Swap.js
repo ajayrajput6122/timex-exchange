@@ -6,6 +6,7 @@ import { AuthContext } from "../Contextapi/Auth";
 import toast from "react-hot-toast";
 
 const Swap = () => {
+  const [data, setdata] = useState([]);
   const [dashboardData, setDashboardData] = useState([]);
   const [tokenData, setTokenData] = useState([]);
   const [payCoin, setPayCoin] = useState("");
@@ -51,6 +52,30 @@ const Swap = () => {
     }
   };
 
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        `${base_url}/api/swap_transactions`,
+        {},
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
+      setdata(response.data.records);
+    } catch (error) {
+      console.error("Error fetching swap history data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const calculateGetAmount = () => {
     const payCoinData = tokenData.find((coin) => coin.coinName === payCoin);
     const getCoinData = tokenData.find((coin) => coin.coinName === getCoin);
@@ -91,6 +116,7 @@ const Swap = () => {
       if (response.data.success) {
         toast.dismiss();
         toast.success(response.data.message);
+        fetchData();
         setPayAmount("");
         setGetAmount("");
         setPayCoin("");
@@ -249,30 +275,51 @@ const Swap = () => {
           </div>
         </div>
         <h2 className="title_h2 wc text-center mt-3">Swap History</h2>
-          <div className="table_over sec4_box mt-3">
+        <div className="table_over sec4_box mt-3">
           <div className="table_over">
             <div className="table_scroll">
               <table className="trade_table_222">
                 <tr>
                   <th className="t_t_heading wc b_boot">S No. </th>
-                  <th className="t_t_heading wc b_boot">User ID	 </th>
-                  <th className="t_t_heading wc b_boot">Amount </th>
-                  <th className="t_t_heading wc b_boot">Return Amount	 </th>
-                  <th className="t_t_heading wc b_boot">Days </th>
+                  <th className="t_t_heading wc b_boot">Buy Amount</th>
+                  <th className="t_t_heading wc b_boot">Sell Amount </th>
+                  {/* <th className="t_t_heading wc b_boot">Return Amount </th> */}
+                  <th className="t_t_heading wc b_boot">From </th>
+                  <th className="t_t_heading wc b_boot">To </th>
                   <th className="t_t_heading wc b_boot">Date & Time </th>
                 </tr>
-                <tr>
-                  <td className="t_t_data b_boot wc">1</td>  
-                  <td className="t_t_data b_boot wc">1</td>  
-                  <td className="t_t_data b_boot wc">1</td>  
-                  <td className="t_t_data b_boot wc">1</td>  
-                  <td className="t_t_data b_boot wc">1</td>  
-                  <td className="t_t_data b_boot wc">1</td>  
-                </tr>
+                {data && data.length > 0 ? (
+                  data?.map((item, index) => (
+                    <tr key={index}>
+                      <td className="t_t_data b_boot wc">{index + 1}</td>
+                      <td
+                        className={`t_t_data b_boot wc ${
+                          item.currency_amount > 0 ? "gc" : "rc"
+                        }`}
+                      >
+                        {item.currency_amount}
+                      </td>
+                      <td
+                        className={`t_t_data b_boot wc ${
+                          item.amount > 0 ? "gc" : "rc"
+                        }`}
+                      >
+                        {item.amount}
+                      </td>
+                      <td className="t_t_data b_boot wc">{item.currency}</td>
+                      <td className="t_t_data b_boot wc">{item.swaptoken}</td>
+                      <td className="t_t_data b_boot wc">
+                        {new Date(item.createdAt).toLocaleString()}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr aria-colspan={6} className="text-white">No data found</tr>
+                )}
               </table>
             </div>
           </div>
-          </div>
+        </div>
       </div>
     </section>
   );

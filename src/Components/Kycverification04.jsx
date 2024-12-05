@@ -37,7 +37,6 @@ const Kycverification04 = ({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  
   const handleFileChange = (e, field) => {
     const file = e.target.files[0];
     setFormData((prev) => ({ ...prev, [field]: file }));
@@ -49,6 +48,12 @@ const Kycverification04 = ({
 
     const { documentType, documentNumber, frontImageFile, backImageFile } =
       formData;
+    if (frontImageFile.name === backImageFile.name) {
+      toast.dismiss();
+      toast.error("Front and back images cannot be same.");
+      setLoading(false);
+      return;
+    }
 
     if (!documentType || !documentNumber || !frontImageFile || !backImageFile) {
       toast.dismiss();
@@ -91,7 +96,7 @@ const Kycverification04 = ({
 
       if (uploadProofResponse?.success !== 1) {
         toast.dismiss();
-        console.log(uploadProofResponse,"---");
+        console.log(uploadProofResponse, "---");
         toast.error(
           uploadProofResponse?.message ||
             "Error while uploading proof documents."
@@ -110,7 +115,9 @@ const Kycverification04 = ({
       console.error("Error during API calls:", error);
       toast.dismiss();
       toast.error(
-        error.response?.data?.message ||  error.message|| "An error occurred. Please try again."
+        error.response?.data?.message ||
+          error.message ||
+          "An error occurred. Please try again."
       );
     } finally {
       setLoading(false);

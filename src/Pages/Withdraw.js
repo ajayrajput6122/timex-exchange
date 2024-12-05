@@ -402,7 +402,7 @@ const Withdraw = () => {
                         Minimum 2 USDT is required in order to initiate the
                         transaction
                       </h5>
-                      <h5 className="text mt-4">Available Balance: {parseFloat(bal).toFixed(4)}</h5>
+                      <h5 className="text mt-4">Available Balance: {bal?parseFloat(bal).toFixed(4):'0.0000'}</h5>
                       {/* <h5 className="text mt-4">Minimum Withdrawal:</h5> */}
                       {/* <h5 className="text mt-4">Fees:</h5> */}
                       {/* <h5 className="text mt-4">

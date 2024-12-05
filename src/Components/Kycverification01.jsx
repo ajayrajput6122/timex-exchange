@@ -27,13 +27,14 @@ const Kycverification01 = ({ data, onNext }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handlePhoneChange = (value, countryData, formattedValue) => {
+  const handlePhoneChange = (value, countryData) => {
     setFormData((prev) => ({
       ...prev,
       phone: value,
       country_code: countryData.dialCode,
     }));
   };
+
 
   const getCountry = async () => {
     try {
@@ -42,7 +43,6 @@ const Kycverification01 = ({ data, onNext }) => {
         setCountry(response.data);
       }
     } catch (error) {
-      toast.error("--");
       console.error("Country Data failed", error);
     }
   };
@@ -69,7 +69,16 @@ const Kycverification01 = ({ data, onNext }) => {
     try {
       const response = await axios.post(
         `${base_url}/api/update_basic_details`,
-        formData,
+        {
+          firstname:formData.firstname,
+          lastname:formData.lastname,
+          country:formData.country,
+          phone:formData.phone.slice(formData.country_code.length,formData.phone.length+1),
+          address:formData.address,
+          gender:formData.gender,
+          country_code:`+${formData.country_code}`,
+        }
+        ,
         {
           headers: {
             Authorization: authData?.token,

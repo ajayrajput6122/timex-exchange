@@ -9,7 +9,7 @@ const TransferHistory = () => {
   const [balance, setBallance] = useState("");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(""); 
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
   const GetBallance = async () => {
@@ -133,7 +133,13 @@ const TransferHistory = () => {
                           <td className="t_t_data b_boot wc">
                             {data.tokenName}
                           </td>
-                          <td className={`t_t_data b_boot wc ${data.amount>0?'gc':'rc'}`}>{data.amount}</td>
+                          <td
+                            className={`t_t_data b_boot wc ${
+                              data.amount > 0 ? "gc" : "rc"
+                            }`}
+                          >
+                            {data.amount}
+                          </td>
                           <td className="t_t_data b_boot wc">{data.from}</td>
                           <td className="t_t_data b_boot wc">{data.to}</td>
                           <td className="t_t_data b_boot wc">

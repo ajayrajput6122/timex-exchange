@@ -3,8 +3,9 @@ import usdt from "../Img/usdt.png";
 import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
 import { AuthContext } from "../Contextapi/Auth";
-import { NavLink, useNavigate } from "react-router-dom";
-import Transfermodul from "./Transfermodul";
+import { useNavigate } from "react-router-dom";
+import TransferModul from "../Components/Transfermodul";
+
 const AssetsOverview = () => {
   const { authData } = useContext(AuthContext);
   const [balance, setBallance] = useState("");
@@ -13,10 +14,10 @@ const AssetsOverview = () => {
   const [fundingbalance, setFundingBallance] = useState("");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const main = () => {
     navigate("/overview", { state: { activeTab: "t" } });
@@ -72,10 +73,12 @@ const AssetsOverview = () => {
           </h5>
         </div>
         <div>
-          {/* <form>
-            <button className="btn_timex"  onClick={onOpenModal} >Transfer</button>
-          </form> */}
-          <NavLink className='btn_timex' onClick={onOpenModal}>Transfer</NavLink>
+          <form>
+            <button className="btn_timex" type="button" onClick={openModal}>
+              Transfer
+            </button>
+          </form>
+          {/* <NavLink className='btn_timex' onClick={onOpenModal}>Transfer</NavLink> */}
         </div>
         {/* <div>
           <form>
@@ -97,6 +100,7 @@ const AssetsOverview = () => {
         <div
           className="col-lg-4 col-md-4 col-sm-6 mt-3"
           onClick={main}
+          type="button"
           style={{ cursor: "pointer" }}
         >
           <div className="p_box_k text-center">
@@ -109,6 +113,7 @@ const AssetsOverview = () => {
         <div
           className="col-lg-4 col-md-4 col-sm-6 mt-3"
           onClick={trading}
+          type="button"
           style={{ cursor: "pointer" }}
         >
           <div className="p_box_k text-center">
@@ -123,6 +128,7 @@ const AssetsOverview = () => {
           className="col-lg-4 col-md-4 col-sm-6 mt-3"
           onClick={fund}
           style={{ cursor: "pointer" }}
+          type="button"
         >
           <div className="p_box_k text-center">
             <h4 className="wc ao_title">Funding Account</h4>
@@ -133,15 +139,7 @@ const AssetsOverview = () => {
           </div>
         </div>
       </div>
-
-      <Transfermodul
-                open={open}
-                onClose={onCloseModal}
-                onCloseModal={onCloseModal}
-            />
-
-
-
+      <TransferModul isOpen={isModalOpen} onClose={closeModal} />
     </>
   );
 };
