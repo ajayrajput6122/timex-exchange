@@ -47,13 +47,13 @@ const MainAccountHistory = () => {
 
   return (
     <>
-      <h2 className="title_h2 wc text-center">Main Account History</h2>
+      {/* <h2 className="title_h2 wc text-center">Main Account History</h2> */}
       <div className="dflexdw j_con mb-3">
         <div className="alin_c">
           <h5 className="trade_box_title_l wc">
             {" "}
             <img className="usdt" src={usdt} />{" "}
-            {balance ? parseFloat(balance).toFixed(4) : "-"} USDT
+            {balance ? parseFloat(balance).toFixed(4) : "0.0000"} USDT
           </h5>
         </div>
         <div>
@@ -91,7 +91,7 @@ const MainAccountHistory = () => {
                     <th className="t_t_heading wc b_boot"> USD Price </th>
                     <th className="t_t_heading wc b_boot"> Balance </th>
                     <th className="t_t_heading wc b_boot"> Date & Time</th>
-                    <th className="t_t_heading wc b_boot"> Action</th>
+                    {/* <th className="t_t_heading wc b_boot"> Action</th> */}
                   </tr>
                   {filteredData && filteredData.length > 0
                     ? filteredData?.map((data, index) => (
@@ -110,9 +110,9 @@ const MainAccountHistory = () => {
                           <td className="t_t_data b_boot wc">
                             {new Date(data.createdAt).toLocaleString()}
                           </td>
-                          <td className="t_t_data b_boot wc">
+                          {/* <td className="t_t_data b_boot wc">
                             <Link className="table_link_btn" to={`/tokenTransactionHistory?tokenId=${data.tokenId}`}>View</Link>
-                          </td>
+                          </td> */}
                         </tr>
                       ))
                     : "No Data Available"}

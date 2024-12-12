@@ -33,10 +33,10 @@ const Overview = () => {
                 class="nav-link t_t_btn02 wc active"
                 id="nav-home-tab_t"
                 data-bs-toggle="tab"
-                data-bs-target="#nav-home_t"
+                data-bs-target="#nav-profile_t"
                 type="button"
                 role="tab"
-                aria-controls="nav-home_t"
+                aria-controls="nav-profile_t"
                 aria-selected="true"
               >
                 Assets Overview
@@ -45,10 +45,10 @@ const Overview = () => {
                 class="nav-link t_t_btn02 wc"
                 id="nav-profile-tab_t"
                 data-bs-toggle="tab"
-                data-bs-target="#nav-profile_t"
+                data-bs-target="#nav-profile_tt"
                 type="button"
                 role="tab"
-                aria-controls="nav-profile_t"
+                aria-controls="nav-profile_tt"
                 aria-selected="false"
               >
                 Main Account
@@ -95,7 +95,7 @@ const Overview = () => {
             <div class="tab-content" id="nav-tabContent">
               <div
                 class="tab-pane fade show wc active"
-                id="nav-home_t"
+                id="nav-profile_t"
                 role="tabpanel"
                 aria-labelledby="nav-home-tab_t"
               >
@@ -103,7 +103,7 @@ const Overview = () => {
               </div>
               <div
                 class="tab-pane fade wc"
-                id="nav-profile_t"
+                id="nav-profile_tt"
                 role="tabpanel"
                 aria-labelledby="nav-profile-tab"
               >

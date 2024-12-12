@@ -46,13 +46,13 @@ const FundingAccountHistory = () => {
 
   return (
     <>
-      <h2 className="title_h2 wc text-center">Funding Account History</h2>
+      {/* <h2 className="title_h2 wc text-center">Funding Account History</h2> */}
       <div className="dflexdw j_con mb-3">
         <div className="alin_c">
           <h5 className="trade_box_title_l wc">
             {" "}
             <img className="usdt" src={usdt} />
-            {balance ? parseFloat(balance).toFixed(4) : "-"} USDT
+            {balance ? parseFloat(balance).toFixed(4) : "0.0000"} USDT
           </h5>
         </div>
         <div>

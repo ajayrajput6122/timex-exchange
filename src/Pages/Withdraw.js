@@ -8,6 +8,7 @@ import { AuthContext } from "../Contextapi/Auth";
 
 const Withdraw = () => {
   const [coins, setCoins] = useState([]);
+  const [timer, setTimer] = useState(0);
   const [bal, setBal] = useState("");
   const [tokenid, setTokenId] = useState(null);
   const [networkid, setNetworkId] = useState(null);
@@ -16,17 +17,18 @@ const Withdraw = () => {
   const [networkDetails, setNetworkDetails] = useState([]);
   const [showCoinDropdown, setShowCoinDropdown] = useState(false);
   const [showNetworkDropdown, setShowNetworkDropdown] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { authData } = useContext(AuthContext);
   const fetchCoins = async () => {
     try {
-      const response = await axios.get(`${base_url}/api/deposit_tokens`, {
+      const response = await axios.get(`${base_url}/api/withraw_tokens`, {
         headers: {
           Authorization: authData?.token,
         },
       });
       if (response.data.success) {
-        setCoins(response.data.deposit_tokens);
+        setCoins(response.data.withraw_tokens);
       }
     } catch (error) {
       console.error("Error fetching coins:", error);
@@ -51,9 +53,9 @@ const Withdraw = () => {
       console.error("Error fetching token details:", error);
     }
   };
-  useEffect(()=>{
+  useEffect(() => {
     getWalletBal();
-  },[selectedCoin]);
+  }, [selectedCoin]);
   useEffect(() => {
     fetchCoins();
   }, []);
@@ -92,6 +94,7 @@ const Withdraw = () => {
         throw new Error(response.data.message || "OTP request failed");
       }
 
+      setTimer(120);
       toast.dismiss();
       toast.success(response.data.message);
     } catch (error) {
@@ -125,6 +128,8 @@ const Withdraw = () => {
   };
 
   const handleSubmit = async (values, { resetForm }) => {
+    setLoading(true);
+
     if (
       !values.coin ||
       !values.network ||
@@ -134,6 +139,7 @@ const Withdraw = () => {
     ) {
       toast.dismiss();
       toast.error("Please Fill in the details");
+      setLoading(false);
       return;
     }
     try {
@@ -173,8 +179,19 @@ const Withdraw = () => {
           error.message ||
           "Error submitting request"
       );
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer]);
 
   return (
     <>
@@ -334,7 +351,9 @@ const Withdraw = () => {
                                         marginRight: "10px",
                                       }}
                                     />
-                                    <span className="wc">{network.Network}</span>
+                                    <span className="wc">
+                                      {network.Network}
+                                    </span>
                                   </div>
                                 ))}
                               </div>
@@ -383,26 +402,45 @@ const Withdraw = () => {
                             autoComplete="off"
                           />
                           <h4 className="WC f_g_text alin_c">
-                            <span
-                              className="otp_btn wc"
-                              type="button"
-                              onClick={handleOtp}
-                            >
-                              OTP
-                            </span>
+                            {timer > 0 ? (
+                              <span className="otp_btn wc">{`${Math.floor(
+                                timer / 60
+                              )}:${timer % 60 < 10 ? "0" : ""}${
+                                timer % 60
+                              }`}</span>
+                            ) : (
+                              <span
+                                className="otp_btn wc"
+                                type="button"
+                                onClick={handleOtp}
+                              >
+                                OTP
+                              </span>
+                            )}
                           </h4>
                         </div>
                       </div>
 
-                      <button className="btn_login wc" type="submit">
-                        <i className="fa-solid fa-id-card fa-shake me-2"></i>{" "}
+                      <button
+                        className="btn_login wc"
+                        type="submit"
+                        disabled={loading}
+                      >
+                        {loading ? (
+                          <i className="fa fa-spinner fa-spin me-2"></i>
+                        ) : (
+                          <i className="fa-solid fa-id-card fa-shake me-2"></i>
+                        )}{" "}
                         Submit
                       </button>
                       <h5 className="text text-center wc mt-4">
                         Minimum 2 USDT is required in order to initiate the
                         transaction
                       </h5>
-                      <h5 className="text mt-4">Available Balance: {bal?parseFloat(bal).toFixed(4):'0.0000'}</h5>
+                      <h5 className="text mt-4">
+                        Available Balance:{" "}
+                        {bal ? parseFloat(bal).toFixed(4) : "0.0000"}
+                      </h5>
                       {/* <h5 className="text mt-4">Minimum Withdrawal:</h5> */}
                       {/* <h5 className="text mt-4">Fees:</h5> */}
                       {/* <h5 className="text mt-4">

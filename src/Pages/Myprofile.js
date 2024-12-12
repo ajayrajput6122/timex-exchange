@@ -94,7 +94,7 @@ const Myprofile = () => {
                   <button className="nav-link p_tabs_btn" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Change Password</button>
                   <button className="nav-link p_tabs_btn" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Referral & Earn</button>
                   <button className="nav-link p_tabs_btn" id="v-pills-settings-tab1" data-bs-toggle="pill" data-bs-target="#v-pills-settings1" type="button" role="tab" aria-controls="v-pills-settings1" aria-selected="false">Referral Bonus</button>
-                  <button className="nav-link p_tabs_btn" id="v-pills-settings-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-settings2" type="button" role="tab" aria-controls="v-pills-settings2" aria-selected="false">Bug Reports</button>
+                  {/* <button className="nav-link p_tabs_btn" id="v-pills-settings-tab2" data-bs-toggle="pill" data-bs-target="#v-pills-settings2" type="button" role="tab" aria-controls="v-pills-settings2" aria-selected="false">Bug Reports</button> */}
                 </div>
                 <div className="tab-content tab-content1" id="v-pills-tabContent">
                   <div className="tab-pane fade wc show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -112,9 +112,9 @@ const Myprofile = () => {
                   <div className="tab-pane fade wc" id="v-pills-settings1" role="tabpanel" aria-labelledby="v-pills-settings-tab1">
                     <ReferralBonus />
                   </div>
-                  <div className="tab-pane fade wc" id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings-tab2">
+                  {/* <div className="tab-pane fade wc" id="v-pills-settings2" role="tabpanel" aria-labelledby="v-pills-settings-tab2">
                     <BugReports />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

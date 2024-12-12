@@ -264,7 +264,13 @@ const UserDeals = () => {
                             {item?.tokenName}
                           </td>
                           <td className="t_t_data b_boot wc">{item?.mode}</td>
-                          <td className="t_t_data b_boot wc">{item?.amount}</td>
+                          <td
+                            className={`t_t_data b_boot wc ${
+                              item.amount > 0 ? "gc" : "rc"
+                            }`}
+                          >
+                            {item?.amount}
+                          </td>
                           <td className="t_t_data b_boot wc">{item?.from}</td>
                           <td className="t_t_data b_boot wc">{item?.to}</td>
                           <td className="t_t_data b_boot wc">

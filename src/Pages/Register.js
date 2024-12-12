@@ -16,6 +16,7 @@ const Register = () => {
   const sponsorId = params.get("sponsorId");
   const { saveAuthData } = useContext(AuthContext);
   const [timer, setTimer] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     sponser_id: sponsorId ? sponsorId : "",
     email: "",
@@ -57,7 +58,7 @@ const Register = () => {
       if (response.data.success) {
         toast.dismiss();
         toast.success(response.data.message);
-        setTimer(180);
+        setTimer(120);
       } else {
         toast.dismiss();
         toast.error(response.data.message);
@@ -71,9 +72,11 @@ const Register = () => {
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (formData.password !== formData.confirmPassword) {
       toast.dismiss();
       toast.error("Password don't match");
+      setLoading(false);
       return;
     }
     if (
@@ -84,6 +87,7 @@ const Register = () => {
     ) {
       toast.dismiss();
       toast.error("Please fill in all fields");
+      setLoading(false);
       return;
     }
 
@@ -93,9 +97,9 @@ const Register = () => {
         formData
       );
       if (response.data.success) {
+        navigate("/dashboard");
         toast.dismiss();
         toast.success(response.data.message);
-        navigate("/dashboard");
         saveAuthData({
           token: response.data.user.accessToken,
           user: response.data.user,
@@ -106,8 +110,10 @@ const Register = () => {
       }
     } catch (error) {
       toast.dismiss();
-      toast.error("Registeration failed");
+      toast.error(error?.response?.data?.message || "Registeration failed");
       console.error("Registeration failed", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -128,12 +134,25 @@ const Register = () => {
           <div className="">
             <div className="register_f">
               <div className="login_box">
+                <button
+                  class="nav-link login_btn_t wc w-100 active"
+                  id="pills-home-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-home"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-home"
+                  aria-selected="true"
+                >
+                  {" "}
+                  <img className="tab_img" src={email2} /> Email
+                </button>
                 <ul
                   class="nav nav-pills login_tab mb-3"
                   id="pills-tab"
                   role="tablist"
                 >
-                  <li class="nav-item" role="presentation">
+                  {/* <li class="nav-item" role="presentation">
                     <button
                       class="nav-link login_btn_t wc w-100 active"
                       id="pills-home-tab"
@@ -147,8 +166,8 @@ const Register = () => {
                       {" "}
                       <img className="tab_img" src={email2} /> Email
                     </button>
-                  </li>
-                  <li class="nav-item" role="presentation">
+                  </li> */}
+                  {/* <li class="nav-item" role="presentation">
                     <button
                       class="nav-link login_btn_t wc w-100"
                       id="pills-profile-tab"
@@ -162,7 +181,7 @@ const Register = () => {
                       {" "}
                       <img className="tab_img1" src={Mobile} /> Phone
                     </button>
-                  </li>
+                  </li> */}
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                   <div
@@ -352,8 +371,16 @@ const Register = () => {
                         </div> */}
                         {/* <h5 className='trade_box_title_l wc'><a>Forgot Password?</a></h5> */}
 
-                        <button className="btn_login wc" type="submit">
-                          <i class="fa-solid fa-id-card fa-shake me-2"></i>{" "}
+                        <button
+                          className="btn_login wc"
+                          type="submit"
+                          disabled={loading}
+                        >
+                          {loading ? (
+                            <i className="fa fa-spinner fa-spin me-2"></i>
+                          ) : (
+                            <i class="fa-solid fa-id-card fa-shake me-2"></i>
+                          )}{" "}
                           Register
                         </button>
                         <h5 className="text text-center mt-4">
@@ -365,7 +392,7 @@ const Register = () => {
                       </form>
                     </div>
                   </div>
-                  <div
+                  {/* <div
                     class="tab-pane fade wc"
                     id="pills-profile"
                     role="tabpanel"
@@ -446,9 +473,9 @@ const Register = () => {
                             </h4>
                           </div>
                         </div> */}
-                        {/* <h5 className='trade_box_title_l wc'><a>Forgot Password?</a></h5> */}
+                  {/* <h5 className='trade_box_title_l wc'><a>Forgot Password?</a></h5> */}
 
-                        <button className="btn_login wc" type="submit">
+                  {/* <button className="btn_login wc" type="submit">
                           <i class="fa-solid fa-id-card fa-shake me-2"></i>{" "}
                           Register
                         </button>
@@ -457,7 +484,7 @@ const Register = () => {
                         </h5>
                       </form>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

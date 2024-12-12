@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { base_url } from "../ApiService/BaseUrl";
 import { AuthContext } from "../Contextapi/Auth";
+import Resizer from "react-image-file-resizer";
 
 const Kycverification04 = ({
   data,
@@ -39,7 +40,30 @@ const Kycverification04 = ({
 
   const handleFileChange = (e, field) => {
     const file = e.target.files[0];
-    setFormData((prev) => ({ ...prev, [field]: file }));
+
+    if (!file) {
+      return;
+    }
+
+    try {
+      // Resize the image before saving it in state
+      Resizer.imageFileResizer(
+        file,
+        1280, // Target width
+        720, // Target height
+        "JPEG", // Format
+        80, // Quality (0-100)
+        0, // Rotation (degrees)
+        (resizedFile) => {
+          setFormData((prev) => ({ ...prev, [field]: resizedFile }));
+        },
+        "file" // Output type: File object
+      );
+    } catch (err) {
+      console.error("Error resizing image:", err);
+      toast.dismiss();
+      toast.error("Upload Image in .jpg, .jpeg or .png  format only.");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -48,9 +72,28 @@ const Kycverification04 = ({
 
     const { documentType, documentNumber, frontImageFile, backImageFile } =
       formData;
-    if (frontImageFile.name === backImageFile.name) {
+
+    // if (frontImageFile.name === backImageFile.name) {
+    //   toast.dismiss();
+    //   toast.error("Front and back images cannot be same.");
+    //   setLoading(false);
+    //   return;
+    // }
+
+    const areFilesIdentical = async (file1, file2) => {
+      const buffer1 = await file1.arrayBuffer();
+      const buffer2 = await file2.arrayBuffer();
+      return (
+        buffer1.byteLength === buffer2.byteLength &&
+        new Uint8Array(buffer1).every(
+          (val, idx) => val === new Uint8Array(buffer2)[idx]
+        )
+      );
+    };
+
+    if (await areFilesIdentical(frontImageFile, backImageFile)) {
       toast.dismiss();
-      toast.error("Front and back images cannot be same.");
+      toast.error("Front and back images cannot be the same.");
       setLoading(false);
       return;
     }
@@ -306,7 +349,7 @@ const Kycverification04 = ({
                       formData.documentType === "adhaar_card"
                         ? "1234-5678-9012" // Example Aadhar format
                         : formData.documentType === "licence"
-                        ? "DL-XX-YYYY-1234567" // Example License format
+                        ? "HR06-19850034761" // Example License format
                         : formData.documentType === "passport"
                         ? "A1234567" // Example Passport format
                         : "Enter Document Number"
@@ -336,16 +379,16 @@ const Kycverification04 = ({
                       Drag or choose your file to upload
                     </h4>
                   </div>
-                  {formData.frontImageFile && (
-                    <div className="text-center mt-5">
-                      <img
-                        src={URL.createObjectURL(formData.frontImageFile)}
-                        alt="frontimage"
-                        width="200"
-                      />
-                    </div>
-                  )}
                 </div>
+                {formData.frontImageFile && (
+                  <div className="text-center mt-5">
+                    <img
+                      src={URL.createObjectURL(formData.frontImageFile)}
+                      alt="frontimage"
+                      width="200"
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
@@ -366,16 +409,16 @@ const Kycverification04 = ({
                       Drag or choose your file to upload
                     </h4>
                   </div>
-                  {formData.backImageFile && (
-                    <div className="text-center mt-5">
-                      <img
-                        src={URL.createObjectURL(formData.backImageFile)}
-                        alt="backimage"
-                        width="200"
-                      />
-                    </div>
-                  )}
                 </div>
+                {formData.backImageFile && (
+                  <div className="text-center mt-5">
+                    <img
+                      src={URL.createObjectURL(formData.backImageFile)}
+                      alt="backimage"
+                      width="200"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

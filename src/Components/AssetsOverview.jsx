@@ -20,7 +20,7 @@ const AssetsOverview = () => {
   const closeModal = () => setIsModalOpen(false);
 
   const main = () => {
-    navigate("/overview", { state: { activeTab: "t" } });
+    navigate("/overview", { state: { activeTab: "tt" } });
   };
 
   const trading = () => {
@@ -63,13 +63,13 @@ const AssetsOverview = () => {
 
   return (
     <>
-      <h2 className="title_h022 wc text-center">Assets Overview</h2>
+      {/* <h2 className="title_h022 wc text-center">Assets Overview</h2> */}
       <div className="dflexdw j_con mb-3">
         <div className="alin_c">
           <h5 className="trade_box_title_l wc">
             {" "}
             <img className="usdt" src={usdt} />{" "}
-            {balance ? parseFloat(balance).toFixed(4) : "-"} USDT
+            {balance ? parseFloat(balance).toFixed(4) : "0.0000"} USDT
           </h5>
         </div>
         <div>
@@ -106,7 +106,7 @@ const AssetsOverview = () => {
           <div className="p_box_k text-center">
             <h4 className="wc ao_title">Main Account</h4>
             <p className="sec4_box_text">
-              USDT {mainbalance ? parseFloat(mainbalance).toFixed(4) : "-"}{" "}
+              USDT {mainbalance ? parseFloat(mainbalance).toFixed(4) : "0.0000"}{" "}
             </p>
           </div>
         </div>
@@ -120,7 +120,7 @@ const AssetsOverview = () => {
             <h4 className="wc ao_title">Trading Account</h4>
             <p className="sec4_box_text">
               USDT{" "}
-              {tradingbalance ? parseFloat(tradingbalance).toFixed(4) : "-"}{" "}
+              {tradingbalance ? parseFloat(tradingbalance).toFixed(4) : "0.0000"}{" "}
             </p>
           </div>
         </div>
@@ -134,7 +134,7 @@ const AssetsOverview = () => {
             <h4 className="wc ao_title">Funding Account</h4>
             <p className="sec4_box_text">
               USDT{" "}
-              {fundingbalance ? parseFloat(fundingbalance).toFixed(4) : "-"}{" "}
+              {fundingbalance ? parseFloat(fundingbalance).toFixed(4) : "0.0000"}{" "}
             </p>
           </div>
         </div>

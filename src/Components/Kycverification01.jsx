@@ -5,6 +5,7 @@ import { base_url } from "../ApiService/BaseUrl";
 import { AuthContext } from "../Contextapi/Auth";
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import useCountryList from "react-select-country-list";
 
 const Kycverification01 = ({ data, onNext }) => {
   const { authData } = useContext(AuthContext);
@@ -22,6 +23,8 @@ const Kycverification01 = ({ data, onNext }) => {
     }
   );
 
+  const countryOptions = useCountryList().getData();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -35,17 +38,16 @@ const Kycverification01 = ({ data, onNext }) => {
     }));
   };
 
-
-  const getCountry = async () => {
-    try {
-      const response = await axios.get(`https://restcountries.com/v3.1/all`);
-      if (response.data) {
-        setCountry(response.data);
-      }
-    } catch (error) {
-      console.error("Country Data failed", error);
-    }
-  };
+  // const getCountry = async () => {
+  //   try {
+  //     const response = await axios.get(`https://restcountries.com/v3.1/all`);
+  //     if (response.data) {
+  //       setCountry(response.data);
+  //     }
+  //   } catch (error) {
+  //     console.error("Country Data failed", error);
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,15 +72,17 @@ const Kycverification01 = ({ data, onNext }) => {
       const response = await axios.post(
         `${base_url}/api/update_basic_details`,
         {
-          firstname:formData.firstname,
-          lastname:formData.lastname,
-          country:formData.country,
-          phone:formData.phone.slice(formData.country_code.length,formData.phone.length+1),
-          address:formData.address,
-          gender:formData.gender,
-          country_code:`+${formData.country_code}`,
-        }
-        ,
+          firstname: formData.firstname,
+          lastname: formData.lastname,
+          country: formData.country,
+          phone: formData.phone.slice(
+            formData.country_code.length,
+            formData.phone.length + 1
+          ),
+          address: formData.address,
+          gender: formData.gender,
+          country_code: `+${formData.country_code}`,
+        },
         {
           headers: {
             Authorization: authData?.token,
@@ -101,9 +105,9 @@ const Kycverification01 = ({ data, onNext }) => {
     }
   };
 
-  useEffect(() => {
-    getCountry();
-  }, []);
+  // useEffect(() => {
+  //   getCountry();
+  // }, []);
 
   return (
     <>
@@ -202,14 +206,19 @@ const Kycverification01 = ({ data, onNext }) => {
                       <option selected value={""}>
                         Select Country
                       </option>
-                      {country?.map((country) => (
+                      {countryOptions?.map((country) => (
+                        <option key={country.value} value={country.value}>
+                          {country.label}
+                        </option>
+                      ))}
+                      {/* {country?.map((country) => (
                         <option
                           className="jkhefhwhe"
                           value={country.name.common}
                         >
                           {country.name.common}
                         </option>
-                      ))}
+                      ))} */}
                     </select>
                     <h4 className="WC f_g_text alin_c">
                       <i className="fa-solid fa-earth-americas fa-beat-fade wc"></i>

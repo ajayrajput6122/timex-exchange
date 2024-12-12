@@ -113,146 +113,287 @@ const MyProfil = () => {
           <span className="p_span wc">{formData.kycStatus}</span>
         </div>
       </div>
-
-      <form onSubmit={handleSubmit}>
-        <div className="row">
-          <div className="col-lg-6 col-md-6 col-sm-6 mt-3">
-            <div className="form_t">
-              <h5 className="trade_box_title_l wc">First Name</h5>
-              <div className="f_group_l d-flex j_con">
-                <input
-                  type="text"
-                  name="firstname"
-                  value={formData.firstname}
-                  onChange={handleChange}
-                  className="input_l w-100 wc"
-                  autoComplete="off"
-                />
-                <h4 className="WC f_g_text alin_c">
-                  <i class="fa-solid fa-user-pen fa-beat wc"></i>
-                </h4>
+      {formData.kycStatus === "APPROVED" ? (
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col-lg-6 col-md-6 col-sm-6 mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">First Name</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="text"
+                    name="firstname"
+                    value={formData.firstname}
+                    onChange={handleChange}
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i class="fa-solid fa-user-pen fa-beat wc"></i>
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6 mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">Last Name</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="text"
+                    name="lastname"
+                    value={formData.lastname}
+                    onChange={handleChange}
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i className="fa-solid fa-user-pen fa-beat wc"></i>
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6 mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">Email</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                    disabled
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i className="fa-solid fa-envelope fa-beat wc"></i>
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6  mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">Phone</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="text"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                    disabled
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i className="fa-solid fa-mobile-screen-button fa-beat"></i>
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6  mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">Address</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="text"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                    disabled
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i className="fa-solid fa-address-book fa-beat"></i>
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6  mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">PAN Detail</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="text"
+                    name="pan_number"
+                    value={formData.pan_number}
+                    onChange={handleChange}
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                    disabled
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i className="fa-solid fa-credit-card fa-beat"></i>
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6  mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">Adhaar Card Detail</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="text"
+                    name="documentNumber"
+                    value={formData.documentNumber}
+                    onChange={handleChange}
+                    disabled
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i className="fa-solid fa-address-card fa-beat wc"></i>
+                  </h4>
+                </div>
               </div>
             </div>
           </div>
-          <div className="col-lg-6 col-md-6 col-sm-6 mt-3">
-            <div className="form_t">
-              <h5 className="trade_box_title_l wc">Last Name</h5>
-              <div className="f_group_l d-flex j_con">
-                <input
-                  type="text"
-                  name="lastname"
-                  value={formData.lastname}
-                  onChange={handleChange}
-                  className="input_l w-100 wc"
-                  autoComplete="off"
-                />
-                <h4 className="WC f_g_text alin_c">
-                  <i className="fa-solid fa-user-pen fa-beat wc"></i>
-                </h4>
+          <button className="sub_01 wc" type="submit">
+            {/* <i class="fa-solid fa-right-to-bracket fa-shake me-2"></i>  */}
+            Submit
+          </button>
+        </form>
+      ) : (
+        <form>
+          <div className="row">
+            <div className="col-lg-6 col-md-6 col-sm-6 mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">First Name</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="text"
+                    // name="firstname"
+                    // value={formData.firstname}
+                    // onChange={handleChange}
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i class="fa-solid fa-user-pen fa-beat wc"></i>
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6 mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">Last Name</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="text"
+                    // name="lastname"
+                    // value={formData.lastname}
+                    // onChange={handleChange}
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i className="fa-solid fa-user-pen fa-beat wc"></i>
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6 mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">Email</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="email"
+                    // name="email"
+                    // value={formData.email}
+                    // onChange={handleChange}
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                    disabled
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i className="fa-solid fa-envelope fa-beat wc"></i>
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6  mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">Phone</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="text"
+                    // name="phone"
+                    // value={formData.phone}
+                    // onChange={handleChange}
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                    disabled
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i className="fa-solid fa-mobile-screen-button fa-beat"></i>
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6  mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">Address</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="text"
+                    // name="address"
+                    // value={formData.address}
+                    // onChange={handleChange}
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                    disabled
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i className="fa-solid fa-address-book fa-beat"></i>
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6  mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">PAN Detail</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="text"
+                    // name="pan_number"
+                    // value={formData.pan_number}
+                    // onChange={handleChange}
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                    disabled
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i className="fa-solid fa-credit-card fa-beat"></i>
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6  mt-3">
+              <div className="form_t">
+                <h5 className="trade_box_title_l wc">Adhaar Card Detail</h5>
+                <div className="f_group_l d-flex j_con">
+                  <input
+                    type="text"
+                    // name="documentNumber"
+                    // value={formData.documentNumber}
+                    // onChange={handleChange}
+                    disabled
+                    className="input_l w-100 wc"
+                    autoComplete="off"
+                  />
+                  <h4 className="WC f_g_text alin_c">
+                    <i className="fa-solid fa-address-card fa-beat wc"></i>
+                  </h4>
+                </div>
               </div>
             </div>
           </div>
-          <div className="col-lg-6 col-md-6 col-sm-6 mt-3">
-            <div className="form_t">
-              <h5 className="trade_box_title_l wc">Email</h5>
-              <div className="f_group_l d-flex j_con">
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="input_l w-100 wc"
-                  autoComplete="off"
-                  disabled
-                />
-                <h4 className="WC f_g_text alin_c">
-                  <i className="fa-solid fa-envelope fa-beat wc"></i>
-                </h4>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-6 col-md-6 col-sm-6  mt-3">
-            <div className="form_t">
-              <h5 className="trade_box_title_l wc">Phone</h5>
-              <div className="f_group_l d-flex j_con">
-                <input
-                  type="text"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="input_l w-100 wc"
-                  autoComplete="off"
-                  disabled
-                />
-                <h4 className="WC f_g_text alin_c">
-                  <i className="fa-solid fa-mobile-screen-button fa-beat"></i>
-                </h4>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-6 col-md-6 col-sm-6  mt-3">
-            <div className="form_t">
-              <h5 className="trade_box_title_l wc">Address</h5>
-              <div className="f_group_l d-flex j_con">
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  className="input_l w-100 wc"
-                  autoComplete="off"
-                  disabled
-                />
-                <h4 className="WC f_g_text alin_c">
-                  <i className="fa-solid fa-address-book fa-beat"></i>
-                </h4>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-6 col-md-6 col-sm-6  mt-3">
-            <div className="form_t">
-              <h5 className="trade_box_title_l wc">PAN Detail</h5>
-              <div className="f_group_l d-flex j_con">
-                <input
-                  type="text"
-                  name="pan_number"
-                  value={formData.pan_number}
-                  onChange={handleChange}
-                  className="input_l w-100 wc"
-                  autoComplete="off"
-                  disabled
-                />
-                <h4 className="WC f_g_text alin_c">
-                  <i className="fa-solid fa-credit-card fa-beat"></i>
-                </h4>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-6 col-md-6 col-sm-6  mt-3">
-            <div className="form_t">
-              <h5 className="trade_box_title_l wc">Adhaar Card Detail</h5>
-              <div className="f_group_l d-flex j_con">
-                <input
-                  type="text"
-                  name="documentNumber"
-                  value={formData.documentNumber}
-                  onChange={handleChange}
-                  disabled
-                  className="input_l w-100 wc"
-                  autoComplete="off"
-                />
-                <h4 className="WC f_g_text alin_c">
-                  <i className="fa-solid fa-address-card fa-beat wc"></i>
-                </h4>
-              </div>
-            </div>
-          </div>
-        </div>
-        <button className="sub_01 wc" type="submit">
-          {/* <i class="fa-solid fa-right-to-bracket fa-shake me-2"></i>  */}
-          Submit
-        </button>
-      </form>
+          <button className="sub_01 wc" type="button" disabled>
+            {/* <i class="fa-solid fa-right-to-bracket fa-shake me-2"></i>  */}
+            Submit
+          </button>
+        </form>
+      )}
     </>
   );
 };

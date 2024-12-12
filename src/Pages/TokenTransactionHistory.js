@@ -23,7 +23,9 @@ const TokenTransactionHistory = () => {
     try {
       const response = await axios.post(
         `${base_url}/api/token_transation`,
-        { tokenId },
+        { tokenId,
+          walletType:"main_wallet"
+        },
         {
           headers: {
             Authorization: authData?.token,

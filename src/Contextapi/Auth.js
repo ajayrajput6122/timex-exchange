@@ -46,6 +46,11 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setAuthData({ token: "", user: {} });
     localStorage.removeItem("authData");
+    const response = axios.get(`${base_url}/api/auth/logout`,{
+      headers:{
+        Authorization:authData?.token
+      }
+    })
   };
 
   useEffect(() => {

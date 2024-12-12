@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { base_url } from "../ApiService/BaseUrl";
 import { AuthContext } from "../Contextapi/Auth";
+import Resizer from "react-image-file-resizer";
 
 const Kycverification03 = ({ data, onNext, onPrevious, panImageFile }) => {
   const { authData } = useContext(AuthContext);
@@ -20,10 +21,28 @@ const Kycverification03 = ({ data, onNext, onPrevious, panImageFile }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleImageChange = async (e) => {
+  const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      const selectedFile = e.target.files[0];
-      setPanImage(selectedFile);
+      const file = e.target.files[0];
+      try {
+        Resizer.imageFileResizer(
+          file,
+          1280, // Target width
+          720, // Target height
+          "JPEG", // Format
+          80, // Quality (0-100)
+          0, // Rotation (0-degree)
+          (resizedFile) => {
+            // `resizedFile` is the resized File object
+            setPanImage(resizedFile);
+          },
+          "file" // Output type
+        );
+      } catch (err) {
+        toast.dismiss();
+        toast.error("Upload Image in .jpg, .jpeg or .png  format only.");
+        console.error("Error resizing image:", err);
+      }
     }
   };
 

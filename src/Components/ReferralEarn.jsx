@@ -56,7 +56,7 @@ const ReferralEarn = () => {
         }
       );
       if (response.data.success) {
-        setReferrals(response.data.selfdata);
+        setReferrals(response.data.refferaldata);
       }
     } catch (error) {
       console.error("Error fetching referrals:", error);

@@ -19,8 +19,8 @@ export default function Kycverification05({ onPrevious }) {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: "user",
-          width: { ideal: 640 },
-          height: { ideal: 480 },
+          width: { ideal: 300 },
+          height: { ideal: 300 },
         },
       });
 
@@ -54,6 +54,7 @@ export default function Kycverification05({ onPrevious }) {
       stream.getTracks().forEach((track) => track.stop());
     } catch (error) {
       console.error("Selfie capture error:", error);
+      toast.dismiss();
       toast.error("Camera access failed. Check browser permissions.");
     }
   };
@@ -131,24 +132,19 @@ export default function Kycverification05({ onPrevious }) {
           <div className="form_t">
             <h5 className="trade_box_title_l wc">Upload Your Image (Selfie)</h5>
             <div className="file_box">
-              <div
-                className="rounded mx-auto"
-                style={{ width: "200px", height: "200px" }}
-              >
+              <div className="camera-container">
                 <Webcam
                   audio={false}
                   ref={webcamRef}
                   screenshotFormat="image/jpeg"
-                  width="100%"
+                  className="webcam-preview"
                   videoConstraints={{
                     facingMode: "user",
                   }}
                 />
-              </div>
-              <div className="text-center">
                 <button
                   type="button"
-                  className="btn_login wc mt-3"
+                  className="btn_login wc mt-3 capture-btn"
                   onClick={captureSelfie}
                 >
                   Capture Selfie
@@ -157,13 +153,9 @@ export default function Kycverification05({ onPrevious }) {
               {imgSrc && (
                 <div className="text-center mt-3">
                   <img
+                  className="imgSelfieContainer"
                     src={imgSrc}
                     alt="Captured Selfie"
-                    style={{
-                      width: "200px",
-                      height: "200px",
-                      borderRadius: "10px",
-                    }}
                   />
                 </div>
               )}

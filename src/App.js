@@ -39,8 +39,9 @@ const Overview = React.lazy(() => import("./Pages/Overview"));
 const Hello = React.lazy(() => import("./Pages/hello"));
 const UserDeals = React.lazy(() => import("./Pages/UserDeals"));
 const About = React.lazy(() => import("./Pages/About"));
-const TokenTransactionHistory = React.lazy(() => import("./Pages/TokenTransactionHistory"));
-
+const TokenTransactionHistory = React.lazy(() =>
+  import("./Pages/TokenTransactionHistory")
+);
 
 const RefundCancellation = React.lazy(() =>
   import("./Pages/RefundCancellation")
@@ -67,6 +68,14 @@ function App() {
             }
           />
           <Route element={<PrivateRoute />}>
+            <Route
+              path="userdeals"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <UserDeals />
+                </Suspense>
+              }
+            />
             <Route
               path="dashboard"
               element={
@@ -141,14 +150,6 @@ function App() {
               }
             />
           </Route>
-          <Route
-            path="userdeals"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <UserDeals />
-              </Suspense>
-            }
-          />
           <Route
             path="trade"
             element={
@@ -261,7 +262,7 @@ function App() {
               </Suspense>
             }
           />
-           <Route
+          <Route
             path="about"
             element={
               <Suspense fallback={<div>Loading...</div>}>
@@ -269,14 +270,14 @@ function App() {
               </Suspense>
             }
           />
-            <Route
+          {/* <Route
             path="tokenTransactionHistory"
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <TokenTransactionHistory />
               </Suspense>
             }
-          />
+          /> */}
 
           {/* <Route
           

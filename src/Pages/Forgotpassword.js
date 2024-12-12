@@ -48,7 +48,7 @@ const Forgotpassword = () => {
       if (response.data.success) {
         toast.dismiss();
         toast.success(response.data.message);
-        setTimer(180);
+        setTimer(120);
       } else {
         toast.dismiss();
         toast.error(response.data.message);
