@@ -3,6 +3,7 @@ import usdt from "../Img/usdt.png";
 import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
 import { AuthContext } from "../Contextapi/Auth";
+import Pagination from "../Components/Pagination";
 
 const FundingAccountHistory = () => {
   const { authData } = useContext(AuthContext);
@@ -10,14 +11,22 @@ const FundingAccountHistory = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 1,
+    total: 0,
+  });
 
-  const GetBallance = async () => {
+  const GetBallance = async (page = 1, pageSize = 10) => {
     setLoading(true);
     try {
+      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/userwallet`,
         {
           wallet_type: "funding_wallet",
+          limit: pageSize,
+          skip,
         },
         {
           headers: {
@@ -28,12 +37,22 @@ const FundingAccountHistory = () => {
       if (response.data.success) {
         setBallance(response.data.wallets.funding_wallet.balance);
         setData(response.data.wallets.funding_wallet.wallets);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
       }
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handlePageChange = (page, pageSize) => {
+    GetBallance(page, pageSize);
   };
 
   useEffect(() => {
@@ -115,6 +134,19 @@ const FundingAccountHistory = () => {
               </div>
             </div>
           </div>
+        )}
+
+        {data && data.length > 0 ? (
+          <div className="text-center py-2">
+            <Pagination
+              total={pagination.total}
+              pageSize={pagination.pageSize}
+              current={pagination.current}
+              onChange={handlePageChange}
+            />
+          </div>
+        ) : (
+          ""
         )}
       </div>
     </>

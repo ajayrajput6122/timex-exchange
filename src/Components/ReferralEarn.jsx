@@ -3,10 +3,16 @@ import { AuthContext } from "../Contextapi/Auth";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { base_url } from "../ApiService/BaseUrl";
+import Pagination from "../Components/Pagination";
 
 const ReferralEarn = () => {
   const { authData } = useContext(AuthContext);
   const [referrals, setReferrals] = useState([]); // State for referral data
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 1,
+    total: 0,
+  });
 
   const code = authData?.user.username;
   const host = window.location.host;
@@ -27,7 +33,7 @@ const ReferralEarn = () => {
     } else {
       const textarea = document.createElement("textarea");
       textarea.value = text;
-      textarea.style.position = "fixed"; 
+      textarea.style.position = "fixed";
       textarea.style.opacity = "0";
       document.body.appendChild(textarea);
       textarea.focus();
@@ -44,11 +50,12 @@ const ReferralEarn = () => {
     }
   };
 
-  const getReferralMembers = async () => {
+  const getReferralMembers = async (page = 1, pageSize = 10) => {
     try {
+      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/get_referral_member`,
-        {},
+        { limit: pageSize, skip },
         {
           headers: {
             Authorization: authData?.token,
@@ -57,10 +64,20 @@ const ReferralEarn = () => {
       );
       if (response.data.success) {
         setReferrals(response.data.refferaldata);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
       }
     } catch (error) {
       console.error("Error fetching referrals:", error);
     }
+  };
+
+  const handlePageChange = (page, pageSize) => {
+    getReferralMembers(page, pageSize);
   };
 
   useEffect(() => {
@@ -157,6 +174,18 @@ const ReferralEarn = () => {
           </table>
         </div>
       </div>
+      {referrals && referrals.length > 0 ? (
+        <div className="text-center py-2">
+          <Pagination
+            total={pagination.total}
+            pageSize={pagination.pageSize}
+            current={pagination.current}
+            onChange={handlePageChange}
+          />
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };

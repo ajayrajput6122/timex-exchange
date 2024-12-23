@@ -15,7 +15,17 @@ const Trade = () => {
   const [sellamount, setSellamount] = useState("");
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 5,
+    pageSize: 1,
+    total: 0,
+  });
+  const [pagination2, setPagination2] = useState({
+    current: 1,
+    pageSize: 1,
+    total: 0,
+  });
+  const [pagination3, setPagination3] = useState({
+    current: 1,
+    pageSize: 1,
     total: 0,
   });
   const [coin, setCoin] = useState([]);
@@ -256,13 +266,16 @@ const Trade = () => {
     }
   };
 
-  const getOpenOrder = async () => {
+  const getOpenOrder = async (page = 1, pageSize = 10) => {
     try {
+      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/trading_orders`,
         {
           status: "PARTIALFILLED",
           tokenId: selectedCoin?._id,
+          limit: pageSize,
+          skip,
         },
         {
           headers: {
@@ -272,6 +285,12 @@ const Trade = () => {
       );
       if (response.data.success) {
         setOpenOrder(response.data.orders);
+        setPagination3((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
         console.log(response.data.message);
       } else {
         console.error(response.data.message);
@@ -284,14 +303,23 @@ const Trade = () => {
   const handlePageChange = (page, pageSize) => {
     getCompletedOrder(page, pageSize);
   };
+  const handlePageChange2 = (page, pageSize) => {
+    getPendingOrder(page, pageSize);
+  };
+  const handlePageChange3 = (page, pageSize) => {
+    getOpenOrder(page, pageSize);
+  };
 
-  const getPendingOrder = async () => {
+  const getPendingOrder = async (page = 1, pageSize = 10) => {
     try {
+      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/trading_orders`,
         {
           status: "PENDING",
           tokenId: selectedCoin?._id,
+          limit: pageSize,
+          skip,
         },
         {
           headers: {
@@ -301,6 +329,12 @@ const Trade = () => {
       );
       if (response.data.success) {
         setPendingOrder(response.data.orders);
+        setPagination2((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
         console.log(response.data.message);
       } else {
         console.error(response.data.message);
@@ -1091,6 +1125,18 @@ const Trade = () => {
                       </table>
                     </div>
                   </div>
+                  {openOrder && openOrder.length > 0 ? (
+                    <div className="text-center py-2">
+                      <Pagination
+                        total={pagination3.total}
+                        pageSize={pagination3.pageSize}
+                        current={pagination3.current}
+                        onChange={handlePageChange3}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div
                   class="tab-pane fade wc"
@@ -1158,6 +1204,18 @@ const Trade = () => {
                       </table>
                     </div>
                   </div>
+                  {pendingOrder && pendingOrder.length > 0 ? (
+                    <div className="text-center py-2">
+                      <Pagination
+                        total={pagination2.total}
+                        pageSize={pagination2.pageSize}
+                        current={pagination2.current}
+                        onChange={handlePageChange2}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div
                   class="tab-pane fade wc"
@@ -1226,7 +1284,7 @@ const Trade = () => {
                     </div>
                   </div>
                   {completeOrder && completeOrder.length > 0 ? (
-                    <div className="text-center">
+                    <div className="text-center py-2">
                       <Pagination
                         total={pagination.total}
                         pageSize={pagination.pageSize}

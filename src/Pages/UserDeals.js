@@ -4,6 +4,7 @@ import axios from "axios";
 import { base_url } from "../ApiService/BaseUrl";
 import { AuthContext } from "../Contextapi/Auth";
 import toast from "react-hot-toast";
+import Pagination from "../Components/Pagination";
 
 const UserDeals = () => {
   const [userInfo, setUserInfo] = useState();
@@ -14,6 +15,11 @@ const UserDeals = () => {
   const [coins, setCoins] = useState([]);
   const [userId, setUserId] = useState("");
   const { authData } = useContext(AuthContext);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 1,
+    total: 0,
+  });
 
   const getUser = async () => {
     try {
@@ -113,12 +119,15 @@ const UserDeals = () => {
     }
   };
 
-  const getUserdealsHistory = async () => {
+  const getUserdealsHistory = async (page = 1, pageSize = 10) => {
     try {
+      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/all_token_deposit_transactions`,
         {
           transactionType: "fund_transfer",
+          limit: pageSize,
+          skip,
         },
         {
           headers: {
@@ -128,6 +137,12 @@ const UserDeals = () => {
       );
       if (response.data.success) {
         setUserHistory(response.data.data);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
         console.log(response.data.message);
       } else {
         console.error(response.data.message);
@@ -135,6 +150,10 @@ const UserDeals = () => {
     } catch (error) {
       console.error("unable to fetch data", error);
     }
+  };
+
+  const handlePageChange = (page, pageSize) => {
+    getUserdealsHistory(page, pageSize);
   };
 
   useEffect(() => {
@@ -286,6 +305,18 @@ const UserDeals = () => {
                   </table>
                 </div>
               </div>
+              {userHistory && userHistory.length > 0 ? (
+                <div className="text-center py-2">
+                  <Pagination
+                    total={pagination.total}
+                    pageSize={pagination.pageSize}
+                    current={pagination.current}
+                    onChange={handlePageChange}
+                  />
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

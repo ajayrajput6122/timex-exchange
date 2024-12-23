@@ -4,6 +4,7 @@ import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
 import { AuthContext } from "../Contextapi/Auth";
 import { Link } from "react-router-dom";
+import Pagination from "../Components/Pagination";
 
 const MainAccountHistory = () => {
   const { authData } = useContext(AuthContext);
@@ -11,14 +12,22 @@ const MainAccountHistory = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 1,
+    total: 0,
+  });
 
-  const GetBallance = async () => {
+  const GetBallance = async (page = 1, pageSize = 10) => {
     setLoading(true);
     try {
+      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/userwallet`,
         {
           wallet_type: "main_wallet",
+          limit: pageSize,
+          skip,
         },
         {
           headers: {
@@ -29,6 +38,12 @@ const MainAccountHistory = () => {
       if (response.data.success) {
         setBallance(response.data.wallets.main_wallet.balance);
         setData(response.data.wallets.main_wallet.wallets);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
       }
     } catch (error) {
       console.error(error);
@@ -40,6 +55,10 @@ const MainAccountHistory = () => {
   useEffect(() => {
     GetBallance();
   }, []);
+
+  const handlePageChange = (page, pageSize) => {
+    GetBallance(page, pageSize);
+  };
 
   const filteredData = data.filter((item) =>
     item?.tokenname?.toLowerCase().includes(search.toLowerCase())
@@ -120,6 +139,18 @@ const MainAccountHistory = () => {
               </div>
             </div>
           </div>
+        )}
+        {data && data.length > 0 ? (
+          <div className="text-center py-2">
+            <Pagination
+              total={pagination.total}
+              pageSize={pagination.pageSize}
+              current={pagination.current}
+              onChange={handlePageChange}
+            />
+          </div>
+        ) : (
+          ""
         )}
       </div>
     </>

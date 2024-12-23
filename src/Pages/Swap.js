@@ -4,6 +4,7 @@ import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
 import { AuthContext } from "../Contextapi/Auth";
 import toast from "react-hot-toast";
+import Pagination from "../Components/Pagination";
 
 const Swap = () => {
   const [data, setdata] = useState([]);
@@ -16,6 +17,11 @@ const Swap = () => {
   const [bal, setBal] = useState("");
   const { authData } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 1,
+    total: 0,
+  });
 
   const getTokenList = async () => {
     try {
@@ -29,6 +35,10 @@ const Swap = () => {
     } catch (error) {
       console.error("Failed to fetch token list:", error);
     }
+  };
+
+  const handlePageChange = (page, pageSize) => {
+    fetchData(page, pageSize);
   };
 
   const getWalletBal = async () => {
@@ -52,12 +62,16 @@ const Swap = () => {
     }
   };
 
-  const fetchData = async () => {
+  const fetchData = async (page = 1, pageSize = 10) => {
     setLoading(true);
     try {
+      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/swap_transactions`,
-        {},
+        {
+          limit: pageSize,
+          skip,
+        },
         {
           headers: {
             Authorization: authData?.token,
@@ -65,6 +79,12 @@ const Swap = () => {
         }
       );
       setdata(response.data.records);
+      setPagination((prev) => ({
+        ...prev,
+        total: response.data.total,
+        current: page,
+        pageSize,
+      }));
     } catch (error) {
       console.error("Error fetching swap history data:", error);
     } finally {
@@ -314,11 +334,25 @@ const Swap = () => {
                     </tr>
                   ))
                 ) : (
-                  <tr aria-colspan={6} className="text-white">No data found</tr>
+                  <tr aria-colspan={6} className="text-white">
+                    No data found
+                  </tr>
                 )}
               </table>
             </div>
           </div>
+          {data && data.length > 0 ? (
+            <div className="text-center py-2">
+              <Pagination
+                total={pagination.total}
+                pageSize={pagination.pageSize}
+                current={pagination.current}
+                onChange={handlePageChange}
+              />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </section>

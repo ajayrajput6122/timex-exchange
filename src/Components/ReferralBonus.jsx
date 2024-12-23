@@ -2,16 +2,23 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Contextapi/Auth";
 import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
+import Pagination from "../Components/Pagination";
 
 const ReferralBonus = () => {
   const { authData } = useContext(AuthContext);
   const [sponsors, setSponsors] = useState([]);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 1,
+    total: 0,
+  });
 
-  const getSponsors = async () => {
+  const getSponsors = async (page = 1, pageSize = 10) => {
     try {
+      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/get_referral_member`,
-        {},
+        { limit: pageSize, skip },
         {
           headers: {
             Authorization: authData?.token,
@@ -20,10 +27,20 @@ const ReferralBonus = () => {
       );
       if (response.data.success) {
         setSponsors(response.data);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
       }
     } catch (error) {
       console.error("Error fetching referrals:", error);
     }
+  };
+
+  const handlePageChange = (page, pageSize) => {
+    getSponsors(page, pageSize);
   };
 
   useEffect(() => {
@@ -37,7 +54,9 @@ const ReferralBonus = () => {
           <div className="p_box_k">
             <h4 className="sec4_box_title wc mt-0">Invite Bonus</h4>
             <p className="sec4_box_text">
-              {sponsors?.referralTotalAmount ? parseFloat(sponsors?.referralTotalAmount).toFixed(2) : "-"}
+              {sponsors?.referralTotalAmount
+                ? parseFloat(sponsors?.referralTotalAmount).toFixed(2)
+                : "-"}
             </p>
           </div>
         </div>
@@ -53,7 +72,9 @@ const ReferralBonus = () => {
           <div className="p_box_k">
             <h4 className="sec4_box_title wc mt-0">KYC Bonus</h4>
             <p className="sec4_box_text">
-              {sponsors?.selfTotalAmount ? parseFloat(sponsors?.selfTotalAmount).toFixed(4) : "-"}
+              {sponsors?.selfTotalAmount
+                ? parseFloat(sponsors?.selfTotalAmount).toFixed(4)
+                : "-"}
             </p>
           </div>
         </div>
@@ -81,8 +102,7 @@ const ReferralBonus = () => {
               <th className="t_t_heading wc b_boot"> Type</th>
               <th className="t_t_heading wc b_boot"> Date & Time</th>
             </tr>
-            {sponsors.selfdata &&
-            sponsors.selfdata.length > 0 ? (
+            {sponsors.selfdata && sponsors.selfdata.length > 0 ? (
               sponsors.selfdata.map((referral, index) => (
                 <tr key={referral.id}>
                   <td className="t_t_data b_boot wc">{index + 1}</td>
@@ -106,6 +126,18 @@ const ReferralBonus = () => {
           </table>
         </div>
       </div>
+      {sponsors.selfdata && sponsors.selfdata.length > 0 ? (
+        <div className="text-center py-2">
+          <Pagination
+            total={pagination.total}
+            pageSize={pagination.pageSize}
+            current={pagination.current}
+            onChange={handlePageChange}
+          />
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };

@@ -2,18 +2,28 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Contextapi/Auth";
 import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
+import Pagination from "../Components/Pagination";
 
 const Withdrawhistory = () => {
   const { authData } = useContext(AuthContext);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 1,
+    total: 0,
+  });
 
-  const getWithdrawHistory = async () => {
+  const getWithdrawHistory = async (page = 1, pageSize = 10) => {
     try {
+      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/withdrawHistory`,
-        {},
+        {
+          limit: pageSize,
+          skip,
+        },
         {
           headers: {
             Authorization: authData?.token,
@@ -22,6 +32,12 @@ const Withdrawhistory = () => {
       );
       if (response.data.success) {
         setTransactions(response.data.transaction);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
       }
     } catch (error) {
       console.error("Error fetching withdraw history:", error);
@@ -29,6 +45,10 @@ const Withdrawhistory = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handlePageChange = (page, pageSize) => {
+    getWithdrawHistory(page, pageSize);
   };
 
   useEffect(() => {
@@ -78,6 +98,7 @@ const Withdrawhistory = () => {
                     <th className="t_t_heading wc b_boot"> Token Name </th>
                     <th className="t_t_heading wc b_boot"> Amount</th>
                     <th className="t_t_heading wc b_boot"> Network </th>
+                    <th className="t_t_heading wc b_boot"> Withdraw Fee </th>
                     <th className="t_t_heading wc b_boot"> Wallet Address </th>
                     <th className="t_t_heading wc b_boot">
                       {" "}
@@ -101,6 +122,9 @@ const Withdrawhistory = () => {
                         {transaction.networkname}
                       </td>
                       <td className="t_t_data b_boot wc">
+                        {transaction.withrawFee}
+                      </td>
+                      <td className="t_t_data b_boot wc">
                         {transaction.wallet_address}
                       </td>
                       <td className="t_t_data b_boot wc">
@@ -109,7 +133,9 @@ const Withdrawhistory = () => {
                       <td className="t_t_data b_boot wc">
                         {transaction.status}
                       </td>
-                      <td className="t_t_data b_boot wc">N/A</td>
+                      <td className="t_t_data b_boot wc">
+                        {transaction.remark}
+                      </td>
                       <td className="t_t_data b_boot wc">
                         {new Date(transaction.createdAt).toLocaleString()}
                       </td>
@@ -123,6 +149,18 @@ const Withdrawhistory = () => {
               )}
             </div>
           </div>
+          {transactions && transactions.length > 0 ? (
+            <div className="text-center py-2">
+              <Pagination
+                total={pagination.total}
+                pageSize={pagination.pageSize}
+                current={pagination.current}
+                onChange={handlePageChange}
+              />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </section>
     </>

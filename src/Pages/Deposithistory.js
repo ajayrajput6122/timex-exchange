@@ -2,18 +2,25 @@ import React, { useContext, useEffect, useState } from "react";
 import { base_url } from "../ApiService/BaseUrl";
 import { AuthContext } from "../Contextapi/Auth";
 import axios from "axios";
+import Pagination from "../Components/Pagination";
 
 const Deposithistory = () => {
   const [dashboardData, setDashboardData] = useState([]);
   const [loading, setLoading] = useState(true);
   const { authData } = useContext(AuthContext);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 1,
+    total: 0,
+  });
 
-  const getDashboardData = async () => {
+  const getDashboardData = async (page = 1, pageSize = 10) => {
     setLoading(true);
     try {
+      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/all_token_deposit_transactions`,
-        { transactionType: "deposit" },
+        { transactionType: "deposit", limit: pageSize, skip },
         {
           headers: {
             Authorization: authData?.token,
@@ -21,6 +28,12 @@ const Deposithistory = () => {
         }
       );
       setDashboardData(response.data.data);
+      setPagination((prev) => ({
+        ...prev,
+        total: response.data.total,
+        current: page,
+        pageSize,
+      }));
     } catch (error) {
       console.error("Error fetching bug history data:", error);
     } finally {
@@ -31,6 +44,10 @@ const Deposithistory = () => {
   useEffect(() => {
     getDashboardData();
   }, []);
+
+  const handlePageChange = (page, pageSize) => {
+    getDashboardData(page, pageSize);
+  };
 
   return (
     <section className="sec01_login">
@@ -93,6 +110,18 @@ const Deposithistory = () => {
                 </div>
               )}
             </table>
+            {dashboardData && dashboardData.length > 0 ? (
+              <div className="text-center py-2">
+                <Pagination
+                  total={pagination.total}
+                  pageSize={pagination.pageSize}
+                  current={pagination.current}
+                  onChange={handlePageChange}
+                />
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

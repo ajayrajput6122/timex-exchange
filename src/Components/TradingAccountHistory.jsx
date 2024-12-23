@@ -3,6 +3,7 @@ import usdt from "../Img/usdt.png";
 import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
 import { AuthContext } from "../Contextapi/Auth";
+import Pagination from "../Components/Pagination";
 
 const TradingAccountHistory = () => {
   const { authData } = useContext(AuthContext);
@@ -10,14 +11,22 @@ const TradingAccountHistory = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 1,
+    total: 0,
+  });
 
-  const GetBallance = async () => {
+  const GetBallance = async (page = 1, pageSize = 10) => {
     setLoading(true);
     try {
+      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/userwallet`,
         {
           wallet_type: "trading_wallet",
+          limit: pageSize,
+          skip,
         },
         {
           headers: {
@@ -28,12 +37,22 @@ const TradingAccountHistory = () => {
       if (response.data.success) {
         setBallance(response.data.wallets.trading_wallet.balance);
         setData(response.data.wallets.trading_wallet.wallets);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
       }
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handlePageChange = (page, pageSize) => {
+    GetBallance(page, pageSize);
   };
 
   useEffect(() => {
@@ -74,43 +93,60 @@ const TradingAccountHistory = () => {
       </div>
 
       <div className="mt-3">
-      {loading ? (
+        {loading ? (
           <div className="spinner-container">
             <div className="spinner"></div>
           </div>
         ) : (
-        <div className="trade_box ">
-          <div className="table_over">
-            <div className="table_scroll">
-              <table className="trade_table_222">
-                <tr>
-                  <th className="t_t_heading wc b_boot">S No. </th>
-                  <th className="t_t_heading wc b_boot"> Token Name </th>
-                  <th className="t_t_heading wc b_boot"> USD Amount </th>
-                  <th className="t_t_heading wc b_boot"> USD Price </th>
-                  <th className="t_t_heading wc b_boot"> Balance </th>
-                  <th className="t_t_heading wc b_boot"> Date & Time</th>
-                </tr>
-                {filteredData && filteredData.length > 0
-                  ? filteredData?.map((data, index) => (
-                      <tr key={index}>
-                        <td className="t_t_data b_boot wc">{index + 1}</td>
-                        <td className="t_t_data b_boot wc">{data.tokenname}</td>
-                        <td className="t_t_data b_boot wc">
-                          {data.usd_amount}
-                        </td>
-                        <td className="t_t_data b_boot wc">{data.usd_price}</td>
-                        <td className="t_t_data b_boot wc">{data.balance}</td>
-                        <td className="t_t_data b_boot wc">
-                          {new Date(data.createdAt).toLocaleString()}
-                        </td>
-                      </tr>
-                    ))
-                  : "No Data Available"}
-              </table>
+          <div className="trade_box ">
+            <div className="table_over">
+              <div className="table_scroll">
+                <table className="trade_table_222">
+                  <tr>
+                    <th className="t_t_heading wc b_boot">S No. </th>
+                    <th className="t_t_heading wc b_boot"> Token Name </th>
+                    <th className="t_t_heading wc b_boot"> USD Amount </th>
+                    <th className="t_t_heading wc b_boot"> USD Price </th>
+                    <th className="t_t_heading wc b_boot"> Balance </th>
+                    <th className="t_t_heading wc b_boot"> Date & Time</th>
+                  </tr>
+                  {filteredData && filteredData.length > 0
+                    ? filteredData?.map((data, index) => (
+                        <tr key={index}>
+                          <td className="t_t_data b_boot wc">{index + 1}</td>
+                          <td className="t_t_data b_boot wc">
+                            {data.tokenname}
+                          </td>
+                          <td className="t_t_data b_boot wc">
+                            {data.usd_amount}
+                          </td>
+                          <td className="t_t_data b_boot wc">
+                            {data.usd_price}
+                          </td>
+                          <td className="t_t_data b_boot wc">{data.balance}</td>
+                          <td className="t_t_data b_boot wc">
+                            {new Date(data.createdAt).toLocaleString()}
+                          </td>
+                        </tr>
+                      ))
+                    : "No Data Available"}
+                </table>
+              </div>
             </div>
           </div>
-        </div>)}
+        )}
+        {data && data.length > 0 ? (
+          <div className="text-center py-2">
+            <Pagination
+              total={pagination.total}
+              pageSize={pagination.pageSize}
+              current={pagination.current}
+              onChange={handlePageChange}
+            />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );
