@@ -102,7 +102,7 @@ const Myprofile = () => {
                   </div>
                   <div className="tab-pane fade wc" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                     <Kycverification />
-                  </div>
+                  </div> 
                   <div className="tab-pane fade wc" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                     <ChangePassword1 />
                   </div>
