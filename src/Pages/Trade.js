@@ -624,12 +624,15 @@ const Trade = () => {
                       <h5 className="trade_box_title1 wc">Group By</h5>
                     </div>
                     <div>
-                      <select
+                      {/* <select
                         className="t_from"
                         value={groupBy}
                         onChange={(e) => setGroupby(e.target.value)}
-                      >
-                        <option value={"4"}>0.00001</option>
+                      > */}
+                        <select className="t_from"
+                        onfocus='this.size=4;' onblur='this.size=0;' 
+            onchange='this.size=1; this.blur();' >
+                        <option className="anku" value={"4"}>0.00001</option>
                         <option value={"3"}>0.0001</option>
                         <option value={"2"}>0.001</option>
                         <option value={"1"}>0.01</option>
@@ -638,7 +641,7 @@ const Trade = () => {
                   </div>
                   <div className="t_table_main t_table_main_rr">
                     <div className="t_table_sec">
-                      <table className="trade_table_1">
+                      <table className="trade_table_1 trade_table_1v">
                         <tr>
                           <th className="t_t_heading wc b_boot">
                             Price (USDT)
@@ -992,13 +995,13 @@ const Trade = () => {
                             <div className="d-flex j_con">
                               <Link
                                 to={"/login"}
-                                className="t_f_btn t_f_btn1 wc"
+                                className="t_f_btn t_f_btn1 wc text-center"
                               >
                                 Login
                               </Link>
                               <Link
                                 to={"/register"}
-                                className="t_f_btn t_f_btn2 wc"
+                                className="t_f_btn t_f_btn2 wc text-center"
                               >
                                 Register
                               </Link>

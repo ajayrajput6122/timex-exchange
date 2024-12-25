@@ -19,9 +19,9 @@ const About = () => {
                     <img className='Referrals' src={Referrals} />
                 </div>
                 <div className='col-lg-6 col-md-7 col-sm-7 alin_c'>
-                    <h4 className='sub_title bc'>.. Earn with Referrals ..</h4>
-                    <h2 className='title_h2 wc'>Invite a Friend and Claim 25,000 Shiba Inu! </h2>
-                    <p className='text '>Invite your friends to join Tomax and instantly receive 25,000 Shiba Inu credited to your account. Use these tokens to explore the platform, access exclusive features, and grow your crypto portfolio. Plus, you'll unlock even more rewards and perks that make Tomax the go-to destination for crypto enthusiasts.</p>
+                    {/* <h4 className='sub_title bc'>.. Earn with Referrals ..</h4> */}
+                    <h2 className='title_h2 wc'>About Us</h2>
+                    <p className='text '>Welcome to Tomax Exchange, your trusted platform for seamless cryptocurrency trading. At Tomax, we empower users with a secure, user-friendly, and efficient environment for trading digital assets. Whether you’re a seasoned trader or just starting, Tomax provides the tools and features needed to succeed in the ever-evolving world of cryptocurrencies.</p>
                 </div>
             </div>
         </div>
@@ -30,9 +30,13 @@ const About = () => {
       <div className='container '>
             <div className='row column-rever_p'>
             <div className='col-lg-6 col-md-7 col-sm-7 alin_c'>
-                    <h4 className='sub_title bc'>.. Earn with Staking ..</h4>
-                    <h2 className='title_h2 wc'>Stack USDT and Earn 0.36% Daily on Tomax Exchange</h2>
-                    <p className='text '>Invest in stability by staking your USDT on Tomax Exchange and earn 0.36% daily for 18 months! Your assets are protected by our cutting-edge security measures, and our transparent platform makes it easy to track your earnings. With a proven track record of reliability, Tomax offers a secure and consistent way to grow your wealth. Take advantage of this opportunity to enjoy passive income while keeping your investments safe. Start staking USDT on Tomax today—terms and conditions apply.</p>
+                    {/* <h4 className='sub_title bc'>.. Earn with Staking ..</h4> */}
+                    <h2 className='title_h2 wc'>Why Choose Tomax?</h2>
+                    <p className='text '>Comprehensive Trading Options: Trade multiple cryptocurrencies effortlessly.
+Cutting-Edge Security: Advanced encryption and protocols to protect your assets.
+User-Focused Design: An intuitive interface tailored for traders at all levels.
+Global Accessibility: Anytime, anywhere trading through web and mobile platforms.
+At Tomax Exchange, trading is not just a task—it’s a seamless and rewarding experience. Join us in shaping the future of digital asset trading.</p>
                 </div>
                 <div className='col-lg-6 col-md-5 col-sm-5 text-center alin_c'>
                     <img className='Staking' src={Coin} />

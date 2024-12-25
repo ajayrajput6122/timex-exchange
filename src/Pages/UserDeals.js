@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import Depot from "../Img/UserDeals.png";
+import Depot from "../Img/ud.png";
 import axios from "axios";
 import { base_url } from "../ApiService/BaseUrl";
 import { AuthContext } from "../Contextapi/Auth";
@@ -177,10 +177,10 @@ const UserDeals = () => {
         <div className="container">
           <h2 className="title_h2 wc text-center mb-5">User Deals</h2>
           <div className="row">
-            <div className="col-lg-6">
-              <img className="Depot" src={Depot} alt="Depot" />
+            <div className="col-lg-6 col-md-6">
+              <img className="Depot1" src={Depot} alt="Depot" />
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6 col-md-6">
               <div className="login_f login_box">
                 <form onSubmit={(e) => handleSubmit(e)}>
                   <div className="form_t">
@@ -261,7 +261,7 @@ const UserDeals = () => {
           </div>
 
           <div className="mt-3">
-            <h2 className="title_h022 wc mb-3">User Deals History</h2>
+            <h2 className="title_h2  wc mb-3">User Deals History</h2>
             <div className="trade_box ">
               <div className="table_over">
                 <div className="table_scroll">

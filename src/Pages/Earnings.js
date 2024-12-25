@@ -32,8 +32,8 @@ const Earnings = () => {
                 </div>
                 <div className='col-lg-6 col-md-7 col-sm-7 alin_c'>
                     <h4 className='sub_title bc'>.. Earn with Referrals ..</h4>
-                    <h2 className='title_h2 wc'>Invite a Friend and Claim 25,000 Shiba Inu! </h2>
-                    <p className='text '>Invite your friends to join Tomax and instantly receive 25,000 Shiba Inu credited to your account. Use these tokens to explore the platform, access exclusive features, and grow your crypto portfolio. Plus, you'll unlock even more rewards and perks that make Tomax the go-to destination for crypto enthusiasts.</p>
+                    <h2 className='title_h2 wc'>Invite a Friend and Claim 10 Hill Token </h2>
+                    <p className='text '>Invite your friends to join Tomax and instantly receive 10 Hill Token credited to your account. Use these tokens to explore the platform, access exclusive features, and grow your crypto portfolio. Plus, you'll unlock even more rewards and perks that make Tomax the go-to destination for crypto enthusiasts.</p>
                     <button className='btn_timex' onClick={handleInviteClick}>Invite Friends</button>                
                 </div>
             </div>
@@ -44,7 +44,7 @@ const Earnings = () => {
             <div className='row column-rever_p'>
             <div className='col-lg-6 col-md-7 col-sm-7 alin_c'>
                     <h4 className='sub_title bc'>.. Earn with KYC Completion ..</h4>
-                    <h2 className='title_h2 wc'>Complete your KYC verification and receive 1 ETH as a token of our appreciation</h2>
+                    <h2 className='title_h2 wc'>Complete your KYC verification and receive 10 Hill Token as a token of our appreciation</h2>
                     <p className='text '>It's our way of thanking you for trusting us with your verification. But that’s just the beginning—successfully completing KYC unlocks access to enhanced security features, safeguarding your assets and elevating your overall trading experience.</p>
                     <button className='btn_timex' onClick={handleKycClick}>Complete KYC</button>                
                 </div>
@@ -54,7 +54,7 @@ const Earnings = () => {
             </div>
         </div>
       </section>
-      <section className='sec01_e'>
+      {/* <section className='sec01_e'>
       <div className='container '>
             <div className='row'>
                 <div className='col-lg-6 col-md-5 col-sm-5 text-center alin_c'>
@@ -68,8 +68,8 @@ const Earnings = () => {
                 </div>
             </div>
         </div>
-      </section>
-      <section className='sec03_h'>
+      </section> */}
+      {/* <section className='sec03_h'>
       <div className='container '>
             <div className='row column-rever_p'>
             <div className='col-lg-6 col-md-7 col-sm-7 alin_c'>
@@ -83,7 +83,7 @@ const Earnings = () => {
                 </div>
             </div>
         </div>
-      </section>
+      </section> */}
 
       <section className='sec04_h'>
         <div className='container text-center'>
