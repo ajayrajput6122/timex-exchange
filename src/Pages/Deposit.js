@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import Depot from "../Img/depgit.png";
+import Depot from "../Img/dc.png";
 import axios from "axios";
 import { Formik, Form, Field } from "formik";
 import QRCode from "react-qr-code";

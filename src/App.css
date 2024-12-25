@@ -640,9 +640,10 @@ select:focus-visible {
   border: 2px solid #c38807;
   border-radius: 10px;
   font-size: 16px;
-  display: inline;
+  display: inline-block;
   margin-top: 10px;
   font-weight: 600;
+  text-align: center;
 }
 
 .user_id {
@@ -1126,7 +1127,7 @@ select.input_l.w-100.wc option {
 
   .dropdown-menu_header {
     margin-left: 0px !important;
-    margin-top: 15px !important;
+    margin-top: 0px !important;
   }
 
   .footer_col-02 {
@@ -1493,7 +1494,7 @@ select.input_l.w-100.wc option {
 }
 
 .trade_box.trade_box1.o_d {
-  overflow-y: hidden;
+  overflow-y: scroll;
 }
 
 .pro012 {
@@ -1586,3 +1587,11 @@ li.ant-pagination-item.ant-pagination-item-1.ant-pagination-item-active {
     border-radius: 10px;
   }
 }
+
+option:nth-child(1):hover { background: green;}
+  
+.Depot1 { max-height: 500px;
+          height: auto;
+          object-fit: contain;
+          width: 100%;}
+
