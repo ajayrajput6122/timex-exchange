@@ -62,7 +62,7 @@ const Swap = () => {
     }
   };
 
-  const fetchData = async (page = 1, pageSize = 10) => {
+  const fetchData = async (page = 1, pageSize = 1) => {
     setLoading(true);
     try {
       const skip = (page - 1) * pageSize;

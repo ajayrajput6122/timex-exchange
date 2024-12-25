@@ -24,6 +24,14 @@ const Kycverification03 = ({ data, onNext, onPrevious, panImageFile }) => {
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+
+      const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+      if (!validTypes.includes(file.type)) {
+        toast.dismiss();
+        toast.error("Upload Image in .jpg, .jpeg, or .png format only.");
+        return;
+      }
+      
       try {
         Resizer.imageFileResizer(
           file,

@@ -77,7 +77,7 @@ const Footer = () => {
                   <h4 className="footer_title">Company</h4>
                   <ul className="footer_list">
                     <li className="footer_list_item">
-                      <Link to="/comingsoon">About Us</Link>
+                      <Link to="/about">About Us</Link>
                     </li>
                     <li className="footer_list_item">
                       <Link to="/security">Security</Link>

@@ -266,7 +266,7 @@ const Trade = () => {
     }
   };
 
-  const getOpenOrder = async (page = 1, pageSize = 10) => {
+  const getOpenOrder = async (page = 1, pageSize = 1) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(
@@ -310,7 +310,7 @@ const Trade = () => {
     getOpenOrder(page, pageSize);
   };
 
-  const getPendingOrder = async (page = 1, pageSize = 10) => {
+  const getPendingOrder = async (page = 1, pageSize = 1) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(
@@ -343,7 +343,7 @@ const Trade = () => {
       console.error("unable to fetch data", error);
     }
   };
-  const getCompletedOrder = async (page = 1, pageSize = 10) => {
+  const getCompletedOrder = async (page = 1, pageSize = 1) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(

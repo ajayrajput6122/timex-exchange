@@ -17,7 +17,7 @@ const TradingAccountHistory = () => {
     total: 0,
   });
 
-  const GetBallance = async (page = 1, pageSize = 10) => {
+  const GetBallance = async (page = 1, pageSize = 1) => {
     setLoading(true);
     try {
       const skip = (page - 1) * pageSize;
@@ -135,7 +135,7 @@ const TradingAccountHistory = () => {
             </div>
           </div>
         )}
-        {data && data.length > 0 ? (
+        {filteredData && filteredData.length > 0 ? (
           <div className="text-center py-2">
             <Pagination
               total={pagination.total}

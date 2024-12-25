@@ -3,6 +3,7 @@ import { AuthContext } from "../Contextapi/Auth";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { base_url } from "../ApiService/BaseUrl";
+import Pagination from "../Components/Pagination";
 
 const BugReports = () => {
   const { authData } = useContext(AuthContext);
@@ -12,14 +13,23 @@ const BugReports = () => {
     title: "",
     url: "",
     description: "",
-  }); 
+  });
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 1,
+    total: 0,
+  });
 
-  const getDashboardData = async () => {
+  const getDashboardData = async (page = 1, pageSize = 1) => {
     setLoading(true);
     try {
+      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/user_reportBug_history`,
-        {},
+        {
+          limit: pageSize,
+          skip,
+        },
         {
           headers: {
             Authorization: authData?.token,
@@ -27,11 +37,21 @@ const BugReports = () => {
         }
       );
       setDashboardData(response.data.data);
+      setPagination((prev) => ({
+        ...prev,
+        total: response.data.total,
+        current: page,
+        pageSize,
+      }));
     } catch (error) {
       console.error("Error fetching bug history data:", error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handlePageChange = (page, pageSize) => {
+    getDashboardData(page, pageSize);
   };
 
   useEffect(() => {
@@ -106,7 +126,7 @@ const BugReports = () => {
                   autoComplete="off"
                 />
                 <h4 className="WC f_g_text alin_c">
-                <i class="fa-solid fa-pen-to-square fa-beat wc"></i>
+                  <i class="fa-solid fa-pen-to-square fa-beat wc"></i>
                 </h4>
               </div>
             </div>
@@ -122,7 +142,7 @@ const BugReports = () => {
                   autoComplete="off"
                 />
                 <h4 className="WC f_g_text alin_c">
-                <i class="fa-solid fa-link fa-beat wc"></i>                
+                  <i class="fa-solid fa-link fa-beat wc"></i>
                 </h4>
               </div>
             </div>
@@ -140,7 +160,7 @@ const BugReports = () => {
                   autoComplete="off"
                 />
                 <h4 className="WC f_g_text alin_c">
-                <i class="fa-solid fa-info fa-beat wc"></i>
+                  <i class="fa-solid fa-info fa-beat wc"></i>
                 </h4>
               </div>
             </div>
@@ -154,15 +174,25 @@ const BugReports = () => {
             Report bugs and earn up to 1000 crypto as a bug bonus!
           </h5>
           <p className="sec4_box_text text-center">
-          Discovering bugs or errors on our platform? We want to hear from you! Your insights are incredibly valuable in ensuring that our platform delivers the best possible performance and user experience.
-
+            Discovering bugs or errors on our platform? We want to hear from
+            you! Your insights are incredibly valuable in ensuring that our
+            platform delivers the best possible performance and user experience.
           </p>
           <p className="sec4_box_text text-center">
-          To show our appreciation for your efforts, we’re offering a generous reward of up to 1000 crypto as a bug bounty bonus! If you come across any issues, no matter how small, don’t hesitate to report them. By sharing your findings, you not only help us enhance the platform for all users but also get the chance to earn exciting crypto rewards.
+            To show our appreciation for your efforts, we’re offering a generous
+            reward of up to 1000 crypto as a bug bounty bonus! If you come
+            across any issues, no matter how small, don’t hesitate to report
+            them. By sharing your findings, you not only help us enhance the
+            platform for all users but also get the chance to earn exciting
+            crypto rewards.
           </p>
 
           <p className="sec4_box_text text-center">
-          Your feedback plays a crucial role in shaping the future of our platform. Together, we can identify and fix any problems, ensuring a seamless experience for everyone. So, keep an eye out for bugs or errors, and let us know right away. Remember, your contribution makes a difference—and gets rewarded too!
+            Your feedback plays a crucial role in shaping the future of our
+            platform. Together, we can identify and fix any problems, ensuring a
+            seamless experience for everyone. So, keep an eye out for bugs or
+            errors, and let us know right away. Remember, your contribution
+            makes a difference—and gets rewarded too!
           </p>
         </div>
       </div>
@@ -204,14 +234,25 @@ const BugReports = () => {
                 ))}
               </>
             ) : (
-              <div className="text-center text-white mt-5">
-                <h2>No data available</h2>
-                <p>Please try again later.</p>
+              <div className="text-center text-white">
+                <p>No data available</p>
               </div>
             )}
           </table>
         </div>
       </div>
+      {dashboardData && dashboardData.length > 0 ? (
+        <div className="text-center py-2">
+          <Pagination
+            total={pagination.total}
+            pageSize={pagination.pageSize}
+            current={pagination.current}
+            onChange={handlePageChange}
+          />
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };

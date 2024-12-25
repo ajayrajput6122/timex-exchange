@@ -56,7 +56,7 @@ const Kycverification = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>; // Show a loading indicator
+    return <p>Loading...</p>; 
   }
 
   if (kycStatus === "APPLIED") {

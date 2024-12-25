@@ -15,7 +15,7 @@ const Withdrawhistory = () => {
     total: 0,
   });
 
-  const getWithdrawHistory = async (page = 1, pageSize = 10) => {
+  const getWithdrawHistory = async (page = 1, pageSize = 1) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(
@@ -144,7 +144,7 @@ const Withdrawhistory = () => {
                 </table>
               ) : (
                 <div className="text-center text-white">
-                  <p>No withdrawal transactions available.</p>
+                  <p>No data available.</p>
                 </div>
               )}
             </div>

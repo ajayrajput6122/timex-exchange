@@ -63,6 +63,10 @@ const Forgotpassword = () => {
   const handleForgotPassword = async (e) => {
     e.preventDefault();
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/;
+
     if (
       !formData.email ||
       !formData.otp ||
@@ -71,6 +75,28 @@ const Forgotpassword = () => {
     ) {
       toast.dismiss();
       toast.error("Please fill in all fields");
+      return;
+    }
+
+    if (!emailRegex.test(formData.email)) {
+      toast.dismiss();
+      toast.error("Invalid email format. Please enter a valid email.");
+      return;
+    }
+
+    if (!passwordRegex.test(formData.password)) {
+      toast.dismiss();
+      toast.error(
+        "Password must contain at least 8 characters, including uppercase, lowercase, number, and special character."
+      );
+      return;
+    }
+
+    if (!passwordRegex.test(formData.confirmPassword)) {
+      toast.dismiss();
+      toast.error(
+        "Confirm Password must contain at least 8 characters, including uppercase, lowercase, number, and special character."
+      );
       return;
     }
 

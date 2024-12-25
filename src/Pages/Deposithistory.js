@@ -14,7 +14,7 @@ const Deposithistory = () => {
     total: 0,
   });
 
-  const getDashboardData = async (page = 1, pageSize = 10) => {
+  const getDashboardData = async (page = 1, pageSize = 1) => {
     setLoading(true);
     try {
       const skip = (page - 1) * pageSize;
@@ -105,8 +105,7 @@ const Deposithistory = () => {
                 </>
               ) : (
                 <div className="text-center text-white">
-                  <h2>No data available</h2>
-                  <p>Please try again later.</p>
+                  <p>No data available</p>
                 </div>
               )}
             </table>

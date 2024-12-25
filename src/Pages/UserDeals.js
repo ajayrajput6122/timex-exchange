@@ -119,7 +119,7 @@ const UserDeals = () => {
     }
   };
 
-  const getUserdealsHistory = async (page = 1, pageSize = 10) => {
+  const getUserdealsHistory = async (page = 1, pageSize = 1) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(

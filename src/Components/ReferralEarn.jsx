@@ -50,7 +50,7 @@ const ReferralEarn = () => {
     }
   };
 
-  const getReferralMembers = async (page = 1, pageSize = 10) => {
+  const getReferralMembers = async (page = 1, pageSize = 1) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(

@@ -73,12 +73,12 @@ const Register = () => {
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (formData.password !== formData.confirmPassword) {
-      toast.dismiss();
-      toast.error("Password don't match");
-      setLoading(false);
-      return;
-    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/;
+  
+
+   
     if (
       !formData.email ||
       !formData.otp ||
@@ -87,6 +87,36 @@ const Register = () => {
     ) {
       toast.dismiss();
       toast.error("Please fill in all fields");
+      setLoading(false);
+      return;
+    }
+
+    if (!emailRegex.test(formData.email)) {
+      toast.dismiss();
+      toast.error("Invalid email format. Please enter a valid email.");
+      setLoading(false);
+      return;
+    }
+  
+    if (!passwordRegex.test(formData.password)) {
+      toast.dismiss();
+      toast.error(
+        "Password must contain at least 8 characters, including uppercase, lowercase, number, and special character."
+      );
+      setLoading(false);
+      return;
+    }
+    if (!passwordRegex.test(formData.confirmPassword)) {
+      toast.dismiss();
+      toast.error(
+        "Confirm Password must contain at least 8 characters, including uppercase, lowercase, number, and special character."
+      );
+      setLoading(false);
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      toast.dismiss();
+      toast.error("Password don't match");
       setLoading(false);
       return;
     }

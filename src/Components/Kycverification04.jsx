@@ -45,6 +45,13 @@ const Kycverification04 = ({
       return;
     }
 
+    const validTypes = ["image/jpeg", "image/jpg", "image/png"];
+    if (!validTypes.includes(file.type)) {
+      toast.dismiss();
+      toast.error("Upload Image in .jpg, .jpeg, or .png format only.");
+      return;
+    }
+
     try {
       // Resize the image before saving it in state
       Resizer.imageFileResizer(
@@ -141,7 +148,7 @@ const Kycverification04 = ({
         toast.dismiss();
         console.log(uploadProofResponse, "---");
         toast.error(
-          uploadProofResponse?.message ||
+          uploadProofResponse?.response?.data?.message ||
             "Error while uploading proof documents."
         );
         setLoading(false);
@@ -191,7 +198,7 @@ const Kycverification04 = ({
       }
     } catch (error) {
       console.error("Error during image upload:", error);
-      return null; // Return null in case of error
+      return error; // Return null in case of error
     }
   };
 
