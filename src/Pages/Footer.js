@@ -1,17 +1,42 @@
-import React from "react";
-import Logo from "../Img/tomex-light.png";
-import { Link } from "react-router-dom";
-
+import React, { useContext } from "react";
+import LogoLight from "../Img/tomex-light.png";
+import { Link ,NavLink} from "react-router-dom";
+import Logo from "../Img/tomex.png";
+import { ThemeContext } from "../ThemeContext";
 const Footer = () => {
+  const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
+  // const [isDarkTheme, setIsDarkTheme] = useState(false);
+  // const handleToggle = () => {
+  //   setIsDarkTheme(!isDarkTheme);
+  //   document.body.classList.toggle("dark-theme");
+  // };
+  // console.log('isDarkTheme footer',isDarkTheme);
+  console.log('isDarkTheme footer',isDarkTheme);
   return (
     <>
       <footer>
         <div className="container">
           <div className="row">
             <div className="col-lg-3 col-md-3">
-              <a>
+              {/* <a>
                 <img className="logo" src={Logo} />
-              </a>
+              </a> */}
+               {/* <img
+                    className="logo"
+                    src={isDarkTheme ? LogoLight : Logo}
+                    alt="Toggle Theme"
+                    onClick={handleToggle}
+                    style={{ cursor: "pointer" }}
+                  /> */}
+              <NavLink className="navbar-brand" to="/">
+              <img
+                  className="logo"
+                  src={isDarkTheme ? Logo : LogoLight}
+                  alt="Logo"
+                  // onClick={toggleTheme}
+                  style={{ cursor: "pointer" }}
+                />
+              </NavLink>
               <p className="text">
                 Discover the ultimate crypto exchange designed for you. Enjoy
                 cutting-edge innovation, lightning-fast transactions, and
