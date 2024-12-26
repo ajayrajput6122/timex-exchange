@@ -5,37 +5,24 @@ import Sun from "../Img/sun.png";
 import Moon from "../Img/moon.png";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "../Contextapi/Auth";
-
+import { ThemeContext } from "../ThemeContext";
 const Header = () => {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-  // const [showDashboardRoutes, setShowDashboardRoutes] = useState(false);
+  // const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
+
   const { authData, logout } = useContext(AuthContext);
-  // const location = useLocation();
 
-  // List of dashboard-related routes
-  // const dashboardRoutes = [
-  //   "/dashboard",
-  //   "/deposit",
-  //   "/withdraw",
-  //   "/userdeals",
-  //   "/deposithistory",
-  //   "/withdrawhistory",
-  //   "/staking",
-  //   "/swap",
-  // ];
-
-  // useEffect(() => {
-  //   // Show dashboard routes if current path is dashboard or any related route
-  //   const shouldShowRoutes = dashboardRoutes.some(
-  //     (route) => location.pathname.toLowerCase() === route.toLowerCase()
-  //   );
-  //   setShowDashboardRoutes(shouldShowRoutes);
-  // }, [location.pathname]);
-
-  const handleToggle = () => {
-    setIsDarkTheme(!isDarkTheme);
-    document.body.classList.toggle("dark-theme");
-  };
+  // const handleToggle = () => {
+  //   setIsDarkTheme(!isDarkTheme);
+  //   document.body.classList.toggle("dark-theme");
+  // };
+//   const handleToggle = () => {
+//   const newTheme = !isDarkTheme;
+//   setIsDarkTheme(newTheme); // Update the state
+//   document.body.classList.toggle("dark-theme", newTheme); // Apply the theme class based on the state
+//   localStorage.setItem("isDarkTheme", newTheme); // Store the theme preference in local storage
+// };
+  console.log('isDarkTheme',isDarkTheme);
 
   return (
     <>
@@ -43,12 +30,21 @@ const Header = () => {
         <div className="container">
           <nav className="navbar navbar-expand-lg py-0">
             <div className="container px-0">
-              <NavLink className="navbar-brand" to="/">
+              {/* <NavLink className="navbar-brand" to="/">
                 {isDarkTheme ? (
                   <img className="logo" src={Logo} alt="Logo" />
                 ) : (
                   <img className="logo" src={LogoLight} alt="Logo" />
                 )}
+              </NavLink> */}
+               <NavLink className="navbar-brand" to="/">
+                <img
+                  className="logo"
+                  src={isDarkTheme ? Logo : LogoLight}
+                  alt="Logo"
+                  onClick={toggleTheme}
+                  style={{ cursor: "pointer" }}
+                />
               </NavLink>
               <button
                 className="navbar-toggler"
@@ -90,91 +86,7 @@ const Header = () => {
                           Dashboard
                         </NavLink>
                       </li>
-                      {/* <li className="nav-item">
-                        <NavLink
-                          to="/overview"
-                          className={({ isActive }) =>
-                            `nav-link ${isActive ? "active" : ""}`
-                          }
-                        >
-                          Overview
-                        </NavLink>
-                      </li> */}
-                      {/* <li className="nav-item dropdown">
-                        <Link
-                          className="nav-link dropdown-toggle"
-                          to="/"
-                          id="navbarDropdown"
-                          role="button"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                        >
-                          Transactions
-                        </Link>
-                        <ul
-                          className="dropdown-menu dropdown-menu_header"
-                          aria-labelledby="navbarDropdown"
-                        >
-                          <li>
-                            <Link className="dropdown-item" to="deposit">
-                              Deposit
-                            </Link>
-                          </li>
-                          <li>
-                            <Link className="dropdown-item" to="withdraw">
-                              Withdraw
-                            </Link>
-                          </li>
-                          <li>
-                            <Link className="dropdown-item" to="userdeals">
-                              User Deals
-                            </Link>
-                          </li>
-                          <li>
-                            <Link className="dropdown-item" to="deposithistory">
-                              Deposit History
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              className="dropdown-item"
-                              to="withdrawhistory"
-                            >
-                              Withdraw History
-                            </Link>
-                          </li>
-                        </ul>
-                      </li> */}
-                      {/* <li className="nav-item">
-                        <NavLink
-                          to="/swap"
-                          className={({ isActive }) =>
-                            `nav-link ${isActive ? "active" : ""}`
-                          }
-                        >
-                          Swap
-                        </NavLink>
-                      </li> */}
-                      {/* <li className="nav-item">
-                         <NavLink
-                           to="/staking"
-                           className={({ isActive }) =>
-                             `nav-link ${isActive ? "active" : ""}`
-                           }
-                         >
-                           Staking
-                         </NavLink>
-                       </li> */}
-                      {/* <li className="nav-item">
-                        <NavLink
-                          to="/swap"
-                          className={({ isActive }) =>
-                            `nav-link ${isActive ? "active" : ""}`
-                          }
-                        >
-                          Swap
-                        </NavLink>
-                      </li> */}
+                      
                     </>
                   )}
                   <li className="nav-item">
@@ -189,16 +101,7 @@ const Header = () => {
                   </li>
                   {authData?.token && (
                     <>
-                      {/* <li className="nav-item">
-                        <NavLink
-                          to="/dashboard"
-                          className={({ isActive }) =>
-                            `nav-link ${isActive ? "active" : ""}`
-                          }
-                        >
-                          Dashboard
-                        </NavLink>
-                      </li> */}
+                      
                       <li className="nav-item">
                         <NavLink
                           to="/overview"
@@ -286,83 +189,7 @@ const Header = () => {
                       </li> */}
                     </>
                   )}
-                  {/* {showDashboardRoutes && (
-                  <>
-                    <li className="nav-item">
-                      <NavLink
-                        to="/overview"
-                        className={({ isActive }) =>
-                          `nav-link ${isActive ? "active" : ""}`
-                        }
-                      >
-                        Overview
-                      </NavLink>
-                    </li>
-                    <li className="nav-item dropdown">
-                      <Link
-                        className="nav-link dropdown-toggle"
-                        to="/"
-                        id="navbarDropdown"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Transactions
-                      </Link>
-                      <ul
-                        className="dropdown-menu dropdown-menu_header"
-                        aria-labelledby="navbarDropdown"
-                      >
-                        <li>
-                          <Link className="dropdown-item" to="deposit">
-                            Deposit
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className="dropdown-item" to="withdraw">
-                            Withdraw
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className="dropdown-item" to="userdeals">
-                            User Deals
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className="dropdown-item" to="deposithistory">
-                            Deposit History
-                          </Link>
-                        </li>
-                        <li>
-                          <Link className="dropdown-item" to="withdrawhistory">
-                            Withdraw History
-                          </Link>
-                        </li>
-                      </ul>
-                    </li>
-                    {/* <li className="nav-item">
-                        <NavLink
-                          to="/staking"
-                          className={({ isActive }) =>
-                            `nav-link ${isActive ? "active" : ""}`
-                          }
-                        >
-                          Staking
-                        </NavLink>
-                      </li> */}
-                  {/* <li className="nav-item">
-                    <NavLink
-                      to="/swap"
-                      className={({ isActive }) =>
-                        `nav-link ${isActive ? "active" : ""}`
-                      }
-                    >
-                      Swap
-                    </NavLink>
-                  </li> */}
-                  {/* </> */}
-                  {/* )} */}
-                  {/* {!showDashboardRoutes && ( */}
+                  
                   <>
                     <li className="nav-item">
                       <NavLink
@@ -486,9 +313,11 @@ const Header = () => {
                     className="dark_li alin_c"
                     src={isDarkTheme ? Sun : Moon}
                     alt="Toggle Theme"
-                    onClick={handleToggle}
+                    onClick={toggleTheme}
                     style={{ cursor: "pointer" }}
                   />
+                  {/* < img
+                    className="dark_li alin_c" src={Sun}/> */}
                 </div>
               </div>
             </div>

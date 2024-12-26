@@ -39,7 +39,7 @@ const PrivacyPolicy = () => {
               <h4 className="sub_title bc">
                 Email:{" "}
                 <Link>
-                  <span className="wc">Tomax@gmail.com</span>
+                  <span className="wc">tomax@gmail.com</span>
                 </Link>
               </h4>
             </div>

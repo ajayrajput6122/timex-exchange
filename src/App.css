@@ -1519,15 +1519,27 @@ ul.ant-pagination.css-1x0dypw {
   padding-top: 10px !important;
 }
 
-.anticon.anticon-left svg,
-.anticon.anticon-right svg {
-  fill: var(--sec-bg);
+.ant-select-item-option:hover{
+  color: #fff;
+  font-weight: 600;
+  background-color: #c38807;
+}
+
+.anticon.anticon-left svg, .anticon.anticon-right svg {
+  fill: #c38807 !important;
+  font-size: 23px;
+  margin-top: 5px;
+}
+
+.dropdown-options {
+  z-index: 999;
 }
 
 li.ant-pagination-item.ant-pagination-item-1.ant-pagination-item-active {
   background: #c38807;
   border: none;
   color: #fff;
+  box-shadow: -1px 0 7px var(--box-s)
 }
 
 .ant-select-selector {
@@ -1595,3 +1607,8 @@ option:nth-child(1):hover { background: green;}
           object-fit: contain;
           width: 100%;}
 
+:where(.css-1x0dypw).ant-pagination .ant-pagination-item:not(.ant-pagination-item-active):hover {
+  transition: all 0.2s;
+  background-color: #c38807 !important;
+  color: #fff !important;
+}
