@@ -7,13 +7,40 @@ import Pagination from "../Components/Pagination";
 const ReferralBonus = () => {
   const { authData } = useContext(AuthContext);
   const [sponsors, setSponsors] = useState([]);
+  const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 1,
     total: 0,
   });
 
-  const getSponsors = async (page = 1, pageSize = 10) => {
+  const getSponsorsMembers = async (page = 1, pageSize = 1) => {
+    try {
+      const skip = (page - 1) * pageSize;
+      const response = await axios.post(
+        `${base_url}/api/all_token_deposit_transactions`,
+        { limit: pageSize, skip, transactionType: "bonus" },
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
+      if (response.data.success) {
+        setData(response.data.data);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
+      }
+    } catch (error) {
+      console.error("Error fetching referrals:", error);
+    }
+  };
+
+  const getSponsors = async (page = 1, pageSize = 1) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(
@@ -27,12 +54,6 @@ const ReferralBonus = () => {
       );
       if (response.data.success) {
         setSponsors(response.data);
-        setPagination((prev) => ({
-          ...prev,
-          total: response.data.total,
-          current: page,
-          pageSize,
-        }));
       }
     } catch (error) {
       console.error("Error fetching referrals:", error);
@@ -40,11 +61,12 @@ const ReferralBonus = () => {
   };
 
   const handlePageChange = (page, pageSize) => {
-    getSponsors(page, pageSize);
+    getSponsorsMembers(page, pageSize);
   };
 
   useEffect(() => {
     getSponsors();
+    getSponsorsMembers();
   }, []);
   return (
     <>
@@ -102,10 +124,12 @@ const ReferralBonus = () => {
               <th className="t_t_heading wc b_boot"> Type</th>
               <th className="t_t_heading wc b_boot"> Date & Time</th>
             </tr>
-            {sponsors.selfdata && sponsors.selfdata.length > 0 ? (
-              sponsors.selfdata.map((referral, index) => (
+            {data && data.length > 0 ? (
+              data.map((referral, index) => (
                 <tr key={referral.id}>
-                  <td className="t_t_data b_boot wc">{index + 1}</td>
+                  <td className="t_t_data b_boot wc">
+                    {(pagination.current - 1) * pagination.pageSize + index + 1}
+                  </td>{" "}
                   <td className="t_t_data b_boot wc">{referral.username}</td>
                   <td className="t_t_data b_boot wc">{referral.firstname}</td>
                   <td className="t_t_data b_boot wc">{referral.tokenName}</td>
@@ -126,7 +150,7 @@ const ReferralBonus = () => {
           </table>
         </div>
       </div>
-      {sponsors.selfdata && sponsors.selfdata.length > 0 ? (
+      {data && data.length > 0 ? (
         <div className="text-center py-2">
           <Pagination
             total={pagination.total}

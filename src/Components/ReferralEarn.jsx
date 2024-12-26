@@ -66,7 +66,7 @@ const ReferralEarn = () => {
         setReferrals(response.data.refferaldata);
         setPagination((prev) => ({
           ...prev,
-          total: response.data.total,
+          total: response.data.refferaldataLength,
           current: page,
           pageSize,
         }));
@@ -154,7 +154,11 @@ const ReferralEarn = () => {
               {referrals && referrals.length > 0 ? (
                 referrals.map((referral, index) => (
                   <tr key={referral.id}>
-                    <td className="t_t_data b_boot wc">{index + 1}</td>
+                    <td className="t_t_data b_boot wc">
+                      {(pagination.current - 1) * pagination.pageSize +
+                        index +
+                        1}
+                    </td>{" "}
                     <td className="t_t_data b_boot wc">{referral.username}</td>
                     <td className="t_t_data b_boot wc">{referral.firstname}</td>
                     <td className="t_t_data b_boot wc">{referral.kycStatus}</td>

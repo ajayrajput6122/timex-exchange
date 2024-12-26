@@ -113,7 +113,11 @@ const FundingAccountHistory = () => {
                   {filteredData && filteredData.length > 0
                     ? filteredData?.map((data, index) => (
                         <tr key={index}>
-                          <td className="t_t_data b_boot wc">{index + 1}</td>
+                          <td className="t_t_data b_boot wc">
+                            {(pagination.current - 1) * pagination.pageSize +
+                              index +
+                              1}
+                          </td>{" "}
                           <td className="t_t_data b_boot wc">
                             {data.tokenname}
                           </td>
@@ -129,7 +133,7 @@ const FundingAccountHistory = () => {
                           </td>
                         </tr>
                       ))
-                    : "No Data Available"}
+                    : <p className="text-center wc">No Data Available</p>}
                 </table>
               </div>
             </div>

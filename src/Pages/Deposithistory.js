@@ -83,7 +83,11 @@ const Deposithistory = () => {
                   <tbody>
                     {dashboardData.map((transaction, index) => (
                       <tr key={transaction._id}>
-                        <td className="t_t_data b_boot wc">{index + 1}</td>
+                        <td className="t_t_data b_boot wc">
+                          {(pagination.current - 1) * pagination.pageSize +
+                            index +
+                            1}
+                        </td>{" "}
                         <td className="t_t_data b_boot wc">
                           {transaction.transaction_id}
                         </td>
@@ -104,7 +108,7 @@ const Deposithistory = () => {
                   </tbody>
                 </>
               ) : (
-                <div className="text-center text-white">
+                <div className="text-center wc">
                   <p>No data available</p>
                 </div>
               )}

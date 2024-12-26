@@ -1121,7 +1121,7 @@ const Trade = () => {
                             </tr>
                           ))
                         ) : (
-                          <tr className="text-center" aria-colspan={10}>
+                          <tr className="text-center wc" aria-colspan={10}>
                             No History Found
                           </tr>
                         )}
@@ -1200,7 +1200,7 @@ const Trade = () => {
                             </tr>
                           ))
                         ) : (
-                          <tr className="text-center" aria-colspan={10}>
+                          <tr className="text-center wc" aria-colspan={10}>
                             No History Found
                           </tr>
                         )}
@@ -1279,7 +1279,7 @@ const Trade = () => {
                             </tr>
                           ))
                         ) : (
-                          <tr className="text-center" aria-colspan={10}>
+                          <tr className="text-center wc" aria-colspan={10}>
                             No History Found
                           </tr>
                         )}
@@ -1333,7 +1333,7 @@ const Trade = () => {
                         </tr>
                       ))
                     ) : (
-                      <tr aria-colspan={3} className="text-center text-white">
+                      <tr aria-colspan={3} className="text-center wc">
                         No Trade History Found
                       </tr>
                     )}

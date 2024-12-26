@@ -110,7 +110,12 @@ const Withdrawhistory = () => {
                   </tr>
                   {transactions.map((transaction, index) => (
                     <tr key={transaction._id}>
-                      <td className="t_t_data b_boot wc">{index + 1}</td>
+                      {/* <td className="t_t_data b_boot wc">{index + 1}</td> */}
+                      <td className="t_t_data b_boot wc">
+                        {(pagination.current - 1) * pagination.pageSize +
+                          index +
+                          1}
+                      </td>
                       <td className="t_t_data b_boot wc">{transaction._id}</td>
                       <td className="t_t_data b_boot wc">
                         {transaction.tokenName}
@@ -143,7 +148,7 @@ const Withdrawhistory = () => {
                   ))}
                 </table>
               ) : (
-                <div className="text-center text-white">
+                <div className="text-center wc">
                   <p>No data available.</p>
                 </div>
               )}

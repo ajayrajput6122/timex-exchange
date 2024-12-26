@@ -222,7 +222,11 @@ const BugReports = () => {
                 </tr>
                 {dashboardData.map((coin, index) => (
                   <tr key={index}>
-                    <td className="t_t_data b_boot wc">{index + 1}</td>
+                    <td className="t_t_data b_boot wc">
+                      {(pagination.current - 1) * pagination.pageSize +
+                        index +
+                        1}
+                    </td>{" "}
                     <td className="t_t_data b_boot wc">{coin.title}</td>
                     <td className="t_t_data b_boot wc">{coin.url}</td>
                     <td className="t_t_data b_boot wc">{coin.description}</td>
@@ -234,8 +238,8 @@ const BugReports = () => {
                 ))}
               </>
             ) : (
-              <div className="text-center text-white">
-                <p>No data available</p>
+              <div className="text-center wc">
+                <p className="wc">No data available</p>
               </div>
             )}
           </table>

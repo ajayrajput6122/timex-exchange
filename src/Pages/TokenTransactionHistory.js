@@ -106,7 +106,7 @@ const TokenTransactionHistory = () => {
                       </tr>
                     ))
                   ) : (
-                    <tr aria-colspan={6} className="text-white">
+                    <tr aria-colspan={6} className="wc">
                       No data found
                     </tr>
                   )}

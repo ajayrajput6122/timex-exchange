@@ -311,7 +311,11 @@ const Swap = () => {
                 {data && data.length > 0 ? (
                   data?.map((item, index) => (
                     <tr key={index}>
-                      <td className="t_t_data b_boot wc">{index + 1}</td>
+                      <td className="t_t_data b_boot wc">
+                        {(pagination.current - 1) * pagination.pageSize +
+                          index +
+                          1}
+                      </td>{" "}
                       <td
                         className={`t_t_data b_boot wc ${
                           item.currency_amount > 0 ? "gc" : "rc"
@@ -334,7 +338,7 @@ const Swap = () => {
                     </tr>
                   ))
                 ) : (
-                  <tr aria-colspan={6} className="text-white">
+                  <tr aria-colspan={6} className="wc">
                     No data found
                   </tr>
                 )}

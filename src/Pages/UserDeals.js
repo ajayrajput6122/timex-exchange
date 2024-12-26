@@ -271,6 +271,7 @@ const UserDeals = () => {
                       <th className="t_t_heading wc b_boot"> Token Name </th>
                       <th className="t_t_heading wc b_boot"> Mode </th>
                       <th className="t_t_heading wc b_boot"> Amount </th>
+                      <th className="t_t_heading wc b_boot"> Fee </th>
                       <th className="t_t_heading wc b_boot"> From </th>
                       <th className="t_t_heading wc b_boot"> To</th>
                       <th className="t_t_heading wc b_boot"> Date & Time</th>
@@ -278,7 +279,12 @@ const UserDeals = () => {
                     {userHistory && userHistory.length > 0 ? (
                       userHistory.map((item, index) => (
                         <tr key={index}>
-                          <td className="t_t_data b_boot wc">{index + 1}</td>
+                          {/* <td className="t_t_data b_boot wc">{index + 1}</td> */}
+                          <td className="t_t_data b_boot wc">
+                            {(pagination.current - 1) * pagination.pageSize +
+                              index +
+                              1}
+                          </td>
                           <td className="t_t_data b_boot wc">
                             {item?.tokenName}
                           </td>
@@ -290,6 +296,7 @@ const UserDeals = () => {
                           >
                             {item?.amount}
                           </td>
+                          <td className="t_t_data b_boot wc">{item?.transactionFee}</td>
                           <td className="t_t_data b_boot wc">{item?.from}</td>
                           <td className="t_t_data b_boot wc">{item?.to}</td>
                           <td className="t_t_data b_boot wc">
@@ -298,7 +305,7 @@ const UserDeals = () => {
                         </tr>
                       ))
                     ) : (
-                      <tr className="text-center" aria-colspan={10}>
+                      <tr className="text-center wc" aria-colspan={10}>
                         No History Found
                       </tr>
                     )}

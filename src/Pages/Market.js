@@ -47,7 +47,7 @@ const Market = () => {
 
   if (dashboardData.length === 0) {
     return (
-      <div className="text-center text-white mt-5">
+      <div className="text-center wc mt-5">
         <h2>No data available</h2>
         <p>Please try again later.</p>
       </div>

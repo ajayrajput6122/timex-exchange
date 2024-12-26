@@ -18,13 +18,43 @@ const TransferHistory = () => {
     total: 0,
   });
 
-  const GetBallance = async (page = 1, pageSize = 1) => {
+  const GetBallance = async () => {
     try {
-      const skip = (page - 1) * pageSize;
       const response = await axios.post(
         `${base_url}/api/userwallet`,
         {
           wallet_type: "main_wallet",
+        },
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
+      if (response.data.success) {
+        setBallance(response.data.balance);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handlePageChange = (page, pageSize) => {
+    getAllTransfer(page, pageSize);
+  };
+
+  useEffect(() => {
+    GetBallance();
+  }, []);
+
+  const getAllTransfer = async (page = 1, pageSize = 1) => {
+    setLoading(true);
+    try {
+      const skip = (page - 1) * pageSize;
+      const response = await axios.post(
+        `${base_url}/api/all_token_deposit_transactions`,
+        {
+          transactionType: "transfer",
           limit: pageSize,
           skip,
         },
@@ -35,45 +65,14 @@ const TransferHistory = () => {
         }
       );
       if (response.data.success) {
-        setBallance(response.data.balance);
+        setData(response.data.data);
+        setFilteredData(response.data.data);
         setPagination((prev) => ({
           ...prev,
           total: response.data.total,
           current: page,
           pageSize,
         }));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handlePageChange = (page, pageSize) => {
-    GetBallance(page, pageSize);
-  };
-
-  useEffect(() => {
-    GetBallance();
-  }, []);
-
-  const getAllTransfer = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        `${base_url}/api/all_token_deposit_transactions`,
-        {
-          transactionType: "transfer",
-        },
-        {
-          headers: {
-            Authorization: authData?.token,
-          },
-        }
-      );
-      if (response.data.success) {
-        setData(response.data.data);
-        setFilteredData(response.data.data);
-        console.log(response.data.message);
       } else {
         console.error(response.data.message);
       }
@@ -148,7 +147,11 @@ const TransferHistory = () => {
                   {filteredData && filteredData.length > 0
                     ? filteredData?.map((data, index) => (
                         <tr key={index}>
-                          <td className="t_t_data b_boot wc">{index + 1}</td>
+                          <td className="t_t_data b_boot wc">
+                            {(pagination.current - 1) * pagination.pageSize +
+                              index +
+                              1}
+                          </td>{" "}
                           <td className="t_t_data b_boot wc">
                             {data.tokenName}
                           </td>
@@ -166,13 +169,13 @@ const TransferHistory = () => {
                           </td>
                         </tr>
                       ))
-                    : "No Data Available"}
+                    :<p className="text-center wc">No Data Available</p>}
                 </table>
               </div>
             </div>
           </div>
         )}
-        {filteredData && filteredData.length > 0 ? (
+        {data && data.length > 0 ? (
           <div className="text-center py-2">
             <Pagination
               total={pagination.total}
