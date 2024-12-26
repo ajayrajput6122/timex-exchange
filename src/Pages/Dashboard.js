@@ -87,7 +87,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="row">
-            {dashboardData.slice(0, 6).map((coin, index) => (
+            {dashboardData.map((coin, index) => (
               <div className="col-lg-4 col-md-4 col-sm-6 mb-3" key={index}>
                 <Link to={`/trade?symbol=${coin.symbol}`}>
                   <div className="sec4_box">
@@ -110,13 +110,22 @@ const Dashboard = () => {
                           </p>
                         </div>
                       </div>
-                      <div className="alin_c">
+                      {/* <div className="alin_c">
                         <p
                           className={`box1_text wc mb-0 ${
                             coin.percent_change_1h < 0 ? "rc" : "gc"
                           }`}
                         >
                           {coin.percent_change_1h.toFixed(2)}
+                        </p>
+                      </div> */}
+                      <div className="alin_c">
+                        <p
+                          className={`box1_text wc mb-0 ${
+                            coin.priceChnage < 0 ? "rc" : "gc"
+                          }`}
+                        >
+                          {coin.priceChange}
                         </p>
                       </div>
                     </div>
@@ -138,8 +147,9 @@ const Dashboard = () => {
                   <th className="table_heading wc b_boot ">
                     Coin Price (USDT){" "}
                   </th>
-                  <th className="table_heading wc b_boot ">1 Hour Price </th>
-                  <th className="table_heading wc b_boot ">7 Hour Price </th>
+                  {/* <th className="table_heading wc b_boot ">1 Hour Price </th> */}
+                  {/* <th className="table_heading wc b_boot ">7 Hour Price </th> */}
+                  <th className="table_heading wc b_boot ">Price Change</th>
                   <th className="table_heading wc b_boot ">24 Hour Price </th>
                   <th className="table_heading wc b_boot ">Action</th>
                   <th className="table_heading wc b_boot ">Market</th>
@@ -153,7 +163,7 @@ const Dashboard = () => {
                           src={coin.image}
                           alt={coin.name}
                         />
-                        <span className="wc table_text">{coin.symbol}</span>
+                        <span className="wc table_text">{coin.name}</span>
                       </div>
                     </td>
                     <td className="table_data b_boot grc">
@@ -162,20 +172,28 @@ const Dashboard = () => {
                     </td>
                     <td
                       className={`table_data b_boot ${
-                        coin.percent_change_1h < 0 ? "rc" : "gc"
+                        coin.priceChange < 0 ? "rc" : "gc"
                       }`}
                     >
+                      {coin.priceChange}
+                      {/* {coin.percent_change_24h.toFixed(2)} */}
+                    </td>
+                    {/* <td
+                      className={`table_data b_boot ${
+                        coin.percent_change_1h < 0 ? "rc" : "gc"
+                      }`}
+                    > */}
                       {/* {coin.percent_change_1h.toFixed(2)} */}
-                      {coin.percent_change_1h}
+                      {/* {coin.percent_change_1h}
                     </td>
                     <td
                       className={`table_data b_boot ${
                         coin.percent_change_7d < 0 ? "rc" : "gc"
                       }`}
-                    >
+                    > */}
                       {/* {coin.percent_change_7d.toFixed(2)} */}
-                      {coin.percent_change_7d}
-                    </td>
+                      {/* {coin.percent_change_7d}
+                    </td> */}
                     <td
                       className={`table_data b_boot ${
                         coin.percent_change_24h < 0 ? "rc" : "gc"

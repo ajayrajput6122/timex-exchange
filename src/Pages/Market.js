@@ -89,7 +89,7 @@ const Market = () => {
           </div>
 
           <div className="row">
-            {dashboardData.slice(0, 6).map((coin, index) => (
+            {dashboardData.map((coin, index) => (
               <div className="col-lg-4 col-md-4 col-sm-6 mb-3" key={index}>
                 <Link to={`/trade?symbol=${coin.symbol}`}>
                   <div className="sec4_box">
@@ -115,10 +115,10 @@ const Market = () => {
                       <div className="alin_c">
                         <p
                           className={`box1_text wc mb-0 ${
-                            coin.percent_change_1h < 0 ? "rc" : "gc"
+                            coin.priceChnage < 0 ? "rc" : "gc"
                           }`}
                         >
-                          {coin.percent_change_1h.toFixed(2)}
+                          {coin.priceChange}
                         </p>
                       </div>
                     </div>
@@ -140,8 +140,9 @@ const Market = () => {
                   <th className="table_heading wc b_boot ">
                     Coin Price (USDT){" "}
                   </th>
-                  <th className="table_heading wc b_boot ">1 Hour Price </th>
-                  <th className="table_heading wc b_boot ">7 Hour Price </th>
+                  {/* <th className="table_heading wc b_boot ">1 Hour Price </th> */}
+                  {/* <th className="table_heading wc b_boot ">7 Hour Price </th> */}
+                  <th className="table_heading wc b_boot ">Price Chnage</th>
                   <th className="table_heading wc b_boot ">24 Hour Price </th>
                   <th className="table_heading wc b_boot ">Action</th>
                   <th className="table_heading wc b_boot ">Market</th>
@@ -155,28 +156,36 @@ const Market = () => {
                           src={coin.image}
                           alt={coin.name}
                         />
-                        <span className="wc table_text">{coin.symbol}</span>
+                        <span className="wc table_text">{coin.name}</span>
                       </div>
                     </td>
                     <td className="table_data b_boot grc">
                       {coin.price}
                       {/* {coin.price.toFixed(2)} */}
                     </td>
-                    <td
+                    {/* <td
                       className={`table_data b_boot ${
                         coin.percent_change_1h < 0 ? "rc" : "gc"
                       }`}
-                    >
+                    > */}
                       {/* {coin.percent_change_1h.toFixed(2)} */}
-                      {coin.percent_change_1h}
-                    </td>
-                    <td
+                      {/* {coin.percent_change_1h}
+                    </td> */}
+                    {/* <td
                       className={`table_data b_boot ${
                         coin.percent_change_7d < 0 ? "rc" : "gc"
                       }`}
-                    >
+                    > */}
                       {/* {coin.percent_change_7d.toFixed(2)} */}
-                      {coin.percent_change_7d}
+                      {/* {coin.percent_change_7d}
+                    </td> */}
+                    <td
+                      className={`table_data b_boot ${
+                        coin.priceChange < 0 ? "rc" : "gc"
+                      }`}
+                    >
+                      {coin.priceChange}
+                      {/* {coin.percent_change_24h.toFixed(2)} */}
                     </td>
                     <td
                       className={`table_data b_boot ${
