@@ -89,7 +89,7 @@ const Dashboard = () => {
           <div className="row">
             {dashboardData.map((coin, index) => (
               <div className="col-lg-4 col-md-4 col-sm-6 mb-3" key={index}>
-                <Link to={`/trade?symbol=${coin.symbol}`}>
+                <Link to={`/trade?symbol=${coin.symbol}USDT`}>
                   <div className="sec4_box">
                     <div className="d-flex d_box p-2">
                       <div className="icon-box d-flex">

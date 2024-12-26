@@ -91,7 +91,7 @@ const Trade = () => {
       if (buyLimit === "LIMIT") {
         if (!latestPrice || !buyamount) {
           toast.dismiss();
-          toast.error("Please fill all feilds");
+          toast.error("Please fill all fields");
           setLoading(false);
           return;
         }
@@ -148,7 +148,7 @@ const Trade = () => {
       if (sellLimit === "LIMIT") {
         if (!latestPrice || !sellamount) {
           toast.dismiss();
-          toast.error("Please fill all feilds");
+          toast.error("Please fill all fields");
           setLoading1(false);
           return;
         }
