@@ -191,7 +191,7 @@ const TransferModal = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className="popup_main"
+      className="popup_main02"
       style={overlayStyle}
       onClick={handleOverlayClick}
     >
