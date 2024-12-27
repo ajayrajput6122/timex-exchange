@@ -1619,3 +1619,6 @@ option:nth-child(1):hover { background: green;}
 :where(.css-1x0dypw).ant-pagination .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-link-icon, :where(.css-1x0dypw).ant-pagination .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-link-icon {
   color: #c38807 !important;
 }
+#tv-attr-logo{
+  display: none !important;
+}
