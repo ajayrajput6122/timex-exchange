@@ -19,7 +19,7 @@ const Swap = () => {
   const [loading, setLoading] = useState(false);
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 1,
+    pageSize: 10,
     total: 0,
   });
 
@@ -62,7 +62,7 @@ const Swap = () => {
     }
   };
 
-  const fetchData = async (page = 1, pageSize = 1) => {
+  const fetchData = async (page = 1, pageSize = 10) => {
     setLoading(true);
     try {
       const skip = (page - 1) * pageSize;

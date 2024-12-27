@@ -10,11 +10,11 @@ const ReferralBonus = () => {
   const [data, setData] = useState([]);
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 1,
+    pageSize: 10,
     total: 0,
   });
 
-  const getSponsorsMembers = async (page = 1, pageSize = 1) => {
+  const getSponsorsMembers = async (page = 1, pageSize = 10) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(
@@ -40,7 +40,7 @@ const ReferralBonus = () => {
     }
   };
 
-  const getSponsors = async (page = 1, pageSize = 1) => {
+  const getSponsors = async (page = 1, pageSize = 10) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(

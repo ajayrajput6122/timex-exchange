@@ -10,11 +10,11 @@ const Deposithistory = () => {
   const { authData } = useContext(AuthContext);
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 1,
+    pageSize: 10,
     total: 0,
   });
 
-  const getDashboardData = async (page = 1, pageSize = 1) => {
+  const getDashboardData = async (page = 1, pageSize = 10) => {
     setLoading(true);
     try {
       const skip = (page - 1) * pageSize;

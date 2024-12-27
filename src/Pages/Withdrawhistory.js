@@ -11,11 +11,11 @@ const Withdrawhistory = () => {
   const [error, setError] = useState(null);
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 1,
+    pageSize: 10,
     total: 0,
   });
 
-  const getWithdrawHistory = async (page = 1, pageSize = 1) => {
+  const getWithdrawHistory = async (page = 1, pageSize = 10) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(

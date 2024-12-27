@@ -1612,3 +1612,8 @@ option:nth-child(1):hover { background: green;}
   background-color: #c38807 !important;
   color: #fff !important;
 }
+
+/* Raman */
+#tv-attr-logo{
+  display: none !important;
+}

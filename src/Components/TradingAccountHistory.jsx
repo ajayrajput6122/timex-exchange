@@ -13,11 +13,11 @@ const TradingAccountHistory = () => {
   const [loading, setLoading] = useState(false);
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 1,
+    pageSize: 10,
     total: 0,
   });
 
-  const GetBallance = async (page = 1, pageSize = 1) => {
+  const GetBallance = async (page = 1, pageSize = 10) => {
     setLoading(true);
     try {
       const skip = (page - 1) * pageSize;
@@ -133,7 +133,7 @@ const TradingAccountHistory = () => {
                           </td>
                         </tr>
                       ))
-                    : <p className="text-center wc">No Data Available</p>}
+                    : <tr aria-colspan={5} className="wc">No Data Available</tr>}
                 </table>
               </div>
             </div>

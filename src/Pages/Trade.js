@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contextapi/Auth";
 import toast from "react-hot-toast";
 import Pagination from "../Components/Pagination";
+import CustomChart from "../Components/CustomChart";
 
 const Trade = () => {
   const { authData } = useContext(AuthContext);
@@ -15,17 +16,17 @@ const Trade = () => {
   const [sellamount, setSellamount] = useState("");
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 1,
+    pageSize: 10,
     total: 0,
   });
   const [pagination2, setPagination2] = useState({
     current: 1,
-    pageSize: 1,
+    pageSize: 10,
     total: 0,
   });
   const [pagination3, setPagination3] = useState({
     current: 1,
-    pageSize: 1,
+    pageSize: 10,
     total: 0,
   });
   const [coin, setCoin] = useState([]);
@@ -266,7 +267,7 @@ const Trade = () => {
     }
   };
 
-  const getOpenOrder = async (page = 1, pageSize = 1) => {
+  const getOpenOrder = async (page = 1, pageSize = 10) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(
@@ -310,7 +311,7 @@ const Trade = () => {
     getOpenOrder(page, pageSize);
   };
 
-  const getPendingOrder = async (page = 1, pageSize = 1) => {
+  const getPendingOrder = async (page = 1, pageSize = 10) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(
@@ -343,7 +344,7 @@ const Trade = () => {
       console.error("unable to fetch data", error);
     }
   };
-  const getCompletedOrder = async (page = 1, pageSize = 1) => {
+  const getCompletedOrder = async (page = 1, pageSize = 10) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(
@@ -444,6 +445,14 @@ const Trade = () => {
   };
 
   useEffect(() => {
+    // if (selectedCoin?.symbol === "TOMAX") {
+    //   const chartContainer = document.getElementById("tradingview_chart");
+    //   if (chartContainer) {
+    //     chartContainer.innerHTML = "No data available";
+    //   }
+    //   return;
+    // }
+
     const script = document.createElement("script");
     script.src = "https://s3.tradingview.com/tv.js";
     script.async = true;
@@ -513,6 +522,60 @@ const Trade = () => {
     const amountByPer = (sellBalance.balance * percentage) / 100;
     setSellamount(amountByPer.toFixed(4));
   };
+
+  const data = [
+    { time: 1628208000, open: 362, high: 445, low: 353, close: 439 },
+    { time: 1628294400, open: 392, high: 437, low: 383, close: 436 },
+    { time: 1628380800, open: 366, high: 393, low: 358, close: 390 },
+    { time: 1628467200, open: 442, high: 450, low: 415, close: 425 },
+    { time: 1628553600, open: 368, high: 387, low: 366, close: 379 },
+    { time: 1628640000, open: 441, high: 450, low: 438, close: 448 },
+    { time: 1628726400, open: 397, high: 449, low: 387, close: 441 },
+    { time: 1628812800, open: 421, high: 425, low: 398, close: 406 },
+    { time: 1628899200, open: 379, high: 386, low: 369, close: 370 },
+    { time: 1628985600, open: 403, high: 406, low: 352, close: 355 },
+    { time: 1629072000, open: 386, high: 395, low: 363, close: 370 },
+    { time: 1629158400, open: 412, high: 417, low: 370, close: 371 },
+    { time: 1629244800, open: 440, high: 444, low: 387, close: 397 },
+    { time: 1629331200, open: 353, high: 409, low: 343, close: 403 },
+    { time: 1629417600, open: 429, high: 438, low: 422, close: 426 },
+    { time: 1629504000, open: 432, high: 439, low: 376, close: 378 },
+    { time: 1629590400, open: 408, high: 416, low: 403, close: 411 },
+    { time: 1629676800, open: 427, high: 429, low: 404, close: 412 },
+    { time: 1629763200, open: 444, high: 445, low: 411, close: 421 },
+    { time: 1629849600, open: 426, high: 444, low: 416, close: 444 },
+    { time: 1629936000, open: 438, high: 446, low: 394, close: 397 },
+    { time: 1630022400, open: 396, high: 435, low: 388, close: 429 },
+    { time: 1630108800, open: 365, high: 427, low: 359, close: 424 },
+    { time: 1630195200, open: 448, high: 456, low: 361, close: 364 },
+    { time: 1630281600, open: 440, high: 446, low: 345, close: 352 },
+    { time: 1630368000, open: 361, high: 451, low: 357, close: 447 },
+    { time: 1630454400, open: 419, high: 423, low: 397, close: 403 },
+    { time: 1630540800, open: 362, high: 366, low: 350, close: 353 },
+    { time: 1630627200, open: 401, high: 407, low: 369, close: 373 },
+    { time: 1630713600, open: 376, high: 401, low: 373, close: 395 },
+    { time: 1630800000, open: 403, high: 435, low: 395, close: 435 },
+    { time: 1630886400, open: 449, high: 452, low: 422, close: 422 },
+    { time: 1630972800, open: 394, high: 431, low: 385, close: 431 },
+    { time: 1631059200, open: 379, high: 385, low: 368, close: 374 },
+    { time: 1631145600, open: 436, high: 438, low: 372, close: 379 },
+    { time: 1631232000, open: 417, high: 422, low: 363, close: 373 },
+    { time: 1631318400, open: 436, high: 442, low: 369, close: 375 },
+    { time: 1631404800, open: 388, high: 396, low: 380, close: 388 },
+    { time: 1631491200, open: 355, high: 367, low: 347, close: 359 },
+    { time: 1631577600, open: 419, high: 423, low: 391, close: 392 },
+    { time: 1631664000, open: 388, high: 395, low: 379, close: 386 },
+    { time: 1631750400, open: 418, high: 423, low: 371, close: 379 },
+    { time: 1631836800, open: 447, high: 452, low: 420, close: 429 },
+    { time: 1631923200, open: 350, high: 358, low: 348, close: 352 },
+    { time: 1632009600, open: 356, high: 453, low: 356, close: 446 },
+    { time: 1632096000, open: 368, high: 369, low: 352, close: 361 },
+    { time: 1632182400, open: 426, high: 432, low: 424, close: 432 },
+    { time: 1632268800, open: 373, high: 406, low: 369, close: 401 },
+    { time: 1632355200, open: 361, high: 448, low: 357, close: 447 },
+    { time: 1632441600, open: 449, high: 452, low: 404, close: 414 }
+  ];
+  
 
   return (
     <>
@@ -607,10 +670,17 @@ const Trade = () => {
               </div>
             </div>
 
-            <div
-              className="trade_box trade_box_chart mt-2"
-              id="tradingview_chart"
-            ></div>
+            {/* {selectedCoin?.symbol === "TOMAX" && (
+              <div className="trade_box trade_box_chart mt-2">
+                <CustomChart data={data} />
+              </div>
+            )}
+            {selectedCoin?.symbol !== "TOMAX" && ( */}
+              <div
+                className="trade_box trade_box_chart mt-2 text-white text-center"
+                id="tradingview_chart"
+              ></div>
+            {/* )} */}
           </div>
           <div className="col-lg-5">
             <div className="row">
@@ -629,10 +699,15 @@ const Trade = () => {
                         value={groupBy}
                         onChange={(e) => setGroupby(e.target.value)}
                       > */}
-                        <select className="t_from"
-                        onfocus='this.size=4;' onblur='this.size=0;' 
-            onchange='this.size=1; this.blur();' >
-                        <option className="anku" value={"4"}>0.00001</option>
+                      <select
+                        className="t_from"
+                        onfocus="this.size=4;"
+                        onblur="this.size=0;"
+                        onchange="this.size=1; this.blur();"
+                      >
+                        <option className="anku" value={"4"}>
+                          0.00001
+                        </option>
                         <option value={"3"}>0.0001</option>
                         <option value={"2"}>0.001</option>
                         <option value={"1"}>0.01</option>
@@ -1121,7 +1196,7 @@ const Trade = () => {
                             </tr>
                           ))
                         ) : (
-                          <tr className="text-center wc" aria-colspan={10}>
+                          <tr className="wc" aria-colspan={10}>
                             No History Found
                           </tr>
                         )}
@@ -1200,7 +1275,7 @@ const Trade = () => {
                             </tr>
                           ))
                         ) : (
-                          <tr className="text-center wc" aria-colspan={10}>
+                          <tr className="wc" aria-colspan={10}>
                             No History Found
                           </tr>
                         )}
@@ -1279,7 +1354,7 @@ const Trade = () => {
                             </tr>
                           ))
                         ) : (
-                          <tr className="text-center wc" aria-colspan={10}>
+                          <tr className="wc" aria-colspan={10}>
                             No History Found
                           </tr>
                         )}
@@ -1333,7 +1408,7 @@ const Trade = () => {
                         </tr>
                       ))
                     ) : (
-                      <tr aria-colspan={3} className="text-center wc">
+                      <tr aria-colspan={3} className="wc">
                         No Trade History Found
                       </tr>
                     )}

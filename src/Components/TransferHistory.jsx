@@ -14,7 +14,7 @@ const TransferHistory = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 1,
+    pageSize: 10,
     total: 0,
   });
 
@@ -47,7 +47,7 @@ const TransferHistory = () => {
     GetBallance();
   }, []);
 
-  const getAllTransfer = async (page = 1, pageSize = 1) => {
+  const getAllTransfer = async (page = 1, pageSize = 10) => {
     setLoading(true);
     try {
       const skip = (page - 1) * pageSize;
@@ -169,7 +169,7 @@ const TransferHistory = () => {
                           </td>
                         </tr>
                       ))
-                    :<p className="text-center wc">No Data Available</p>}
+                    :<tr className="wc" aria-colspan={5}>No Data Available</tr>}
                 </table>
               </div>
             </div>

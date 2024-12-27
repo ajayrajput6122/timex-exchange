@@ -10,7 +10,7 @@ const ReferralEarn = () => {
   const [referrals, setReferrals] = useState([]); // State for referral data
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 1,
+    pageSize: 10,
     total: 0,
   });
 
@@ -50,7 +50,7 @@ const ReferralEarn = () => {
     }
   };
 
-  const getReferralMembers = async (page = 1, pageSize = 1) => {
+  const getReferralMembers = async (page = 1, pageSize = 10) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(

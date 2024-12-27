@@ -17,7 +17,7 @@ const UserDeals = () => {
   const { authData } = useContext(AuthContext);
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 1,
+    pageSize: 10,
     total: 0,
   });
 
@@ -119,7 +119,7 @@ const UserDeals = () => {
     }
   };
 
-  const getUserdealsHistory = async (page = 1, pageSize = 1) => {
+  const getUserdealsHistory = async (page = 1, pageSize = 10) => {
     try {
       const skip = (page - 1) * pageSize;
       const response = await axios.post(
@@ -305,7 +305,7 @@ const UserDeals = () => {
                         </tr>
                       ))
                     ) : (
-                      <tr className="text-center wc" aria-colspan={10}>
+                      <tr className="wc" aria-colspan={10}>
                         No History Found
                       </tr>
                     )}
