@@ -1527,7 +1527,7 @@ ul.ant-pagination.css-1x0dypw {
 
 .anticon.anticon-left svg, .anticon.anticon-right svg {
   fill: #c38807 !important;
-  font-size: 23px;
+  font-size: 18px;
   margin-top: 5px;
 }
 
@@ -1611,4 +1611,11 @@ option:nth-child(1):hover { background: green;}
   transition: all 0.2s;
   background-color: #c38807 !important;
   color: #fff !important;
+}
+
+
+.popup_main02 {z-index: 99999 !important;}
+
+:where(.css-1x0dypw).ant-pagination .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-link-icon, :where(.css-1x0dypw).ant-pagination .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-link-icon {
+  color: #c38807 !important;
 }
