@@ -129,7 +129,9 @@ body {
 }
 
 .dark_li {
-  margin-left: 20px;
+  position: absolute;
+  top: 30px;
+  right: 58px;
 }
 
 .alin_c {
@@ -1385,6 +1387,8 @@ select.input_l.w-100.wc option {
     margin-bottom: 20px;
   }
 
+  .dark_li {top: 20px;}
+
   .titel_h4_my {
     margin: 20px 0px;
   }
@@ -1681,3 +1685,4 @@ option:nth-child(1):hover { background: green;}
   background-color: #c38807 !important;
 }
 
+.pr {position: relative;}

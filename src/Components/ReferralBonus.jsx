@@ -142,7 +142,7 @@ const ReferralBonus = () => {
               ))
             ) : (
               <tr>
-                <td className="t_t_data b_boot wc" colSpan="5">
+                <td className="t_t_data b_boot wc text-center" colSpan="12">
                   No referrals found.
                 </td>
               </tr>
