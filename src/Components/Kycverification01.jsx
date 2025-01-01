@@ -156,6 +156,7 @@ const Kycverification01 = ({ data, onNext }) => {
                       country={"in"}
                       value={formData.phone}
                       onChange={handlePhoneChange}
+                      className="input_l w-100 wc"
                       inputStyle={{
                         width: "100%",
                         paddingLeft: "40px",

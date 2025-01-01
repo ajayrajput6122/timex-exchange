@@ -13,6 +13,13 @@ import Investment from "../Img/investment.png";
 import Stock from "../Img/stock.png";
 import Encrypted from "../Img/encrypted.png";
 import Profits from "../Img/profits.png";
+
+import h01 from '../Img/access-control.png'
+import h02 from '../Img/excellence.png'
+import h03 from '../Img/compensation.png'
+import h04 from '../Img/return-on-investment.png'
+
+
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contextapi/Auth";
 
@@ -135,12 +142,14 @@ const Home = () => {
         </div>
       </section>
       <section className="sec04_h">
+
+        
         <div className="container ">
           <div className="row column-rever">
             <div className="col-lg-6 col-sm-12 text-center">
               <div className="row">
                 <div className=" col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
-                  <div className="sec4_box">
+                  <div className="sec4_box sec_col_b">
                     <img className="sec4_box_img" src={Investment} />
                     <h4 className="sec4_box_title wc">
                       Shield Your Investments
@@ -152,7 +161,7 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
-                  <div className="sec4_box">
+                  <div className="sec4_box sec_col_b">
                     <img className="sec4_box_img" src={Stock} />
                     <h4 className="sec4_box_title wc">
                       Real-Time Crypto Trading
@@ -164,7 +173,7 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
-                  <div className="sec4_box">
+                  <div className="sec4_box sec_col_b">
                     <img className="sec4_box_img" src={Encrypted} />
                     <h4 className="sec4_box_title wc">Shielded Assets</h4>
                     <p className="sec4_box_text">
@@ -173,8 +182,8 @@ const Home = () => {
                     </p>
                   </div>
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
-                  <div className="sec4_box">
+                <div className="col-lg-6 col-md-6 col-sm-6 col-12 mt-3 ">
+                  <div className="sec4_box sec_col_b">
                     <img className="sec4_box_img" src={Profits} />
                     <h4 className="sec4_box_title wc">Profit Maximization </h4>
                     <p className="sec4_box_text">
@@ -185,7 +194,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-6 col_2 alin_c md_center">
+            <div className="col-lg-6 col_2 alin_c md_center clo">
               <h4 className="sub_title bc">.. Benefits ..</h4>
               <h2 className="title_h2 wc">
                 Explore Incredible Exchange Features!
@@ -201,7 +210,7 @@ const Home = () => {
       <section className="sec03_h pb-0">
         <div className="container ">
           <div className="row column-rever_p">
-            <div className="col-lg-6 col-md-7 col-sm-7 alin_c">
+            <div className="col-lg-6 col-md-7 col-sm-7 alin_c dow_col">
               <h4 className="sub_title bc">.. Downloads ..</h4>
               <h2 className="title_h2 wc">Get the App Now</h2>
               <p className="text ">
@@ -231,8 +240,8 @@ const Home = () => {
 
           <div className="row">
             <div className="col-lg-3 col-md-6 col-sm-6 mt-3">
-              <div className="sec4_box">
-                <img className="sec4_box_img" src={Investment} />
+              <div className="sec4_box box_ht">
+                <img className="sec4_box_img" src={h03} />
                 <h4 className="sec4_box_title wc">Investment Choice </h4>
                 <p className="sec4_box_text">
                   Cryptocurrencies are a popular investment choice today because
@@ -243,8 +252,8 @@ const Home = () => {
               </div>
             </div>
             <div className="col-lg-3 col-md-6 col-sm-6 mt-3">
-              <div className="sec4_box">
-                <img className="sec4_box_img" src={Stock} />
+              <div className="sec4_box box_ht">
+                <img className="sec4_box_img" src={h04} />
                 <h4 className="sec4_box_title wc">Big Return Potential</h4>
                 <p className="sec4_box_text">
                   Cryptocurrencies like Bitcoin and Ethereum have shown huge
@@ -255,8 +264,8 @@ const Home = () => {
               </div>
             </div>
             <div className="col-lg-3 col-md-6 col-sm-6 mt-3">
-              <div className="sec4_box">
-                <img className="sec4_box_img" src={Encrypted} />
+              <div className="sec4_box box_ht">
+                <img className="sec4_box_img" src={h02} />
                 <h4 className="sec4_box_title wc">More Popular</h4>
                 <p className="sec4_box_text">
                   Big companies & financial firms are getting involved in
@@ -267,9 +276,9 @@ const Home = () => {
               </div>
             </div>
             <div className="col-lg-3 col-md-6 col-sm-6 mt-3">
-              <div className="sec4_box">
-                <img className="sec4_box_img" src={Profits} />
-                <h4 className="sec4_box_title wc">Easy Access for Everyone </h4>
+              <div className="sec4_box box_ht">
+                <img className="sec4_box_img" src={h01} />
+                <h4 className="sec4_box_title wc">Easily Accessible </h4>
                 <p className="sec4_box_text">
                   The crypto market is open 24/7 and accessible from anywhere.
                   You can buy or sell at any time from any part of the world,

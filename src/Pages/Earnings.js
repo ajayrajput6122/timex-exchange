@@ -93,21 +93,21 @@ const Earnings = () => {
                    
                     <div className='row '>
                         <div className='col-lg-4 col-md-4 col-sm-4 mt-3'>
-                            <div className='sec4_box'>
+                            <div className='sec4_box box_jhh'>
                                 <img className='sece_box_img' src={Network} />
                                 <h4 className='sec4_box_title wc'>Share Your Code and Link</h4>
                                 <p className='sec4_box_text'>You can invite your friends to use Tomax products with just one referral code.</p>
                             </div>
                         </div>
                         <div className='col-lg-4 col-md-4 col-sm-4 mt-3'>
-                            <div className='sec4_box'>
+                            <div className='sec4_box box_jhh'>
                                 <img className='sece_box_img' src={Support} />
                                 <h4 className='sec4_box_title wc'>Connect with Your Friends</h4>
-                                <p className='sec4_box_text'>Your friends will be associated with you after they Sign Up.</p>
+                                <p className='sec4_box_text'> People will become a part of your network  the moment they complete Sign-Up process. </p>
                             </div>
                         </div>
                         <div className='col-lg-4 col-md-4 col-sm-4 mt-3'>
-                            <div className='sec4_box'>
+                            <div className='sec4_box box_jhh'>
                                 <img className='sece_box_img' src={Reward} />
                                 <h4 className='sec4_box_title wc'>Get Multiple Rewards</h4>
                                 <p className='sec4_box_text'>Automatically get Trading Commissions through Tomax Card Rewards.</p>
