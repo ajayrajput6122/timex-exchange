@@ -1120,10 +1120,54 @@ select.input_l.w-100.wc option {
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1262px) and (min-width:992px){
+  .sec_col_b { height: 265px !important;}
+}
+
+@media (max-width: 1236px) and (min-width:1120px){
+  .box_ht {height: 297px;}
+}
+
+@media (max-width: 1119px) and (min-width:992px){
+  .box_ht {height: 338px;}
+}
+
+@media (max-width: 1032px) and (min-width:749px){
+.box_jhh { height: 218px;}
+}
+
+@media (max-width: 991px) and (min-width:842px){
+  .box_ht {height: 223px;}
+}
+
+@media (max-width: 841px) and (min-width:699px){
+  .box_ht {height: 245px;}
+}
+
+@media (max-width: 748px) and (min-width:576px){
+  .box_jhh { height: 237px;}
+  }
+
+@media (max-width: 631px) and (min-width:576px){
+  .sec4_box.box_jhh {padding: 15px 5px;}}
+
+@media (max-width: 698px) and (min-width:607px){
+  .box_ht {height: 266px;}
+}
+
+@media (max-width: 606px) and (min-width:576px){
+  .box_ht {height: 287px;}
+}
+
+
+@media (max-width: 992px) {
   .trade_table_222 {
     width: 992px;
   }
+
+  .dow_col {padding-bottom: 30px;}
+
+  /* .clo {padding-top: 40px !important;} */
 
   .dropdown-menu_header {
     margin-left: 0px !important;
@@ -1210,6 +1254,10 @@ select.input_l.w-100.wc option {
   .dashboard_table {
     width: 992px;
   }
+}
+
+@media (max-width: 860px) and (min-width:619px){
+  .sec_col_b { height: 204px !important;}
 }
 
 @media (max-width: 800px) {
@@ -1370,6 +1418,10 @@ select.input_l.w-100.wc option {
   .t_t_btn02 {
     width: auto !important;
   }
+}
+
+@media (max-width: 618px) and (min-width:576px){
+  .sec_col_b { height: 225px !important;}
 }
 
 @media (max-width: 575px) {
@@ -1622,3 +1674,10 @@ option:nth-child(1):hover { background: green;}
 #tv-attr-logo{
   display: none !important;
 }
+
+:where(.css-1x0dypw).ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+  background-color: #c38807 !important;
+}
+
