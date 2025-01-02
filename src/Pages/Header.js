@@ -221,7 +221,7 @@ const Header = () => {
                   </>
                   {/* )} */}
                 </ul>
-                <div className="alin_c d-flex ">
+                <div className="alin_c d-flex dsvg">
                 
                   {authData.token ? (
                     <>
