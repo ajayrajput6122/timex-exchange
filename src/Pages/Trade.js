@@ -7,6 +7,7 @@ import { AuthContext } from "../Contextapi/Auth";
 import toast from "react-hot-toast";
 import Pagination from "../Components/Pagination";
 import CustomChart from "../Components/CustomChart";
+import { io } from "socket.io-client";
 
 const Trade = () => {
   const { authData } = useContext(AuthContext);
@@ -37,6 +38,8 @@ const Trade = () => {
   const [completeOrder, setCompleteOrder] = useState([]);
   const [recentTrade, setRecentTrade] = useState([]);
   const [latestPrice, setLatestPrice] = useState("");
+  const [buyLimitPrice, setButLimitPrice] = useState("");
+  const [sellLimitPrice, setSellLimitPrice] = useState("");
   const [sellLimit, setSellLimit] = useState("MARKET");
   const [buyLimit, setBuyLimit] = useState("MARKET");
   const [latestTotal, setLatestTotal] = useState("");
@@ -114,6 +117,7 @@ const Trade = () => {
           tokenQuantity: buyamount,
           tokenId: selectedCoin?._id,
           pairCurrency: pairCurrency?._id,
+          ...(buyLimit === "LIMIT" && { limitPrice: buyLimitPrice }),
         },
         {
           headers: {
@@ -173,6 +177,7 @@ const Trade = () => {
           tokenQuantity: sellamount,
           tokenId: selectedCoin?._id,
           pairCurrency: pairCurrency?._id,
+          ...(sellLimit === "LIMIT" && { limitPrice: sellLimitPrice }),
         },
         {
           headers: {
@@ -488,32 +493,52 @@ const Trade = () => {
   useEffect(() => {
     if (!selectedCoin?.symbol) return;
 
-    const ws = new WebSocket(
-      `wss://stream.binance.com:9443/ws/${selectedCoin.symbol.toLowerCase()}usdt@trade`
-    );
-
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-
-      const newTrade = {
-        price: parseFloat(data.p).toFixed(2),
-        quantity: parseFloat(data.q).toFixed(groupBy),
-        total: (parseFloat(data.p) * parseFloat(data.q)).toFixed(2),
-      };
-
-      setTradeData((prev) => {
-        if (prev.length === 0 || prev[0].price !== newTrade.price) {
-          return [newTrade, ...prev];
-        }
-        return prev;
+    if (selectedCoin?.symbol === "TOMAX") {
+      const socket = io(base_url, {
+        transports: ["websocket"],
       });
 
-      setLatestPrice(newTrade.price);
-      setLatestAmount(newTrade.quantity);
-      setLatestTotal(newTrade.total);
-    };
+      socket.on("data", (data) => {
+        const sortedData = data.sort(
+          (a, b) => new Date(a.time) - new Date(b.time)
+        );
+        if (sortedData.length > 0) {
+          const latestPrice = sortedData[sortedData.length - 1].close;
+          setLatestPrice(latestPrice);
+        }
+      });
 
-    return () => ws.close();
+      return () => {
+        socket.disconnect();
+      };
+    } else {
+      const ws = new WebSocket(
+        `wss://stream.binance.com:9443/ws/${selectedCoin.symbol.toLowerCase()}usdt@trade`
+      );
+
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        const newTrade = {
+          price: parseFloat(data.p).toFixed(2),
+          quantity: parseFloat(data.q).toFixed(groupBy),
+          total: (parseFloat(data.p) * parseFloat(data.q)).toFixed(2),
+        };
+
+        setTradeData((prev) => {
+          if (prev.length === 0 || prev[0].price !== newTrade.price) {
+            return [newTrade, ...prev];
+          }
+          return prev;
+        });
+
+        setLatestPrice(newTrade.price);
+        setLatestAmount(newTrade.quantity);
+        setLatestTotal(newTrade.total);
+      };
+
+      return () => ws.close();
+    }
   }, [selectedCoin?.symbol]);
 
   const handleClickAmount = (percentage) => {
@@ -804,8 +829,12 @@ const Trade = () => {
                             className="sec_t_t wc"
                             onChange={(e) => setBuyLimit(e.target.value)}
                           >
-                            <option className="market" value={"MARKET"}>Market</option>
-                            <option className="market" value={"LIMIT"}>Limit</option>
+                            <option className="market" value={"MARKET"}>
+                              Market
+                            </option>
+                            <option className="market" value={"LIMIT"}>
+                              Limit
+                            </option>
                           </select>
 
                           <div className="d-flex j_con mt-3 mb-3">
@@ -830,7 +859,10 @@ const Trade = () => {
                                 <input
                                   type="text"
                                   className="t_t_input w-100 wc"
-                                  value={latestPrice}
+                                  value={buyLimitPrice}
+                                  onChange={(e) =>
+                                    setButLimitPrice(e.target.value)
+                                  }
                                 />
                                 <h4 className="WC f_g_text alin_c">USDT</h4>
                               </div>
@@ -954,8 +986,12 @@ const Trade = () => {
                             className="sec_t_t wc"
                             onChange={(e) => setSellLimit(e.target.value)}
                           >
-                            <option value={"MARKET"}>Market</option>
-                            <option value={"LIMIT"}>Limit</option>
+                            <option className="market" value={"MARKET"}>
+                              Market
+                            </option>
+                            <option className="market" value={"LIMIT"}>
+                              Limit
+                            </option>
                           </select>
 
                           <div className="d-flex j_con mt-3 mb-3">
@@ -981,7 +1017,10 @@ const Trade = () => {
                                 <input
                                   type="text"
                                   className="t_t_input w-100 wc"
-                                  value={latestPrice}
+                                  value={sellLimitPrice}
+                                  onChange={(e) =>
+                                    setSellLimitPrice(e.target.value)
+                                  }
                                 />
                                 <h4 className="WC f_g_text alin_c">USDT</h4>
                               </div>
@@ -1422,8 +1461,10 @@ const Trade = () => {
                       ))
                     ) : (
                       <tr className="wc">
-                      <td colSpan="10" className="text-center"><small>No Trade History Found</small></td>
-                    </tr>
+                        <td colSpan="10" className="text-center">
+                          <small>No Trade History Found</small>
+                        </td>
+                      </tr>
                     )}
                   </table>
                 </div>
