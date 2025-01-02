@@ -1,6 +1,6 @@
 import React from 'react'
 import Kyc from '../Img/KYC.png'
-import Referrals from '../Img/Referrals.png'
+import Referrals from '../Img/H.png'
 import Rewards from '../Img/Rewards.png'
 import Staking from '../Img/businessman-with-gold-coin.png'
 import Support from '../Img/support.png'
@@ -54,6 +54,7 @@ const Earnings = () => {
             </div>
         </div>
       </section>
+
       {/* <section className='sec01_e'>
       <div className='container '>
             <div className='row'>
@@ -69,6 +70,8 @@ const Earnings = () => {
             </div>
         </div>
       </section> */}
+      
+
       {/* <section className='sec03_h'>
       <div className='container '>
             <div className='row column-rever_p'>

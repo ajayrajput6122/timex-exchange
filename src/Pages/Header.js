@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <>
       <header>
-        <div className="container">
+        <div className="container pr">
           <nav className="navbar navbar-expand-lg py-0">
             <div className="container px-0">
               {/* <NavLink className="navbar-brand" to="/">
@@ -177,26 +177,6 @@ const Header = () => {
                           Swap
                         </NavLink>
                       </li>
-                      {/* <li className="nav-item">
-                         <NavLink
-                           to="/staking"
-                           className={({ isActive }) =>
-                             `nav-link ${isActive ? "active" : ""}`
-                           }
-                         >
-                           Staking
-                         </NavLink>
-                       </li> */}
-                      {/* <li className="nav-item">
-                        <NavLink
-                          to="/swap"
-                          className={({ isActive }) =>
-                            `nav-link ${isActive ? "active" : ""}`
-                          }
-                        >
-                          Swap
-                        </NavLink>
-                      </li> */}
                     </>
                   )}
 
@@ -252,18 +232,7 @@ const Header = () => {
                   {/* )} */}
                 </ul>
                 <div className="alin_c d-flex ">
-                  {/* <div class="dropdown">
-                    <a class=" dropdown-toggle wc" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i className="fa-solid fa-user me-2 align-self-center"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu_header p-2" aria-labelledby="dropdownMenuLink">
-                      <li><span className="align-self-center user_id"><i className="fa-solid fa-user me-2 align-self-center"></i> {authData?.user.username}</span></li>
-                      <li><button className=" logout wc" type="button" onClick={logout}>
-                        Logout
-                      </button>
-                      </li>
-                    </ul>
-                  </div> */}
+                
                   {authData.token ? (
                     <>
                       <div class="dropdown">
@@ -324,19 +293,28 @@ const Header = () => {
                       </NavLink>
                     </div>
                   )}
-                  <img
+                  {/* <img
+                    className="dark_li alin_c"
+                    src={isDarkTheme ? Sun : Moon}
+                    alt="Toggle Theme"
+                    onClick={toggleTheme}
+                    style={{ cursor: "pointer" }}
+                  /> */}
+                  {/* < img
+                    className="dark_li alin_c" src={Sun}/> */}
+                </div>
+                
+              </div>
+            </div>
+           
+          </nav>
+          <img
                     className="dark_li alin_c"
                     src={isDarkTheme ? Sun : Moon}
                     alt="Toggle Theme"
                     onClick={toggleTheme}
                     style={{ cursor: "pointer" }}
                   />
-                  {/* < img
-                    className="dark_li alin_c" src={Sun}/> */}
-                </div>
-              </div>
-            </div>
-          </nav>
         </div>
       </header>
     </>

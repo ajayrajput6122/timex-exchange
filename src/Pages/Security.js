@@ -14,7 +14,7 @@ const Security = () => {
             <div className="col-lg-6 col-md-7 col-sm-7 alin_c text-center">
               <h4 className="sub_title bc">.. Security ..</h4>
               <h2 className="title_h2 wc">
-                Security at Tomax Your Crypto’s Safety is Our Top Priority
+                Security at Tomax
               </h2>
               <p className="text ">
                 At Tomax, we take security seriously. Our multi-layered security
