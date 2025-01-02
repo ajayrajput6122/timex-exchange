@@ -232,7 +232,6 @@ const Header = () => {
                   {/* )} */}
                 </ul>
                 <div className="alin_c d-flex ">
-                
                   {authData.token ? (
                     <>
                       <div class="dropdown">
@@ -256,7 +255,7 @@ const Header = () => {
                               {authData?.user.username}
                             </span>
                           </li>
-                          <li className="mt-1 " onClick={closeNavbar}>
+                          <li className="mt-1" onClick={closeNavbar}>
                             <Link className="user_id" to={"myprofile"}>
                               <i class="fa-solid fa-address-card me-2"></i>
                               My Profile
@@ -280,15 +279,10 @@ const Header = () => {
                         to="login"
                         className="t_f_btn2 wc mt-0 me-2"
                         type="button"
-                        onClick={closeNavbar}
                       >
                         Login
                       </NavLink>
-                      <NavLink
-                        className="t_f_btn2 wc mt-0"
-                        to="register"
-                        onClick={closeNavbar}
-                      >
+                      <NavLink className="t_f_btn2 wc mt-0" to="register">
                         Register
                       </NavLink>
                     </div>
@@ -303,18 +297,16 @@ const Header = () => {
                   {/* < img
                     className="dark_li alin_c" src={Sun}/> */}
                 </div>
-                
               </div>
             </div>
-           
           </nav>
           <img
-                    className="dark_li alin_c"
-                    src={isDarkTheme ? Sun : Moon}
-                    alt="Toggle Theme"
-                    onClick={toggleTheme}
-                    style={{ cursor: "pointer" }}
-                  />
+            className="dark_li alin_c"
+            src={isDarkTheme ? Sun : Moon}
+            alt="Toggle Theme"
+            onClick={toggleTheme}
+            style={{ cursor: "pointer" }}
+          />
         </div>
       </header>
     </>
