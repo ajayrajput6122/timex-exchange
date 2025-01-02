@@ -13,6 +13,7 @@ const ReferralBonus = () => {
     pageSize: 10,
     total: 0,
   });
+  
 
   const getSponsorsMembers = async (page = 1, pageSize = 10) => {
     try {
