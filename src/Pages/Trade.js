@@ -138,6 +138,8 @@ const Trade = () => {
       }
     } catch (error) {
       console.error(error);
+      // toast.dismiss();
+      // toast.error(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -445,13 +447,13 @@ const Trade = () => {
   };
 
   useEffect(() => {
-    // if (selectedCoin?.symbol === "TOMAX") {
-    //   const chartContainer = document.getElementById("tradingview_chart");
-    //   if (chartContainer) {
-    //     chartContainer.innerHTML = "No data available";
-    //   }
-    //   return;
-    // }
+    if (selectedCoin?.symbol === "TOMAX" || selectedCoin?.symbol === "HILL") {
+      const chartContainer = document.getElementById("tradingview_chart");
+      if (chartContainer) {
+        chartContainer.innerHTML = "No data available";
+      }
+      return;
+    }
 
     const script = document.createElement("script");
     script.src = "https://s3.tradingview.com/tv.js";
@@ -573,9 +575,8 @@ const Trade = () => {
     { time: 1632182400, open: 426, high: 432, low: 424, close: 432 },
     { time: 1632268800, open: 373, high: 406, low: 369, close: 401 },
     { time: 1632355200, open: 361, high: 448, low: 357, close: 447 },
-    { time: 1632441600, open: 449, high: 452, low: 404, close: 414 }
+    { time: 1632441600, open: 449, high: 452, low: 404, close: 414 },
   ];
-  
 
   return (
     <>
@@ -670,17 +671,23 @@ const Trade = () => {
               </div>
             </div>
 
-            {/* {selectedCoin?.symbol === "TOMAX" && (
+            {selectedCoin?.symbol === "TOMAX" && (
               <div className="trade_box trade_box_chart mt-2">
-                <CustomChart data={data} />
+                <CustomChart symbol={"TOMAX"} />
               </div>
             )}
-            {selectedCoin?.symbol !== "TOMAX" && ( */}
-              <div
-                className="trade_box trade_box_chart mt-2 text-white text-center"
-                id="tradingview_chart"
-              ></div>
-            {/* )} */}
+            {selectedCoin?.symbol === "HILL" && (
+              <div className="trade_box trade_box_chart mt-2">
+                <CustomChart symbol={"HILL"} />
+              </div>
+            )}
+            {selectedCoin?.symbol !== "TOMAX" &&
+              selectedCoin?.symbol !== "HILL" && (
+                <div
+                  className="trade_box trade_box_chart mt-2 text-white text-center"
+                  id="tradingview_chart"
+                ></div>
+              )}
           </div>
           <div className="col-lg-5">
             <div className="row">
@@ -1196,8 +1203,10 @@ const Trade = () => {
                             </tr>
                           ))
                         ) : (
-                          <tr className="wc" aria-colspan={10}>
-                            No History Found
+                          <tr className="wc">
+                            <td colSpan="10" className="text-center">
+                              <small>No History Found</small>
+                            </td>
                           </tr>
                         )}
                       </table>
@@ -1275,8 +1284,10 @@ const Trade = () => {
                             </tr>
                           ))
                         ) : (
-                          <tr className="wc" aria-colspan={10}>
-                            No History Found
+                          <tr className="wc">
+                            <td colSpan="10" className="text-center">
+                              <small>No History Found</small>
+                            </td>
                           </tr>
                         )}
                       </table>
@@ -1354,8 +1365,10 @@ const Trade = () => {
                             </tr>
                           ))
                         ) : (
-                          <tr className="wc" aria-colspan={10}>
-                            No History Found
+                          <tr className="wc">
+                            <td colSpan="10" className="text-center">
+                              <small>No History Found</small>
+                            </td>
                           </tr>
                         )}
                       </table>
@@ -1408,9 +1421,9 @@ const Trade = () => {
                         </tr>
                       ))
                     ) : (
-                      <tr aria-colspan={3} className="wc">
-                        No Trade History Found
-                      </tr>
+                      <tr className="wc">
+                      <td colSpan="10" className="text-center"><small>No Trade History Found</small></td>
+                    </tr>
                     )}
                   </table>
                 </div>

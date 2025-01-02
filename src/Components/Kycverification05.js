@@ -124,7 +124,7 @@ export default function Kycverification05({ onPrevious }) {
   return (
     <div>
       <h4 className="text-center wc mb-4">
-        <span>04</span> Selfie
+        Selfie
       </h4>
 
       <div className="border_box_p mt-4">

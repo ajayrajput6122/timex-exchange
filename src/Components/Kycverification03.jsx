@@ -132,8 +132,7 @@ const Kycverification03 = ({ data, onNext, onPrevious, panImageFile }) => {
   return (
     <>
       <h4 className="text-center wc mb-4">
-        {" "}
-        <span>02</span> Document Verification (PAN Card)
+        Document Verification (PAN Card)
       </h4>
       <div className="">
         <form>

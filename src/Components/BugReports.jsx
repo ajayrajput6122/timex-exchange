@@ -238,9 +238,11 @@ const BugReports = () => {
                 ))}
               </>
             ) : (
-              <div className="text-center wc">
-                <p className="wc">No data available</p>
-              </div>
+              <tr className="wc">
+                <td colSpan="10" className="text-center">
+                  <small>No Data Found</small>
+                </td>
+              </tr>
             )}
           </table>
         </div>

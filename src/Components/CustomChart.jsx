@@ -1,47 +1,80 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createChart } from "lightweight-charts";
+import { io } from "socket.io-client";
+import { base_url } from "../ApiService/BaseUrl";
 
-const CustomChart = ({ data }) => {
+const CustomChart = ({ symbol }) => {
   const chartContainerRef = useRef(null);
   const chartRef = useRef(null);
+  const [chartData, setChartData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (symbol !== "TOMAX") return;
+
+    const socket = io(base_url, {
+      transports: ["websocket"],
+    });
+
+    socket.on("data", (data) => {
+      const sortedData = data.sort(
+        (a, b) => new Date(a.time) - new Date(b.time)
+      );
+      const formattedData = sortedData.map((item) => ({
+        time: new Date(item.time).getTime(),
+        open: item.open,
+        high: item.high,
+        low: item.low,
+        close: item.close,
+      }));
+      setChartData(formattedData);
+      setIsLoading(false);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [symbol]);
+
+  useEffect(() => {
+    if (!chartContainerRef.current || chartData.length === 0) return;
+
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
       height: chartContainerRef.current.clientHeight,
       layout: {
-        background: { color: "#161A25" }, 
+        background: { color: "#161A25" },
         textColor: "#ddd",
       },
-      lineColor: "#FFFFFF", // White grid lines for contrast
       crosshair: {
         vertLine: {
-          color: "#FFFFFF", // White color for the crosshair line
+          color: "#FFFFFF",
         },
         horzLine: {
-          color: "#FFFFFF", // White color for the crosshair line
+          color: "#FFFFFF",
         },
       },
       grid: {
         vertLines: {
-          color: "#555555", // Darker color for vertical grid lines
+          color: "#555555",
         },
         horzLines: {
-          color: "#555555", // Darker color for horizontal grid lines
+          color: "#555555",
         },
       },
     });
     chartRef.current = chart;
 
     const candlestickSeries = chart.addCandlestickSeries({
-      upColor: "#4fff94", // Color for bullish candles (green)
-      borderUpColor: "#4fff94", // Border color for bullish candles
-      wickUpColor: "#4fff94", // Wick color for bullish candles
-      downColor: "#f44336", // Color for bearish candles (red)
-      borderDownColor: "#f44336", // Border color for bearish candles
-      wickDownColor: "#f44336", // Wick color for bearish candles
+      upColor: "#4fff94",
+      borderUpColor: "#4fff94",
+      wickUpColor: "#4fff94",
+      downColor: "#f44336",
+      borderDownColor: "#f44336",
+      wickDownColor: "#f44336",
     });
-    candlestickSeries.setData(data);
+
+    candlestickSeries.setData(chartData);
 
     const handleResize = () => {
       if (chartRef.current && chartContainerRef.current) {
@@ -58,13 +91,61 @@ const CustomChart = ({ data }) => {
       chart.remove();
       window.removeEventListener("resize", handleResize);
     };
-  }, [data]);
+  }, [chartData]);
+
+  if (symbol !== "TOMAX") {
+    return (
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "320px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "#ddd",
+          backgroundColor: "#161A25",
+        }}
+      >
+        <p>No data available</p>
+      </div>
+    );
+  }
 
   return (
     <div
       ref={chartContainerRef}
       style={{ position: "relative", width: "100%", height: "320px" }}
-    ></div>
+    >
+      {isLoading ? (
+        <div
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "320px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "#ddd",
+            backgroundColor: "#161A25",
+          }}
+        >
+          <p>Loading...</p>
+        </div>
+      ) : chartData.length === 0 ? (
+        <p
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            color: "#ddd",
+          }}
+        >
+          Chart data not found
+        </p>
+      ) : null}
+    </div>
   );
 };
 

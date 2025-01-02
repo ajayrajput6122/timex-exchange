@@ -296,7 +296,9 @@ const UserDeals = () => {
                           >
                             {item?.amount}
                           </td>
-                          <td className="t_t_data b_boot wc">{item?.transactionFee}</td>
+                          <td className="t_t_data b_boot wc">
+                            {item?.transactionFee}
+                          </td>
                           <td className="t_t_data b_boot wc">{item?.from}</td>
                           <td className="t_t_data b_boot wc">{item?.to}</td>
                           <td className="t_t_data b_boot wc">
@@ -305,8 +307,10 @@ const UserDeals = () => {
                         </tr>
                       ))
                     ) : (
-                      <tr className="wc" aria-colspan={10}>
-                        No History Found
+                      <tr className="wc">
+                        <td colSpan="10" className="text-center">
+                          <small>No History Found</small>
+                        </td>
                       </tr>
                     )}
                   </table>

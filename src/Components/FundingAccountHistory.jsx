@@ -110,30 +110,32 @@ const FundingAccountHistory = () => {
                     <th className="t_t_heading wc b_boot"> Balance </th>
                     <th className="t_t_heading wc b_boot"> Date & Time</th>
                   </tr>
-                  {filteredData && filteredData.length > 0
-                    ? filteredData?.map((data, index) => (
-                        <tr key={index}>
-                          <td className="t_t_data b_boot wc">
-                            {(pagination.current - 1) * pagination.pageSize +
-                              index +
-                              1}
-                          </td>{" "}
-                          <td className="t_t_data b_boot wc">
-                            {data.tokenname}
-                          </td>
-                          <td className="t_t_data b_boot wc">
-                            {data.usd_amount}
-                          </td>
-                          <td className="t_t_data b_boot wc">
-                            {data.usd_price}
-                          </td>
-                          <td className="t_t_data b_boot wc">{data.balance}</td>
-                          <td className="t_t_data b_boot wc">
-                            {new Date(data.createdAt).toLocaleString()}
-                          </td>
-                        </tr>
-                      ))
-                    : <tr className="wc" aria-colspan={5}>No Data Available</tr>}
+                  {filteredData && filteredData.length > 0 ? (
+                    filteredData?.map((data, index) => (
+                      <tr key={index}>
+                        <td className="t_t_data b_boot wc">
+                          {(pagination.current - 1) * pagination.pageSize +
+                            index +
+                            1}
+                        </td>{" "}
+                        <td className="t_t_data b_boot wc">{data.tokenname}</td>
+                        <td className="t_t_data b_boot wc">
+                          {data.usd_amount}
+                        </td>
+                        <td className="t_t_data b_boot wc">{data.usd_price}</td>
+                        <td className="t_t_data b_boot wc">{data.balance}</td>
+                        <td className="t_t_data b_boot wc">
+                          {new Date(data.createdAt).toLocaleString()}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr className="wc">
+                      <td colSpan="10" className="text-center">
+                        <small>No Data Found</small>
+                      </td>
+                    </tr>
+                  )}
                 </table>
               </div>
             </div>

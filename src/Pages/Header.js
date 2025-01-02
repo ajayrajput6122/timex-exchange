@@ -12,17 +12,25 @@ const Header = () => {
 
   const { authData, logout } = useContext(AuthContext);
 
+  const closeNavbar = () => {
+    const navbarToggler = document.querySelector("#navbarSupportedContent");
+    if (navbarToggler.classList.contains("show")) {
+      const navbarCollapse = document.querySelector(".navbar-toggler");
+      navbarCollapse.click(); // Trigger a click to close the menu
+    }
+  };
+
   // const handleToggle = () => {
   //   setIsDarkTheme(!isDarkTheme);
   //   document.body.classList.toggle("dark-theme");
   // };
-//   const handleToggle = () => {
-//   const newTheme = !isDarkTheme;
-//   setIsDarkTheme(newTheme); // Update the state
-//   document.body.classList.toggle("dark-theme", newTheme); // Apply the theme class based on the state
-//   localStorage.setItem("isDarkTheme", newTheme); // Store the theme preference in local storage
-// };
-  console.log('isDarkTheme',isDarkTheme);
+  //   const handleToggle = () => {
+  //   const newTheme = !isDarkTheme;
+  //   setIsDarkTheme(newTheme); // Update the state
+  //   document.body.classList.toggle("dark-theme", newTheme); // Apply the theme class based on the state
+  //   localStorage.setItem("isDarkTheme", newTheme); // Store the theme preference in local storage
+  // };
+  console.log("isDarkTheme", isDarkTheme);
 
   return (
     <>
@@ -37,7 +45,7 @@ const Header = () => {
                   <img className="logo" src={LogoLight} alt="Logo" />
                 )}
               </NavLink> */}
-               <NavLink className="navbar-brand" to="/">
+              <NavLink className="navbar-brand" to="/">
                 <img
                   className="logo"
                   src={isDarkTheme ? Logo : LogoLight}
@@ -70,6 +78,7 @@ const Header = () => {
                       className={({ isActive }) =>
                         `nav-link ${isActive ? "active" : ""}`
                       }
+                      onClick={closeNavbar}
                     >
                       Home
                     </NavLink>
@@ -82,11 +91,11 @@ const Header = () => {
                           className={({ isActive }) =>
                             `nav-link ${isActive ? "active" : ""}`
                           }
+                          onClick={closeNavbar}
                         >
                           Dashboard
                         </NavLink>
                       </li>
-                      
                     </>
                   )}
                   <li className="nav-item">
@@ -95,19 +104,20 @@ const Header = () => {
                       className={({ isActive }) =>
                         `nav-link ${isActive ? "active" : ""}`
                       }
+                      onClick={closeNavbar}
                     >
                       Market
                     </NavLink>
                   </li>
                   {authData?.token && (
                     <>
-                      
                       <li className="nav-item">
                         <NavLink
                           to="/overview"
                           className={({ isActive }) =>
                             `nav-link ${isActive ? "active" : ""}`
                           }
+                          onClick={closeNavbar}
                         >
                           Overview
                         </NavLink>
@@ -127,27 +137,27 @@ const Header = () => {
                           className="dropdown-menu dropdown-menu_header"
                           aria-labelledby="navbarDropdown"
                         >
-                          <li>
+                          <li onClick={closeNavbar}>
                             <Link className="dropdown-item" to="deposit">
                               Deposit
                             </Link>
                           </li>
-                          <li>
+                          <li onClick={closeNavbar}>
                             <Link className="dropdown-item" to="withdraw">
                               Withdraw
                             </Link>
                           </li>
-                          <li>
+                          <li onClick={closeNavbar}>
                             <Link className="dropdown-item" to="userdeals">
                               User Deals
                             </Link>
                           </li>
-                          <li>
+                          <li onClick={closeNavbar}>
                             <Link className="dropdown-item" to="deposithistory">
                               Deposit History
                             </Link>
                           </li>
-                          <li>
+                          <li onClick={closeNavbar}>
                             <Link
                               className="dropdown-item"
                               to="withdrawhistory"
@@ -157,7 +167,7 @@ const Header = () => {
                           </li>
                         </ul>
                       </li>
-                      <li className="nav-item">
+                      <li className="nav-item" onClick={closeNavbar}>
                         <NavLink
                           to="/swap"
                           className={({ isActive }) =>
@@ -189,9 +199,9 @@ const Header = () => {
                       </li> */}
                     </>
                   )}
-                  
+
                   <>
-                    <li className="nav-item">
+                    <li className="nav-item" onClick={closeNavbar}>
                       <NavLink
                         to="/earnings"
                         className={({ isActive }) =>
@@ -216,22 +226,22 @@ const Header = () => {
                         className="dropdown-menu dropdown-menu_header"
                         aria-labelledby="navbarDropdown"
                       >
-                        <li>
+                        <li onClick={closeNavbar}>
                           <Link className="dropdown-item" to="faq">
                             FAQ
                           </Link>
                         </li>
-                        <li>
+                        <li onClick={closeNavbar}>
                           <Link className="dropdown-item" to="support">
                             Support
                           </Link>
                         </li>
-                        <li>
+                        <li onClick={closeNavbar}>
                           <Link className="dropdown-item" to="security">
                             Security
                           </Link>
                         </li>
-                        <li>
+                        <li onClick={closeNavbar}>
                           <Link className="dropdown-item" to="downloads">
                             Downloads
                           </Link>
@@ -277,7 +287,7 @@ const Header = () => {
                               {authData?.user.username}
                             </span>
                           </li>
-                          <li className="mt-1 ">
+                          <li className="mt-1 " onClick={closeNavbar}>
                             <Link className="user_id" to={"myprofile"}>
                               <i class="fa-solid fa-address-card me-2"></i>
                               My Profile
@@ -301,10 +311,15 @@ const Header = () => {
                         to="login"
                         className="t_f_btn2 wc mt-0 me-2"
                         type="button"
+                        onClick={closeNavbar}
                       >
                         Login
                       </NavLink>
-                      <NavLink className="t_f_btn2 wc mt-0" to="register">
+                      <NavLink
+                        className="t_f_btn2 wc mt-0"
+                        to="register"
+                        onClick={closeNavbar}
+                      >
                         Register
                       </NavLink>
                     </div>

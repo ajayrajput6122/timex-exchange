@@ -7,7 +7,7 @@ import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import useCountryList from "react-select-country-list";
 
-const Kycverification01 = ({ data, onNext }) => {
+const Kycverification01 = ({ data, onNext, selectedCountry, setSelectedCountry}) => {
   const { authData } = useContext(AuthContext);
   const [country, setCountry] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -23,11 +23,21 @@ const Kycverification01 = ({ data, onNext }) => {
     }
   );
 
+  const [selectedCountryCode, setSelectedCountryCode] = useState("in");
+
   const countryOptions = useCountryList().getData();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "country") {
+      setSelectedCountry(value);
+      const selectedCountry1 = countryOptions.find(
+        (country) => country.value === value
+      );
+      setSelectedCountryCode(selectedCountry1?.value.toLowerCase() || "in");
+    }
   };
 
   const handlePhoneChange = (value, countryData) => {
@@ -111,7 +121,7 @@ const Kycverification01 = ({ data, onNext }) => {
 
   return (
     <>
-      <h4 className="text-center wc mb-4">01 Personal Information </h4>
+      <h4 className="text-center wc mb-4">Personal Information </h4>
       <div className="">
         <form onSubmit={handleSubmit}>
           <div className="border_box_p mt-4 ">
@@ -153,7 +163,7 @@ const Kycverification01 = ({ data, onNext }) => {
                   <h5 className="trade_box_title_l wc">Phone Number</h5>
                   <div className="f_group_l d-flex j_con">
                     <ReactPhoneInput
-                      country={"in"}
+                      country={selectedCountry.toLowerCase()||'in'}
                       value={formData.phone}
                       onChange={handlePhoneChange}
                       className="input_l w-100 wc"
@@ -203,13 +213,14 @@ const Kycverification01 = ({ data, onNext }) => {
                       className="input_l w-100 wc"
                       name="country"
                       onChange={handleChange}
+                      value={formData.country}
                     >
                       <option selected value={""}>
                         Select Country
                       </option>
-                      {countryOptions?.map((country) => (
-                        <option key={country.value} value={country.value}>
-                          {country.label}
+                      {countryOptions?.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
                         </option>
                       ))}
                       {/* {country?.map((country) => (

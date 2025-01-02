@@ -112,33 +112,35 @@ const MainAccountHistory = () => {
                     <th className="t_t_heading wc b_boot"> Date & Time</th>
                     {/* <th className="t_t_heading wc b_boot"> Action</th> */}
                   </tr>
-                  {filteredData && filteredData.length > 0
-                    ? filteredData?.map((data, index) => (
-                        <tr key={index}>
-                          <td className="t_t_data b_boot wc">
-                            {(pagination.current - 1) * pagination.pageSize +
-                              index +
-                              1}
-                          </td>{" "}
-                          <td className="t_t_data b_boot wc">
-                            {data.tokenname}
-                          </td>
-                          <td className="t_t_data b_boot wc">
-                            {data.usd_amount}
-                          </td>
-                          <td className="t_t_data b_boot wc">
-                            {data.usd_price}
-                          </td>
-                          <td className="t_t_data b_boot wc">{data.balance}</td>
-                          <td className="t_t_data b_boot wc">
-                            {new Date(data.createdAt).toLocaleString()}
-                          </td>
-                          {/* <td className="t_t_data b_boot wc">
+                  {filteredData && filteredData.length > 0 ? (
+                    filteredData?.map((data, index) => (
+                      <tr key={index}>
+                        <td className="t_t_data b_boot wc">
+                          {(pagination.current - 1) * pagination.pageSize +
+                            index +
+                            1}
+                        </td>{" "}
+                        <td className="t_t_data b_boot wc">{data.tokenname}</td>
+                        <td className="t_t_data b_boot wc">
+                          {data.usd_amount}
+                        </td>
+                        <td className="t_t_data b_boot wc">{data.usd_price}</td>
+                        <td className="t_t_data b_boot wc">{data.balance}</td>
+                        <td className="t_t_data b_boot wc">
+                          {new Date(data.createdAt).toLocaleString()}
+                        </td>
+                        {/* <td className="t_t_data b_boot wc">
                             <Link className="table_link_btn" to={`/tokenTransactionHistory?tokenId=${data.tokenId}`}>View</Link>
                           </td> */}
-                        </tr>
-                      ))
-                    : <tr className="wc" aria-colspan={5}>No Data Available</tr>}
+                      </tr>
+                    ))
+                  ) : (
+                    <tr className="wc">
+                      <td colSpan="10" className="text-center">
+                        <small>No data Found</small>
+                      </td>
+                    </tr>
+                  )}
                 </table>
               </div>
             </div>

@@ -77,7 +77,9 @@ const ReferralBonus = () => {
             <h4 className="sec4_box_title wc mt-0">Invite Bonus</h4>
             <p className="sec4_box_text">
               {sponsors?.referralTotalAmount
-                ? parseFloat(sponsors?.referralTotalAmount).toFixed(2)
+                ? `${parseFloat(sponsors?.referralTotalAmount).toFixed(2)} ${
+                    data[0].tokenName
+                  }`
                 : "-"}
             </p>
           </div>
@@ -95,7 +97,7 @@ const ReferralBonus = () => {
             <h4 className="sec4_box_title wc mt-0">KYC Bonus</h4>
             <p className="sec4_box_text">
               {sponsors?.selfTotalAmount
-                ? parseFloat(sponsors?.selfTotalAmount).toFixed(4)
+                ? `${parseFloat(sponsors?.selfTotalAmount).toFixed(4)} ${sponsors?.selfdata[0]?.tokenName}`
                 : "-"}
             </p>
           </div>
@@ -141,9 +143,9 @@ const ReferralBonus = () => {
                 </tr>
               ))
             ) : (
-              <tr>
-                <td className="t_t_data b_boot wc" colSpan="5">
-                  No referrals found.
+              <tr className="wc">
+                <td colSpan="10" className="text-center">
+                  <small>No Data Found</small>
                 </td>
               </tr>
             )}

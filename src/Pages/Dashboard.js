@@ -122,10 +122,10 @@ const Dashboard = () => {
                       <div className="alin_c">
                         <p
                           className={`box1_text wc mb-0 ${
-                            coin.priceChnage < 0 ? "rc" : "gc"
+                            coin.percent_change_24h < 0 ? "rc" : "gc"
                           }`}
                         >
-                          {coin.priceChange}
+                          {`${coin.percent_change_24h}%`}
                         </p>
                       </div>
                     </div>
@@ -183,16 +183,16 @@ const Dashboard = () => {
                         coin.percent_change_1h < 0 ? "rc" : "gc"
                       }`}
                     > */}
-                      {/* {coin.percent_change_1h.toFixed(2)} */}
-                      {/* {coin.percent_change_1h}
+                    {/* {coin.percent_change_1h.toFixed(2)} */}
+                    {/* {coin.percent_change_1h}
                     </td>
                     <td
                       className={`table_data b_boot ${
                         coin.percent_change_7d < 0 ? "rc" : "gc"
                       }`}
                     > */}
-                      {/* {coin.percent_change_7d.toFixed(2)} */}
-                      {/* {coin.percent_change_7d}
+                    {/* {coin.percent_change_7d.toFixed(2)} */}
+                    {/* {coin.percent_change_7d}
                     </td> */}
                     <td
                       className={`table_data b_boot ${

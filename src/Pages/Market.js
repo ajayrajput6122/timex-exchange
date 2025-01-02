@@ -115,10 +115,10 @@ const Market = () => {
                       <div className="alin_c">
                         <p
                           className={`box1_text wc mb-0 ${
-                            coin.priceChnage < 0 ? "rc" : "gc"
+                            coin.percent_change_24h < 0 ? "rc" : "gc"
                           }`}
                         >
-                          {coin.priceChange}
+                          {`${coin.percent_change_24h}%`}
                         </p>
                       </div>
                     </div>

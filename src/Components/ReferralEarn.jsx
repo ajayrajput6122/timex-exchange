@@ -168,9 +168,9 @@ const ReferralEarn = () => {
                   </tr>
                 ))
               ) : (
-                <tr>
-                  <td className="t_t_data b_boot wc" colSpan="5">
-                    No referrals found.
+                <tr className="wc">
+                  <td colSpan="10" className="text-center">
+                    <small>No Data Found</small>
                   </td>
                 </tr>
               )}

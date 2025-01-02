@@ -338,8 +338,10 @@ const Swap = () => {
                     </tr>
                   ))
                 ) : (
-                  <tr aria-colspan={6} className="wc">
-                    No data found
+                  <tr className="wc">
+                    <td colSpan="10" className="text-center">
+                      <small>No History Found</small>
+                    </td>
                   </tr>
                 )}
               </table>

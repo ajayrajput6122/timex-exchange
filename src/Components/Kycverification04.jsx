@@ -9,6 +9,7 @@ const Kycverification04 = ({
   data,
   frontImage,
   backImage,
+  country,
   onNext,
   onPrevious,
 }) => {
@@ -22,7 +23,6 @@ const Kycverification04 = ({
     backImageFile: backImage,
   });
 
-  console.log(frontImage);
   useEffect(() => {
     if (data) {
       setFormData((prev) => ({
@@ -87,29 +87,71 @@ const Kycverification04 = ({
     //   return;
     // }
 
-    const areFilesIdentical = async (file1, file2) => {
-      const buffer1 = await file1.arrayBuffer();
-      const buffer2 = await file2.arrayBuffer();
-      return (
-        buffer1.byteLength === buffer2.byteLength &&
-        new Uint8Array(buffer1).every(
-          (val, idx) => val === new Uint8Array(buffer2)[idx]
-        )
-      );
-    };
-
-    if (await areFilesIdentical(frontImageFile, backImageFile)) {
+    if(!documentType){
       toast.dismiss();
-      toast.error("Front and back images cannot be the same.");
+      toast.error("Please select document type.");
       setLoading(false);
       return;
     }
 
-    if (!documentType || !documentNumber || !frontImageFile || !backImageFile) {
-      toast.dismiss();
-      toast.error("Please fill all fields and upload both images.");
-      setLoading(false);
-      return;
+
+    if (documentType !== "other") {
+      if (
+        !documentType ||
+        !documentNumber ||
+        !frontImageFile ||
+        !backImageFile
+      ) {
+        toast.dismiss();
+        toast.error("Please fill all fields and upload both images.");
+        setLoading(false);
+        return;
+      }
+
+      const areFilesIdentical = async (file1, file2) => {
+        if (!file1 || !file2) return;
+        const buffer1 = await file1.arrayBuffer();
+        const buffer2 = await file2.arrayBuffer();
+        return (
+          buffer1.byteLength === buffer2.byteLength &&
+          new Uint8Array(buffer1).every(
+            (val, idx) => val === new Uint8Array(buffer2)[idx]
+          )
+        );
+      };
+
+      if (await areFilesIdentical(frontImageFile, backImageFile)) {
+        toast.dismiss();
+        toast.error("Front and back images cannot be the same.");
+        setLoading(false);
+        return;
+      }
+    } else {
+      if (!documentType || !documentNumber || !frontImageFile) {
+        toast.dismiss();
+        toast.error("Please fill required fields and upload front image.");
+        setLoading(false);
+        return;
+      }
+
+      const areFilesIdentical = async (file1, file2) => {
+        if (!file1 || !file2) return;
+        const buffer1 = await file1.arrayBuffer();
+        const buffer2 = await file2.arrayBuffer();
+        return (
+          buffer1.byteLength === buffer2.byteLength &&
+          new Uint8Array(buffer1).every(
+            (val, idx) => val === new Uint8Array(buffer2)[idx]
+          )
+        );
+      };
+
+      if (await areFilesIdentical(frontImageFile, backImageFile)) {
+        toast.dismiss();
+        toast.error("Front and back images cannot be the same.");
+        setLoading(false);
+        return;
+      }
     }
 
     const requestData = {
@@ -202,111 +244,10 @@ const Kycverification04 = ({
     }
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-
-  //   const { documentType, documentNumber, frontImageFile, backImageFile } =
-  //     formData;
-
-  //   if (!documentType || !documentNumber || !frontImageFile || !backImageFile) {
-  //     toast.dismiss();
-  //     toast.error("Please fill all fields and upload both images.");
-  //     setLoading(false);
-  //     return;
-  //   }
-
-  //   const requestData = {
-  //     documentType: documentType,
-  //     documentNumber: documentNumber,
-  //   };
-
-  //   try {
-  //     // First API call to submit document details
-  //     const docDetailsResponse = await axios.post(
-  //       `${base_url}/api/doc_details`,
-  //       requestData,
-  //       {
-  //         headers: {
-  //           authorization: authData?.token,
-  //         },
-  //       }
-  //     );
-
-  //     if (docDetailsResponse.data.success !== 1) {
-  //       toast.dismiss();
-  //       toast.error(
-  //         docDetailsResponse.data.message || "Error while updating doc details."
-  //       );
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     toast.dismiss();
-  //     toast.success(docDetailsResponse.data.message);
-
-  //     const uploadProofResponse = await uploadProofImages(
-  //       frontImageFile,
-  //       backImageFile
-  //     );
-
-  //     if (uploadProofResponse?.success !== 1) {
-  //       toast.dismiss();
-  //       toast.error(
-  //         uploadProofResponse?.message ||
-  //           "Error while uploading proof documents."
-  //       );
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     toast.dismiss();
-  //     toast.success("Documents uploaded successfully!");
-
-  //     onNext(requestData, frontImageFile, backImageFile);
-  //   } catch (error) {
-  //     console.error("Error during API calls:", error);
-  //     toast.dismiss();
-  //     toast.error("An error occurred. Please try again.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // const uploadProofImages = async (frontImageFile, backImageFile) => {
-  //   const formData = new FormData();
-  //   formData.append("documentFront", frontImageFile);
-  //   formData.append("documentBack", backImageFile);
-
-  //   try {
-  //     const response = await axios.post(
-  //       `${base_url}/api/upload_proof_images`,
-  //       formData,
-  //       {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //           authorization: authData?.token,
-  //         },
-  //       }
-  //     );
-
-  //     if (response.data.success === 1) {
-  //       return response.data; // Return the response for further validation
-  //     } else {
-  //       throw new Error(
-  //         response.data.message || "Error while uploading proof documents."
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error("Error during image upload:", error);
-  //     return null; // Return null in case of error
-  //   }
-  // };
-
   return (
     <>
       <h4 className="text-center wc mb-4">
-        <span>03</span> Other Document Verification
+        Other Document Verification
       </h4>
       <div className="border_box_p mt-4">
         <form onSubmit={handleSubmit}>
@@ -322,9 +263,21 @@ const Kycverification04 = ({
                     onChange={handleChange}
                   >
                     <option value="">Select Document Type</option>
-                    <option value="adhaar_card">Aadhar card</option>
-                    <option value="licence">Driving License</option>
-                    <option value="passport">Passport</option>
+
+                    {country === "IN" ? (
+                      <>
+                        <option value="adhaar_card">Aadhar card</option>
+                        <option value="licence">Driving License</option>
+                        <option value="passport">Passport</option>
+                      </>
+                    ) : (
+                      <>
+                        <option value="adhaar_card">Aadhar card</option>
+                        <option value="licence">Driving License</option>
+                        <option value="passport">Passport</option>
+                        <option value="other">Other Government ID</option>
+                      </>
+                    )}
                   </select>
                   <h4 className="WC f_g_text alin_c">
                     <i className="fa-solid fa-id-card fa-beat wc"></i>
@@ -342,6 +295,8 @@ const Kycverification04 = ({
                     ? "License Number"
                     : formData.documentType === "passport"
                     ? "Passport Number"
+                    : formData.documentType === "other"
+                    ? "Other Government Document Number"
                     : "Document Number"}
                 </h5>
                 <div className="f_group_l d-flex j_con">
@@ -359,6 +314,8 @@ const Kycverification04 = ({
                         ? "HR06-19850034761" // Example License format
                         : formData.documentType === "passport"
                         ? "A1234567" // Example Passport format
+                        : formData.documentType === "other"
+                        ? "Enter Government ID" // Example Passport format
                         : "Enter Document Number"
                     }
                   />

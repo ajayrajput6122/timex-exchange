@@ -22,6 +22,9 @@ const Kycverification = () => {
   const [kycStatus, setKycStatus] = useState(null); // Store KYC status
   const [loading, setLoading] = useState(true); // Track loading state
   const [showForm, setShowForm] = useState(false); // Track form visibility
+  const [selectedCountry, setSelectedCountry] = useState(""); 
+
+  console.log(selectedCountry);
 
   useEffect(() => {
     const fetchProfileDetails = async () => {
@@ -46,21 +49,43 @@ const Kycverification = () => {
     fetchProfileDetails();
   }, [authData?.token]);
 
+  // const handleNext = (stepData, stepKey) => {
+  //   setFormData((prev) => ({ ...prev, [stepKey]: stepData }));
+  //   setCurrentStep((prev) => prev + 1);
+  // };
+
+  // const handlePrevious = () => {
+  //   setCurrentStep((prev) => prev - 1);
+  // };
+
   const handleNext = (stepData, stepKey) => {
     setFormData((prev) => ({ ...prev, [stepKey]: stepData }));
-    setCurrentStep((prev) => prev + 1);
+
+    if (stepKey === "personalInfo" && selectedCountry !== "IN") {
+      setCurrentStep((prev) => prev + 2);
+    } else {
+      setCurrentStep((prev) => prev + 1);
+    }
   };
 
   const handlePrevious = () => {
-    setCurrentStep((prev) => prev - 1);
+    if (currentStep === 3 && selectedCountry !== "IN") {
+      setCurrentStep((prev) => prev - 2);
+    } else {
+      setCurrentStep((prev) => prev - 1);
+    }
   };
 
   if (loading) {
-    return <p>Loading...</p>; 
+    return <p>Loading...</p>;
   }
 
   if (kycStatus === "APPLIED") {
-    return <p className="text-center">Your KYC is applied. Please wait for verification.</p>;
+    return (
+      <p className="text-center">
+        Your KYC is applied. Please wait for verification.
+      </p>
+    );
   }
 
   if (kycStatus === "APPROVED") {
@@ -78,10 +103,7 @@ const Kycverification = () => {
           </p>
         )}
         {!showForm ? (
-          <button
-            className="sub_01 wc mb-4"
-            onClick={() => setShowForm(true)}
-          >
+          <button className="sub_01 wc mb-4" onClick={() => setShowForm(true)}>
             Complete KYC
           </button>
         ) : (
@@ -89,11 +111,13 @@ const Kycverification = () => {
             <h4 className="text-center wc mb-4">KYC Verification</h4>
             {currentStep === 1 && (
               <Kycverification01
+                selectedCountry={selectedCountry} 
+                setSelectedCountry={setSelectedCountry}
                 data={formData.personalInfo}
                 onNext={(data) => handleNext(data, "personalInfo")}
               />
             )}
-            {currentStep === 2 && (
+            {currentStep === 2 && selectedCountry === "IN" && (
               <Kycverification3
                 data={formData.panCard}
                 panImageFile={panImageFile}
@@ -109,6 +133,7 @@ const Kycverification = () => {
                 data={formData.otherDocuments}
                 frontImage={frontImage}
                 backImage={backImage}
+                country={formData.personalInfo?.country}
                 onNext={(data, frontImg, backImg) => {
                   handleNext(data, "otherDocuments");
                   setFrontImage(frontImg);
