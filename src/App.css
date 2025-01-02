@@ -131,7 +131,7 @@ body {
 .dark_li {
   position: absolute;
   top: 30px;
-  right: 58px;
+  right: 0px;
 }
 
 .alin_c {
@@ -1701,3 +1701,5 @@ input.form-control {
   color: var(--secondary-color) !important;
   font-size: 18px;
 }
+
+.dsvg, .navbar-toggler { margin-right: 30px;}
