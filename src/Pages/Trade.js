@@ -797,8 +797,8 @@ const Trade = () => {
                             className="sec_t_t wc"
                             onChange={(e) => setBuyLimit(e.target.value)}
                           >
-                            <option value={"MARKET"}>Market</option>
-                            <option value={"LIMIT"}>Limit</option>
+                            <option className="market" value={"MARKET"}>Market</option>
+                            <option className="market" value={"LIMIT"}>Limit</option>
                           </select>
 
                           <div className="d-flex j_con mt-3 mb-3">

@@ -54,6 +54,7 @@ const Earnings = () => {
             </div>
         </div>
       </section>
+
       {/* <section className='sec01_e'>
       <div className='container '>
             <div className='row'>
@@ -69,6 +70,8 @@ const Earnings = () => {
             </div>
         </div>
       </section> */}
+      
+
       {/* <section className='sec03_h'>
       <div className='container '>
             <div className='row column-rever_p'>

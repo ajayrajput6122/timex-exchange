@@ -598,11 +598,11 @@ footer {
   margin-top: 10px;
   border: none;
 }
-
+/* 
 .sec_t_t option {
   background: #ffffff38 !important;
   color: #000;
-}
+} */
 
 .sec_t_t option:hover {
   background: #c38807 !important;
@@ -1397,6 +1397,7 @@ select.input_l.w-100.wc option {
     width: 768px;
   }
 
+
   .f_group_l {
     padding: 8px 15px;
   }
@@ -1686,3 +1687,17 @@ option:nth-child(1):hover { background: green;}
 }
 
 .pr {position: relative;}
+
+.market { background-color: #c38807 !important;}
+
+.react-tel-input .flag-dropdown {
+  background-color: #f5f5f500 !important;
+  border: 1px solid #cacaca00 !important;
+}
+
+input.form-control {
+  background: transparent !important;
+  border: none !important;
+  color: var(--secondary-color) !important;
+  font-size: 18px;
+}
