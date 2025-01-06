@@ -147,8 +147,6 @@ const Dashboard = () => {
                   <th className="table_heading wc b_boot ">
                     Coin Price (USDT){" "}
                   </th>
-                  {/* <th className="table_heading wc b_boot ">1 Hour Price </th> */}
-                  {/* <th className="table_heading wc b_boot ">7 Hour Price </th> */}
                   <th className="table_heading wc b_boot ">Price Change</th>
                   <th className="table_heading wc b_boot ">24 Hour Price </th>
                   <th className="table_heading wc b_boot ">Action</th>
