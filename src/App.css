@@ -295,7 +295,7 @@ section {
   padding: 60px 20px;
 }
 
-.sec4_box {
+.sec4_box, .acti_box {
   background-color: var(--box-border);
   border-radius: 10px;
   box-shadow: -1px 0px 7px var(--box-s);
@@ -1703,3 +1703,4 @@ input.form-control {
 }
 
 .dsvg, .navbar-toggler { margin-right: 30px;}
+

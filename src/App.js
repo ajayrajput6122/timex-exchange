@@ -39,6 +39,7 @@ const Overview = React.lazy(() => import("./Pages/Overview"));
 const Hello = React.lazy(() => import("./Pages/hello"));
 const UserDeals = React.lazy(() => import("./Pages/UserDeals"));
 const About = React.lazy(() => import("./Pages/About"));
+const Activitylogs = React.lazy(() => import("./Pages/Activitylogs"));
 const TokenTransactionHistory = React.lazy(() =>
   import("./Pages/TokenTransactionHistory")
 );
@@ -267,6 +268,14 @@ function App() {
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <About />
+              </Suspense>
+            }
+          />
+          <Route
+            path="activitylogs"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Activitylogs />
               </Suspense>
             }
           />
