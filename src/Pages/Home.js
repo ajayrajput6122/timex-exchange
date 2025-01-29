@@ -76,7 +76,7 @@ const Home = () => {
       </section>
       <section className="sec02_h">
         <div className="started">
-          <Link to={"/register"}>
+          {/* <Link to={"/register"}> */}
             <div className="start_box start_box1">
               <div className="icon-box d-flex">
                 <div className="icon-box-icon alin_c">
@@ -89,8 +89,8 @@ const Home = () => {
                   </p>
                 </div>
               </div>
-            </div>
-          </Link>
+            </div>  
+          {/* </Link> */}
           <div
             className="start_box start_box2"
             onClick={handleKycClick}

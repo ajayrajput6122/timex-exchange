@@ -1704,3 +1704,31 @@ input.form-control {
 
 .dsvg, .navbar-toggler { margin-right: 30px;}
 
+/* Raman */
+.news-marquee {
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+
+.news-track {
+  display: flex;
+  gap: 50px; /* Space between items */
+  animation: scrollMarquee 15s linear infinite;
+}
+
+
+/* Keyframes for scrolling effect */
+@keyframes scrollMarquee {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Pause animation on hover */
+.news-marquee:hover .news-track {
+  animation-play-state: paused;
+}

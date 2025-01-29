@@ -114,7 +114,7 @@ const Deposithistory = () => {
               )}
             </table>
             {dashboardData && dashboardData.length > 0 ? (
-              <div className="text-center py-2">
+              <div className="text-center wc py-2">
                 <Pagination
                   total={pagination.total}
                   pageSize={pagination.pageSize}

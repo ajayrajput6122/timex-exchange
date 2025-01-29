@@ -117,7 +117,7 @@ const Trade = () => {
           tokenQuantity: buyamount,
           tokenId: selectedCoin?._id,
           pairCurrency: pairCurrency?._id,
-          ...(buyLimit === "LIMIT" && { limitPrice: buyLimitPrice }),
+          ...(buyLimit === "LIMIT" && { limitprice: buyLimitPrice }),
         },
         {
           headers: {
@@ -177,7 +177,7 @@ const Trade = () => {
           tokenQuantity: sellamount,
           tokenId: selectedCoin?._id,
           pairCurrency: pairCurrency?._id,
-          ...(sellLimit === "LIMIT" && { limitPrice: sellLimitPrice }),
+          ...(sellLimit === "LIMIT" && { limitprice: sellLimitPrice }),
         },
         {
           headers: {
@@ -318,6 +318,16 @@ const Trade = () => {
     getOpenOrder(page, pageSize);
   };
 
+  const handleTabClick = (tabName) => {
+    if (tabName === "openOrders") {
+      getOpenOrder();
+    } else if (tabName === "pendingOrders") {
+      getPendingOrder();
+    } else if (tabName === "completedOrders") {
+      getCompletedOrder();
+    }
+  };
+
   const getPendingOrder = async (page = 1, pageSize = 10) => {
     try {
       const skip = (page - 1) * pageSize;
@@ -411,9 +421,6 @@ const Trade = () => {
 
   useEffect(() => {
     if (selectedCoin?.symbol) {
-      getOpenOrder();
-      getPendingOrder();
-      getCompletedOrder();
       getRecentTrade();
     }
   }, [selectedCoin]);
@@ -1153,6 +1160,7 @@ const Trade = () => {
                     role="tab"
                     aria-controls="nav-home_t1"
                     aria-selected="true"
+                    onClick={() => handleTabClick("openOrders")}
                   >
                     Open Orders
                   </button>
@@ -1165,6 +1173,7 @@ const Trade = () => {
                     role="tab"
                     aria-controls="nav-profile_t1"
                     aria-selected="false"
+                    onClick={() => handleTabClick("pendingOrders")}
                   >
                     Pending Orders
                   </button>
@@ -1177,6 +1186,7 @@ const Trade = () => {
                     role="tab"
                     aria-controls="nav-profile_t10"
                     aria-selected="false"
+                    onClick={() => handleTabClick("completedOrders")}
                   >
                     Completed Orders
                   </button>
@@ -1200,6 +1210,10 @@ const Trade = () => {
                           <th className="t_t_heading wc b_boot"> Type</th>
                           <th className="t_t_heading wc b_boot"> All</th>
                           <th className="t_t_heading wc b_boot"> Price</th>
+                          <th className="t_t_heading wc b_boot">
+                            {" "}
+                            Limit Price
+                          </th>
                           <th className="t_t_heading wc b_boot"> Amount</th>
                           <th className="t_t_heading wc b_boot"> Remaining</th>
                           <th className="t_t_heading wc b_boot"> Filled</th>
@@ -1222,6 +1236,11 @@ const Trade = () => {
                               <td className="t_t_data b_boot wc">0</td>
                               <td className="t_t_data b_boot wc">
                                 {pending?.tokenPrice}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.orderType === "LIMIT"
+                                  ? pending?.limitPrice
+                                  : "-"}
                               </td>
                               <td className="t_t_data b_boot wc">
                                 {pending?.tokenQuantity}
@@ -1281,6 +1300,10 @@ const Trade = () => {
                           <th className="t_t_heading wc b_boot"> Type</th>
                           <th className="t_t_heading wc b_boot"> All</th>
                           <th className="t_t_heading wc b_boot"> Price</th>
+                          <th className="t_t_heading wc b_boot">
+                            {" "}
+                            Limit Price
+                          </th>
                           <th className="t_t_heading wc b_boot"> Amount</th>
                           <th className="t_t_heading wc b_boot"> Remaining</th>
                           <th className="t_t_heading wc b_boot"> Filled</th>
@@ -1303,6 +1326,11 @@ const Trade = () => {
                               <td className="t_t_data b_boot wc">0</td>
                               <td className="t_t_data b_boot wc">
                                 {pending?.tokenPrice}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.orderType === "LIMIT"
+                                  ? pending?.limitPrice
+                                  : "-"}
                               </td>
                               <td className="t_t_data b_boot wc">
                                 {pending?.tokenQuantity}
@@ -1362,6 +1390,10 @@ const Trade = () => {
                           <th className="t_t_heading wc b_boot"> Type</th>
                           <th className="t_t_heading wc b_boot"> All</th>
                           <th className="t_t_heading wc b_boot"> Price</th>
+                          <th className="t_t_heading wc b_boot">
+                            {" "}
+                            Limit Price
+                          </th>
                           <th className="t_t_heading wc b_boot"> Amount</th>
                           <th className="t_t_heading wc b_boot"> Remaining</th>
                           <th className="t_t_heading wc b_boot"> Filled</th>
@@ -1384,6 +1416,11 @@ const Trade = () => {
                               <td className="t_t_data b_boot wc">0</td>
                               <td className="t_t_data b_boot wc">
                                 {pending?.tokenPrice}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.orderType === "LIMIT"
+                                  ? pending?.limitPrice
+                                  : "-"}
                               </td>
                               <td className="t_t_data b_boot wc">
                                 {pending?.tokenQuantity}
