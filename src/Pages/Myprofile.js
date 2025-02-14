@@ -76,7 +76,6 @@ import { base_url } from "../ApiService/BaseUrl";
 
 const Myprofile = () => {
   const location = useLocation();
-  const [data, setData] = useState("");
 
   const activeTab = location.state?.activeTab || "home";
 
@@ -87,43 +86,10 @@ const Myprofile = () => {
     if (tabButton) tabButton.click();
   }, [activeTab]);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.post(`${base_url}/api/news`);
-      if (response.data.success) {
-        setData(response.data.news);
-        console.log(response.data.message);
-      } else {
-        console.error(response.data.message);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
     <>
       <section className="sec01_login">
         <div className="container">
-          <div className="news-marquee wc py-3">
-            <div className="news-track">
-              {data.length > 0 &&
-                [...data, ...data].map(
-                  (
-                    item,
-                    index 
-                  ) => (
-                    <div key={index} className="news-item">
-                      {item.news}
-                    </div>
-                  )
-                )}
-            </div>
-          </div>
           <div className="row">
             <div className="col-lg-12">
               <div className="tabs_d-flex align-items-start">

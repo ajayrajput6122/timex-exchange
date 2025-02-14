@@ -1709,12 +1709,13 @@ input.form-control {
   white-space: nowrap;
   overflow: hidden;
   position: relative;
+  z-index: 10000;
 }
 
 .news-track {
   display: flex;
   gap: 50px; /* Space between items */
-  animation: scrollMarquee 15s linear infinite;
+  animation: scrollMarquee 19s linear infinite;
 }
 
 
@@ -1730,5 +1731,14 @@ input.form-control {
 
 /* Pause animation on hover */
 .news-marquee:hover .news-track {
-  animation-play-state: paused;
+  animation-play-state: paused !important;
+}
+
+.news-item{
+  font-size: 18px;
+  cursor: pointer !important;
+}
+
+.news_bg{
+  background-color: var(--gold-color);
 }
