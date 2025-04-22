@@ -23,7 +23,6 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contextapi/Auth";
 import { base_url } from "../ApiService/BaseUrl";
 import axios from "axios";
-import Apk from "../Apk/Tomax v1.0.1 14feb25.apk";
 
 const Home = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -255,9 +254,9 @@ const Home = () => {
                 and experience the freedom and flexibility to trade whenever and
                 wherever inspiration strikes.
               </p>
-              <a href={Apk} download="Tomax.apk">
+              <Link to={'/'}>
                 <button className="btn_timex">Download App </button>
-              </a>
+              </Link>
             </div>
             <div className="col-lg-6 col-md-5 col-sm-5 text-center alin_c">
               <img className="btc" src={Btc} />

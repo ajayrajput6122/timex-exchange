@@ -30,12 +30,18 @@ const Trade = () => {
     pageSize: 10,
     total: 0,
   });
+  const [pagination4, setPagination4] = useState({
+    current: 1,
+    pageSize: 10,
+    total: 0,
+  });
   const [coin, setCoin] = useState([]);
   const [selectedCoin, setSelectedCoin] = useState([]);
   const [pairCurrency, setPairCurrency] = useState([]);
   const [openOrder, setOpenOrder] = useState([]);
   const [pendingOrder, setPendingOrder] = useState([]);
   const [completeOrder, setCompleteOrder] = useState([]);
+  const [cancelOrders, setCancelOrder] = useState([]);
   const [recentTrade, setRecentTrade] = useState([]);
   const [latestPrice, setLatestPrice] = useState("");
   const [buyLimitPrice, setButLimitPrice] = useState("");
@@ -45,11 +51,14 @@ const Trade = () => {
   const [latestTotal, setLatestTotal] = useState("");
   const [latestAmount, setLatestAmount] = useState("");
   const [tradeData, setTradeData] = useState([]);
+  const [customTradeDataBuy, setCustomTradeDataBuy] = useState([]);
+  const [customTradeDataSell, setCustomTradeDataSell] = useState([]);
   const [openTrades, setopenTrades] = useState([]);
   const [pastTrades, setPastTrades] = useState([]);
   const [groupBy, setGroupby] = useState("4");
   const [loading, setLoading] = useState(false);
   const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const buyTotal = useRef();
@@ -93,7 +102,7 @@ const Trade = () => {
     setLoading(true);
     try {
       if (buyLimit === "LIMIT") {
-        if (!latestPrice || !buyamount) {
+        if (!buyLimitPrice || !buyamount) {
           toast.dismiss();
           toast.error("Please fill all fields");
           setLoading(false);
@@ -135,6 +144,8 @@ const Trade = () => {
         getPendingOrder();
         getCompletedOrder();
         getRecentTrade();
+        getCancelOrders();
+        getCustomTradeData();
         buyTotal.current.value.reset();
       } else {
         toast.dismiss();
@@ -153,7 +164,7 @@ const Trade = () => {
     setLoading1(true);
     try {
       if (sellLimit === "LIMIT") {
-        if (!latestPrice || !sellamount) {
+        if (!sellLimitPrice || !sellamount) {
           toast.dismiss();
           toast.error("Please fill all fields");
           setLoading1(false);
@@ -194,6 +205,8 @@ const Trade = () => {
         getPendingOrder();
         getCompletedOrder();
         getRecentTrade();
+        getCustomTradeData();
+        getCancelOrders();
         // getOrder();
         sellTotal.current.value.reset();
       } else {
@@ -308,6 +321,40 @@ const Trade = () => {
     }
   };
 
+  const getCancelOrders = async (page = 1, pageSize = 10) => {
+    try {
+      const skip = (page - 1) * pageSize;
+      const response = await axios.post(
+        `${base_url}/api/trading_orders`,
+        {
+          status: "CANCELLED",
+          tokenId: selectedCoin?._id,
+          limit: pageSize,
+          skip,
+        },
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
+      if (response.data.success) {
+        setCancelOrder(response.data.orders);
+        setPagination4((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
+        console.log(response.data.message);
+      } else {
+        console.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("unable to fetch data", error);
+    }
+  };
+
   const handlePageChange = (page, pageSize) => {
     getCompletedOrder(page, pageSize);
   };
@@ -317,6 +364,9 @@ const Trade = () => {
   const handlePageChange3 = (page, pageSize) => {
     getOpenOrder(page, pageSize);
   };
+  const handlePageChange4 = (page, pageSize) => {
+    getCancelOrders(page, pageSize);
+  };
 
   const handleTabClick = (tabName) => {
     if (tabName === "openOrders") {
@@ -325,6 +375,8 @@ const Trade = () => {
       getPendingOrder();
     } else if (tabName === "completedOrders") {
       getCompletedOrder();
+    } else if (tabName === "cancelOrders") {
+      getCancelOrders();
     }
   };
 
@@ -416,6 +468,61 @@ const Trade = () => {
       }
     } catch (error) {
       console.error("unable to fetch data", error);
+    }
+  };
+
+  const getCustomTradeData = async () => {
+    try {
+      const response = await axios.post(
+        `${base_url}/api/trade-book`,
+        {
+          tokenId: selectedCoin?._id,
+        },
+        {}
+      );
+      if (response?.data?.success) {
+        setCustomTradeDataBuy(response?.data?.data?.buyBook);
+        setCustomTradeDataSell(response?.data?.data?.sellBook);
+        console.log(response.data.message);
+      } else {
+        console.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("unable to fetch data", error);
+    }
+  };
+
+  const cancelOrder = async (id) => {
+    setLoading2(true);
+    try {
+      const response = await axios.post(
+        `${base_url}/api/cancel_order`,
+        {
+          // tokenId: selectedCoin?._id,
+          order_id: id,
+        },
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
+      if (response.data.success) {
+        toast.dismiss();
+        toast.success(response.data.message);
+        getOpenOrder();
+        getPendingOrder();
+        getCompletedOrder();
+        getCancelOrders();
+      } else {
+        toast.dismiss();
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.dismiss();
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading2(false);
     }
   };
 
@@ -548,6 +655,22 @@ const Trade = () => {
     }
   }, [selectedCoin?.symbol]);
 
+  useEffect(() => {
+    let interval;
+
+    if (selectedCoin?.symbol === "TOMAX") {
+      getCustomTradeData();
+
+      interval = setInterval(() => {
+        getCustomTradeData();
+      }, 120000);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [selectedCoin?.symbol]);
+
   const handleClickAmount = (percentage) => {
     const amountByPer = (balance.balance * percentage) / 100;
     setBuymount(amountByPer.toFixed(4));
@@ -556,7 +679,6 @@ const Trade = () => {
     const amountByPer = (sellBalance.balance * percentage) / 100;
     setSellamount(amountByPer.toFixed(4));
   };
-
 
   return (
     <>
@@ -584,7 +706,13 @@ const Trade = () => {
                   <div className="me-3 alin_c">
                     {/* <p className="rate_title rc">6589656</p> */}
                     <p className="rate_title rc">
-                      <span className="text-success">{latestPrice}</span>
+                      <span
+                        className={`fw-bold ${
+                          latestPrice > 0
+                        }?'text-success':'text-danger'`}
+                      >
+                        {latestPrice}
+                      </span>
                     </p>
                   </div>
                   <div class="dropdown">
@@ -702,38 +830,118 @@ const Trade = () => {
                     </div>
                   </div>
                   <div className="t_table_main t_table_main_rr">
-                    <div className="t_table_sec">
+                    {/* Buy Section */}
+                    <div
+                      className={`t_table_sec tradeBookBox ${
+                        selectedCoin?.symbol === "TOMAX" ||
+                        selectedCoin?.symbol === "HILL"
+                          ? "custom-style"
+                          : "other-style"
+                      }`}
+                    >
+                      {(selectedCoin?.symbol === "TOMAX" ||
+                        selectedCoin?.symbol === "HILL") && (
+                        <h6 className="wc">Buy</h6>
+                      )}
                       <table className="trade_table_1 trade_table_1v">
-                        <tr>
-                          <th className="t_t_heading wc b_boot">
-                            Price (USDT)
-                          </th>
-                          <th className="t_t_heading wc b_boot">
-                            Quantity ({selectedCoin?.symbol})
-                          </th>
-                          <th className="t_t_heading wc b_boot">
-                            Total (USDT)
-                          </th>
-                        </tr>
-                        {tradeData.map((trade, index) => (
-                          <tr className="overflow-y-auto" key={index}>
-                            <td className="t_t_data b_boot wc">
-                              {trade.price}
-                            </td>
-                            <td
-                              className={`t_t_data b_boot wc ${
-                                trade.quantity > 0 ? "gc" : "rc"
-                              }`}
-                            >
-                              {trade.quantity}
-                            </td>
-                            <td className="t_t_data b_boot wc">
-                              {trade.total}
-                            </td>
+                        <thead>
+                          <tr>
+                            <th className="t_t_heading wc b_boot">
+                              Price (USDT)
+                            </th>
+                            <th className="t_t_heading wc b_boot">
+                              Quantity ({selectedCoin?.symbol})
+                            </th>
+                            <th className="t_t_heading wc b_boot">
+                              Total (USDT)
+                            </th>
                           </tr>
-                        ))}
+                        </thead>
+                        <tbody>
+                          {(Array.isArray(customTradeDataBuy) &&
+                          customTradeDataBuy.length > 0
+                            ? customTradeDataBuy
+                            : Array.isArray(tradeData)
+                            ? tradeData
+                            : []
+                          ).map((trade, index) => (
+                            <tr
+                              className="overflow-y-auto"
+                              key={`buy-${index}`}
+                            >
+                              <td className="t_t_data b_boot wc">
+                                {trade.price}
+                              </td>
+                              <td
+                                className={`t_t_data b_boot wc ${
+                                  trade.quantity > 0 ? "gc" : "rc"
+                                }`}
+                              >
+                                {trade.quantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {trade.price * trade.quantity}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
                       </table>
                     </div>
+
+                    {/* Sell Section - only shown if symbol is TOMAX */}
+                    {selectedCoin?.symbol === "TOMAX" && (
+                      <div
+                        className={`t_table_sec mt-3 tradeBookBox ${
+                          selectedCoin?.symbol === "TOMAX" ||
+                          selectedCoin?.symbol === "HILL"
+                            ? "custom-style"
+                            : "other-style"
+                        }`}
+                      >
+                        {(selectedCoin?.symbol === "TOMAX" ||
+                          selectedCoin?.symbol === "HILL") && (
+                          <h6 className="wc">Sell</h6>
+                        )}
+                        <table className="trade_table_1 trade_table_1v">
+                          <thead>
+                            <tr>
+                              <th className="t_t_heading wc b_boot">
+                                Price (USDT)
+                              </th>
+                              <th className="t_t_heading wc b_boot">
+                                Quantity ({selectedCoin?.symbol})
+                              </th>
+                              <th className="t_t_heading wc b_boot">
+                                Total (USDT)
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {Array.isArray(customTradeDataSell) &&
+                              customTradeDataSell.map((trade, index) => (
+                                <tr
+                                  className="overflow-y-auto"
+                                  key={`sell-${index}`}
+                                >
+                                  <td className="t_t_data b_boot wc">
+                                    {trade.price}
+                                  </td>
+                                  <td
+                                    className={`t_t_data b_boot wc ${
+                                      trade.quantity > 0 ? "gc" : "rc"
+                                    }`}
+                                  >
+                                    {trade.quantity}
+                                  </td>
+                                  <td className="t_t_data b_boot wc">
+                                    {trade.price * trade.quantity}
+                                  </td>
+                                </tr>
+                              ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1146,6 +1354,19 @@ const Trade = () => {
                   >
                     Completed Orders
                   </button>
+                  <button
+                    class="nav-link t_t_btn02 mt-0 wc"
+                    id="nav-profile-tab_t10"
+                    data-bs-toggle="tab"
+                    data-bs-target="#nav-profile_t11"
+                    type="button"
+                    role="tab"
+                    aria-controls="nav-profile_t11"
+                    aria-selected="false"
+                    onClick={() => handleTabClick("cancelOrders")}
+                  >
+                    Cancel Orders
+                  </button>
                 </div>
               </nav>
               <div class="tab-content mt-3" id="nav-tabContent">
@@ -1175,6 +1396,7 @@ const Trade = () => {
                           <th className="t_t_heading wc b_boot"> Filled</th>
                           <th className="t_t_heading wc b_boot"> Total</th>
                           <th className="t_t_heading wc b_boot"> Action </th>
+                          <th className="t_t_heading wc b_boot"> </th>
                         </tr>
                         {openOrder && openOrder.length > 0 ? (
                           openOrder.map((pending, index) => (
@@ -1213,6 +1435,15 @@ const Trade = () => {
                               </td>
                               <td className="t_t_data b_boot wc">
                                 {pending?.mode}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                <button
+                                  className="t_f_btn t_f_btn1 wc w-100 m-0"
+                                  onClick={() => cancelOrder(pending?._id)}
+                                  disabled={loading2}
+                                >
+                                  {loading2 ? "Cancelling" : "Cancel"}
+                                </button>
                               </td>
                             </tr>
                           ))
@@ -1265,6 +1496,7 @@ const Trade = () => {
                           <th className="t_t_heading wc b_boot"> Filled</th>
                           <th className="t_t_heading wc b_boot"> Total</th>
                           <th className="t_t_heading wc b_boot"> Action </th>
+                          <th className="t_t_heading wc b_boot"> </th>
                         </tr>
                         {pendingOrder && pendingOrder.length > 0 ? (
                           pendingOrder.map((pending, index) => (
@@ -1303,6 +1535,15 @@ const Trade = () => {
                               </td>
                               <td className="t_t_data b_boot wc">
                                 {pending?.mode}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                <button
+                                  className="t_f_btn t_f_btn1 wc w-100 m-0"
+                                  onClick={() => cancelOrder(pending?._id)}
+                                  disabled={loading2}
+                                >
+                                  {loading2 ? "Cancelling" : "Cancel"}
+                                </button>
                               </td>
                             </tr>
                           ))
@@ -1413,6 +1654,96 @@ const Trade = () => {
                         pageSize={pagination.pageSize}
                         current={pagination.current}
                         onChange={handlePageChange}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div
+                  class="tab-pane fade wc"
+                  id="nav-profile_t11"
+                  role="tabpanel"
+                  aria-labelledby="nav-profile-tab11"
+                >
+                  <div className="table_over">
+                    <div className="table_scroll">
+                      <table className="trade_table_222">
+                        <tr>
+                          <th className="t_t_heading wc b_boot">
+                            Trading Pair
+                          </th>
+                          <th className="t_t_heading wc b_boot"> Date</th>
+                          <th className="t_t_heading wc b_boot"> Type</th>
+                          <th className="t_t_heading wc b_boot"> All</th>
+                          <th className="t_t_heading wc b_boot"> Price</th>
+                          <th className="t_t_heading wc b_boot">
+                            {" "}
+                            Limit Price
+                          </th>
+                          <th className="t_t_heading wc b_boot"> Amount</th>
+                          <th className="t_t_heading wc b_boot"> Remaining</th>
+                          <th className="t_t_heading wc b_boot"> Filled</th>
+                          <th className="t_t_heading wc b_boot"> Total</th>
+                          <th className="t_t_heading wc b_boot"> Action </th>
+                        </tr>
+                        {cancelOrders && cancelOrders.length > 0 ? (
+                          cancelOrders.map((pending, index) => (
+                            <tr key={index}>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenSymbol}/
+                                {pending?.pairCurrencySymbol}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {new Date(pending.createdAt).toLocaleString()}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.orderType}
+                              </td>
+                              <td className="t_t_data b_boot wc">0</td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenPrice}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.orderType === "LIMIT"
+                                  ? pending?.limitPrice
+                                  : "-"}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenQuantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenPendingquantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenQuantity -
+                                  pending?.tokenPendingquantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenQuantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.mode}
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr className="wc">
+                            <td colSpan="10" className="text-center">
+                              <small>No History Found</small>
+                            </td>
+                          </tr>
+                        )}
+                      </table>
+                    </div>
+                  </div>
+                  {cancelOrders && cancelOrders.length > 0 ? (
+                    <div className="text-center py-2">
+                      <Pagination
+                        total={pagination.total}
+                        pageSize={pagination.pageSize}
+                        current={pagination.current}
+                        onChange={handlePageChange4}
                       />
                     </div>
                   ) : (
