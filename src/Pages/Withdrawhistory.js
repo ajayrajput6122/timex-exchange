@@ -62,7 +62,7 @@ const Withdrawhistory = () => {
           <h2 className="title_h2 wc text-center mb-5">Withdrawal History</h2>
           <div className="text-center">
             <p className="text-white">Loading...</p>
-            {/* You can also use a spinner here for better UX */}
+             
           </div>
         </div>
       </section>
@@ -94,12 +94,13 @@ const Withdrawhistory = () => {
                 <table className="withdrawhistory">
                   <tr>
                     <th className="t_t_heading wc b_boot">S No. </th>
-                    <th className="t_t_heading wc b_boot"> ID</th>
+
                     <th className="t_t_heading wc b_boot"> Token Name </th>
                     <th className="t_t_heading wc b_boot"> Amount</th>
                     <th className="t_t_heading wc b_boot"> Network </th>
                     <th className="t_t_heading wc b_boot"> Withdraw Fee </th>
                     <th className="t_t_heading wc b_boot"> Wallet Address </th>
+                    <th className="t_t_heading wc b_boot"> Hash </th>
                     <th className="t_t_heading wc b_boot">
                       {" "}
                       Blockchain Record{" "}
@@ -110,13 +111,13 @@ const Withdrawhistory = () => {
                   </tr>
                   {transactions.map((transaction, index) => (
                     <tr key={transaction._id}>
-                      {/* <td className="t_t_data b_boot wc">{index + 1}</td> */}
+                      
                       <td className="t_t_data b_boot wc">
                         {(pagination.current - 1) * pagination.pageSize +
                           index +
                           1}
                       </td>
-                      <td className="t_t_data b_boot wc">{transaction._id}</td>
+                      
                       <td className="t_t_data b_boot wc">
                         {transaction.tokenName}
                       </td>
@@ -130,7 +131,32 @@ const Withdrawhistory = () => {
                         {transaction.withrawFee}
                       </td>
                       <td className="t_t_data b_boot wc">
-                        {transaction.wallet_address}
+
+                        <a className="t_t_data b_boot wc"
+                          href={transaction.tokenName === "USDT"
+                            ? `https://bscscan.com/address/${transaction.wallet_address}`
+                            : transaction.tokenName === "TOMAX"
+                              ? `https://timexscan.io/address/${transaction.wallet_address}`
+                              : '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {transaction.wallet_address ? transaction.wallet_address.slice(0, 30) : 'None'}
+                        </a>
+                      </td>
+                      <td className="t_t_data b_boot wc">
+
+                        <a className="t_t_data b_boot wc"
+                          href={transaction.tokenName === "USDT"
+                            ? `https://bscscan.com/tx/${transaction.hash}`
+                            : transaction.tokenName === "TOMAX"
+                              ? `https://timexscan.io/tx/${transaction.hash}`
+                              : '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {transaction.hash ? transaction.hash.slice(0, 30) : 'None'}
+                        </a>
                       </td>
                       <td className="t_t_data b_boot wc">
                         {transaction.createdAt}
