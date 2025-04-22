@@ -324,6 +324,7 @@ const Trade = () => {
   const getCancelOrders = async (page = 1, pageSize = 10) => {
     try {
       const skip = (page - 1) * pageSize;
+      
       const response = await axios.post(
         `${base_url}/api/trading_orders`,
         {
