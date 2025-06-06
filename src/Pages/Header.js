@@ -257,9 +257,15 @@ const Header = () => {
                             </span>
                           </li>
                           <li className="mt-1" onClick={closeNavbar}>
-                            <Link className="user_id" to={"myprofile"}>
+                            <Link className="user_id" to={"/myprofile"}>
                               <i class="fa-solid fa-address-card me-2"></i>
                               My Profile
+                            </Link>
+                          </li>
+                          <li className="mt-1" onClick={closeNavbar}>
+                            <Link className="user_id" to={"/activitylogs"}>
+                              <i class="fa-solid fa-history me-2"></i>
+                              Activity Logs
                             </Link>
                           </li>
                           <li>

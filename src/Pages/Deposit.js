@@ -1,14 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import Depot from "../Img/dc.png";
 import axios from "axios";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+
+
+
 import QRCode from "react-qr-code";
 import toast from "react-hot-toast";
 import { AuthContext } from "../Contextapi/Auth";
 import { base_url } from "../ApiService/BaseUrl";
+import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 const Deposit = () => {
   const [coins, setCoins] = useState([]);
   const [tokenid, setTokenId] = useState(null);
+  const navigate = useNavigate();
   const [networkid, setNetworkId] = useState(null);
   const [selectedCoin, setSelectedCoin] = useState(null);
   const [selectedNetwork, setSelectedNetwork] = useState(null);
@@ -16,8 +22,8 @@ const Deposit = () => {
   const [showCoinDropdown, setShowCoinDropdown] = useState(false);
   const [showNetworkDropdown, setShowNetworkDropdown] = useState(false);
   const [networkAddress, setNetworkAddress] = useState(null);
-
-  const { fetchDepositData,authData } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false)
+  const { fetchDepositData, authData } = useContext(AuthContext);
 
   const fetchCoins = async () => {
     try {
@@ -38,7 +44,11 @@ const Deposit = () => {
     try {
       const response = await axios.post(
         `${base_url}/api/deposit_token_details`,
-        { tokenID: coinId },
+        {
+          tokenID: coinId,
+          type: "DEPOSIT"
+        },
+
         {
           headers: {
             Authorization: authData?.token,
@@ -57,15 +67,40 @@ const Deposit = () => {
     fetchCoins();
   }, []);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (tokenid && networkid) {
-        fetchDepositData(tokenid, networkid);
-      }
-    }, 5000);
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     if (tokenid && networkid) {
+  //       fetchDepositData(tokenid, networkid);
+  //     }
+  //   }, 5000);
 
-    return () => clearInterval(intervalId);
-  }, [tokenid, networkid, fetchDepositData]);
+  //   return () => clearInterval(intervalId);
+  // }, [tokenid, networkid, fetchDepositData]);
+  // const handleFetchDepositData = async() => {
+  //   if (tokenid && networkid) {
+  //     fetchDepositData(tokenid, networkid);
+  //     navigate('/deposithistory')
+  //   } else {
+  //     toast.error("Please select both coin and network first.");
+  //   }
+  // };
+  const handleFetchDepositData = async () => {
+
+    if (tokenid && networkid) {
+      setLoading(true)
+      try {
+        await fetchDepositData(tokenid, networkid);
+        navigate('/deposithistory');
+      } catch (error) {
+        toast.error("Failed to fetch deposit data.");
+      } finally {
+        setLoading(false); // ensure loader stops
+      }
+    } else {
+      toast.error("Please select both coin and network first.");
+    }
+  };
+
 
   const handleCoinSelect = (coin, setFieldValue) => {
     setSelectedCoin(coin);
@@ -306,13 +341,37 @@ const Deposit = () => {
                     </div>
 
                     {networkAddress && (
-                      <div className="mt-4 text-center">
-                        <h5 className="trade_box_title_l wc">QR Code</h5>
-                        <QRCode
-                          value={networkAddress}
-                          size={100}
-                          className="rounded p-2 bg-white"
-                        />
+                      <div className="text-center">
+                        <div className="mt-4 text-center">
+                          <h5 className="trade_box_title_l wc">QR Code</h5>
+                          <QRCode
+                            value={networkAddress}
+                            size={100}
+                            className="rounded p-2 bg-white"
+                          />
+
+                        </div>
+                        {/* <button
+                          type="button"
+                          className="btn_timex text-center mt-3"
+                          onClick={handleFetchDepositData}
+                        >
+                          Deposit History
+                        </button> */}
+                        <button type="button"
+                          className="btn_timex text-center mt-3 mb-3" onClick={handleFetchDepositData} disabled={loading}>
+                          {loading ? (
+                            <ClipLoader size={20} color="#ffffff" />
+                          ) : (
+                            "Payment Done"
+                          )}
+                        </button>
+                        <marquee behavior="scroll" direction="left">
+
+                          <span className="text-white mt-5">Please Click  The Button After Deposit Completed !</span>
+                        </marquee>
+
+
                       </div>
                     )}
 

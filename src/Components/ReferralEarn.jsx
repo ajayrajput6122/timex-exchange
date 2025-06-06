@@ -153,7 +153,7 @@ const ReferralEarn = () => {
             <tbody>
               {referrals && referrals.length > 0 ? (
                 referrals.map((referral, index) => (
-                  <tr key={referral.id}>
+                  <tr key={index}>
                     <td className="t_t_data b_boot wc">
                       {(pagination.current - 1) * pagination.pageSize +
                         index +
@@ -161,7 +161,7 @@ const ReferralEarn = () => {
                     </td>{" "}
                     <td className="t_t_data b_boot wc">{referral.username}</td>
                     <td className="t_t_data b_boot wc">{referral.firstname}</td>
-                    <td className="t_t_data b_boot wc">{referral.kycStatus}</td>
+                    <td className="t_t_data b_boot wc">{referral.kyc_status}</td>
                     <td className="t_t_data b_boot wc">
                       {new Date(referral.createdAt).toLocaleString()}
                     </td>

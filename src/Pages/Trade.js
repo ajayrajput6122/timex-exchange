@@ -7,6 +7,7 @@ import { AuthContext } from "../Contextapi/Auth";
 import toast from "react-hot-toast";
 import Pagination from "../Components/Pagination";
 import CustomChart from "../Components/CustomChart";
+import { io } from "socket.io-client";
 
 const Trade = () => {
   const { authData } = useContext(AuthContext);
@@ -29,24 +30,35 @@ const Trade = () => {
     pageSize: 10,
     total: 0,
   });
+  const [pagination4, setPagination4] = useState({
+    current: 1,
+    pageSize: 10,
+    total: 0,
+  });
   const [coin, setCoin] = useState([]);
   const [selectedCoin, setSelectedCoin] = useState([]);
   const [pairCurrency, setPairCurrency] = useState([]);
   const [openOrder, setOpenOrder] = useState([]);
   const [pendingOrder, setPendingOrder] = useState([]);
   const [completeOrder, setCompleteOrder] = useState([]);
+  const [cancelOrders, setCancelOrder] = useState([]);
   const [recentTrade, setRecentTrade] = useState([]);
   const [latestPrice, setLatestPrice] = useState("");
+  const [buyLimitPrice, setButLimitPrice] = useState("");
+  const [sellLimitPrice, setSellLimitPrice] = useState("");
   const [sellLimit, setSellLimit] = useState("MARKET");
   const [buyLimit, setBuyLimit] = useState("MARKET");
   const [latestTotal, setLatestTotal] = useState("");
   const [latestAmount, setLatestAmount] = useState("");
   const [tradeData, setTradeData] = useState([]);
+  const [customTradeDataBuy, setCustomTradeDataBuy] = useState([]);
+  const [customTradeDataSell, setCustomTradeDataSell] = useState([]);
   const [openTrades, setopenTrades] = useState([]);
   const [pastTrades, setPastTrades] = useState([]);
   const [groupBy, setGroupby] = useState("4");
   const [loading, setLoading] = useState(false);
   const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const buyTotal = useRef();
@@ -90,7 +102,7 @@ const Trade = () => {
     setLoading(true);
     try {
       if (buyLimit === "LIMIT") {
-        if (!latestPrice || !buyamount) {
+        if (!buyLimitPrice || !buyamount) {
           toast.dismiss();
           toast.error("Please fill all fields");
           setLoading(false);
@@ -114,6 +126,7 @@ const Trade = () => {
           tokenQuantity: buyamount,
           tokenId: selectedCoin?._id,
           pairCurrency: pairCurrency?._id,
+          ...(buyLimit === "LIMIT" && { limitprice: buyLimitPrice }),
         },
         {
           headers: {
@@ -131,6 +144,8 @@ const Trade = () => {
         getPendingOrder();
         getCompletedOrder();
         getRecentTrade();
+        getCancelOrders();
+        getCustomTradeData();
         buyTotal.current.value.reset();
       } else {
         toast.dismiss();
@@ -149,7 +164,7 @@ const Trade = () => {
     setLoading1(true);
     try {
       if (sellLimit === "LIMIT") {
-        if (!latestPrice || !sellamount) {
+        if (!sellLimitPrice || !sellamount) {
           toast.dismiss();
           toast.error("Please fill all fields");
           setLoading1(false);
@@ -173,6 +188,7 @@ const Trade = () => {
           tokenQuantity: sellamount,
           tokenId: selectedCoin?._id,
           pairCurrency: pairCurrency?._id,
+          ...(sellLimit === "LIMIT" && { limitprice: sellLimitPrice }),
         },
         {
           headers: {
@@ -189,6 +205,8 @@ const Trade = () => {
         getPendingOrder();
         getCompletedOrder();
         getRecentTrade();
+        getCustomTradeData();
+        getCancelOrders();
         // getOrder();
         sellTotal.current.value.reset();
       } else {
@@ -303,6 +321,41 @@ const Trade = () => {
     }
   };
 
+  const getCancelOrders = async (page = 1, pageSize = 10) => {
+    try {
+      const skip = (page - 1) * pageSize;
+      
+      const response = await axios.post(
+        `${base_url}/api/trading_orders`,
+        {
+          status: "CANCELLED",
+          tokenId: selectedCoin?._id,
+          limit: pageSize,
+          skip,
+        },
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
+      if (response.data.success) {
+        setCancelOrder(response.data.orders);
+        setPagination4((prev) => ({
+          ...prev,
+          total: response.data.total,
+          current: page,
+          pageSize,
+        }));
+        console.log(response.data.message);
+      } else {
+        console.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("unable to fetch data", error);
+    }
+  };
+
   const handlePageChange = (page, pageSize) => {
     getCompletedOrder(page, pageSize);
   };
@@ -311,6 +364,21 @@ const Trade = () => {
   };
   const handlePageChange3 = (page, pageSize) => {
     getOpenOrder(page, pageSize);
+  };
+  const handlePageChange4 = (page, pageSize) => {
+    getCancelOrders(page, pageSize);
+  };
+
+  const handleTabClick = (tabName) => {
+    if (tabName === "openOrders") {
+      getOpenOrder();
+    } else if (tabName === "pendingOrders") {
+      getPendingOrder();
+    } else if (tabName === "completedOrders") {
+      getCompletedOrder();
+    } else if (tabName === "cancelOrders") {
+      getCancelOrders();
+    }
   };
 
   const getPendingOrder = async (page = 1, pageSize = 10) => {
@@ -404,11 +472,63 @@ const Trade = () => {
     }
   };
 
+  const getCustomTradeData = async () => {
+    try {
+      const response = await axios.post(
+        `${base_url}/api/trade-book`,
+        {
+          tokenId: selectedCoin?._id,
+        },
+        {}
+      );
+      if (response?.data?.success) {
+        setCustomTradeDataBuy(response?.data?.data?.buyBook);
+        setCustomTradeDataSell(response?.data?.data?.sellBook);
+        console.log(response.data.message);
+      } else {
+        console.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("unable to fetch data", error);
+    }
+  };
+
+  const cancelOrder = async (id) => {
+    setLoading2(true);
+    try {
+      const response = await axios.post(
+        `${base_url}/api/cancel_order`,
+        {
+          // tokenId: selectedCoin?._id,
+          order_id: id,
+        },
+        {
+          headers: {
+            Authorization: authData?.token,
+          },
+        }
+      );
+      if (response.data.success) {
+        toast.dismiss();
+        toast.success(response.data.message);
+        getOpenOrder();
+        getPendingOrder();
+        getCompletedOrder();
+        getCancelOrders();
+      } else {
+        toast.dismiss();
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.dismiss();
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setLoading2(false);
+    }
+  };
+
   useEffect(() => {
     if (selectedCoin?.symbol) {
-      getOpenOrder();
-      getPendingOrder();
-      getCompletedOrder();
       getRecentTrade();
     }
   }, [selectedCoin]);
@@ -488,32 +608,68 @@ const Trade = () => {
   useEffect(() => {
     if (!selectedCoin?.symbol) return;
 
-    const ws = new WebSocket(
-      `wss://stream.binance.com:9443/ws/${selectedCoin.symbol.toLowerCase()}usdt@trade`
-    );
-
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-
-      const newTrade = {
-        price: parseFloat(data.p).toFixed(2),
-        quantity: parseFloat(data.q).toFixed(groupBy),
-        total: (parseFloat(data.p) * parseFloat(data.q)).toFixed(2),
-      };
-
-      setTradeData((prev) => {
-        if (prev.length === 0 || prev[0].price !== newTrade.price) {
-          return [newTrade, ...prev];
-        }
-        return prev;
+    if (selectedCoin?.symbol === "TOMAX") {
+      const socket = io(base_url, {
+        transports: ["websocket"],
       });
 
-      setLatestPrice(newTrade.price);
-      setLatestAmount(newTrade.quantity);
-      setLatestTotal(newTrade.total);
-    };
+      socket.on("data", (data) => {
+        const sortedData = data.sort(
+          (a, b) => new Date(a.time) - new Date(b.time)
+        );
+        if (sortedData.length > 0) {
+          const latestPrice = sortedData[sortedData.length - 1].close;
+          setLatestPrice(latestPrice);
+        }
+      });
 
-    return () => ws.close();
+      return () => {
+        socket.disconnect();
+      };
+    } else {
+      const ws = new WebSocket(
+        `wss://stream.binance.com:9443/ws/${selectedCoin.symbol.toLowerCase()}usdt@trade`
+      );
+
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        const newTrade = {
+          price: parseFloat(data.p).toFixed(2),
+          quantity: parseFloat(data.q).toFixed(groupBy),
+          total: (parseFloat(data.p) * parseFloat(data.q)).toFixed(2),
+        };
+
+        setTradeData((prev) => {
+          if (prev.length === 0 || prev[0].price !== newTrade.price) {
+            return [newTrade, ...prev];
+          }
+          return prev;
+        });
+
+        setLatestPrice(newTrade.price);
+        setLatestAmount(newTrade.quantity);
+        setLatestTotal(newTrade.total);
+      };
+
+      return () => ws.close();
+    }
+  }, [selectedCoin?.symbol]);
+
+  useEffect(() => {
+    let interval;
+
+    if (selectedCoin?.symbol === "TOMAX") {
+      getCustomTradeData();
+
+      interval = setInterval(() => {
+        getCustomTradeData();
+      }, 120000);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, [selectedCoin?.symbol]);
 
   const handleClickAmount = (percentage) => {
@@ -524,59 +680,6 @@ const Trade = () => {
     const amountByPer = (sellBalance.balance * percentage) / 100;
     setSellamount(amountByPer.toFixed(4));
   };
-
-  const data = [
-    { time: 1628208000, open: 362, high: 445, low: 353, close: 439 },
-    { time: 1628294400, open: 392, high: 437, low: 383, close: 436 },
-    { time: 1628380800, open: 366, high: 393, low: 358, close: 390 },
-    { time: 1628467200, open: 442, high: 450, low: 415, close: 425 },
-    { time: 1628553600, open: 368, high: 387, low: 366, close: 379 },
-    { time: 1628640000, open: 441, high: 450, low: 438, close: 448 },
-    { time: 1628726400, open: 397, high: 449, low: 387, close: 441 },
-    { time: 1628812800, open: 421, high: 425, low: 398, close: 406 },
-    { time: 1628899200, open: 379, high: 386, low: 369, close: 370 },
-    { time: 1628985600, open: 403, high: 406, low: 352, close: 355 },
-    { time: 1629072000, open: 386, high: 395, low: 363, close: 370 },
-    { time: 1629158400, open: 412, high: 417, low: 370, close: 371 },
-    { time: 1629244800, open: 440, high: 444, low: 387, close: 397 },
-    { time: 1629331200, open: 353, high: 409, low: 343, close: 403 },
-    { time: 1629417600, open: 429, high: 438, low: 422, close: 426 },
-    { time: 1629504000, open: 432, high: 439, low: 376, close: 378 },
-    { time: 1629590400, open: 408, high: 416, low: 403, close: 411 },
-    { time: 1629676800, open: 427, high: 429, low: 404, close: 412 },
-    { time: 1629763200, open: 444, high: 445, low: 411, close: 421 },
-    { time: 1629849600, open: 426, high: 444, low: 416, close: 444 },
-    { time: 1629936000, open: 438, high: 446, low: 394, close: 397 },
-    { time: 1630022400, open: 396, high: 435, low: 388, close: 429 },
-    { time: 1630108800, open: 365, high: 427, low: 359, close: 424 },
-    { time: 1630195200, open: 448, high: 456, low: 361, close: 364 },
-    { time: 1630281600, open: 440, high: 446, low: 345, close: 352 },
-    { time: 1630368000, open: 361, high: 451, low: 357, close: 447 },
-    { time: 1630454400, open: 419, high: 423, low: 397, close: 403 },
-    { time: 1630540800, open: 362, high: 366, low: 350, close: 353 },
-    { time: 1630627200, open: 401, high: 407, low: 369, close: 373 },
-    { time: 1630713600, open: 376, high: 401, low: 373, close: 395 },
-    { time: 1630800000, open: 403, high: 435, low: 395, close: 435 },
-    { time: 1630886400, open: 449, high: 452, low: 422, close: 422 },
-    { time: 1630972800, open: 394, high: 431, low: 385, close: 431 },
-    { time: 1631059200, open: 379, high: 385, low: 368, close: 374 },
-    { time: 1631145600, open: 436, high: 438, low: 372, close: 379 },
-    { time: 1631232000, open: 417, high: 422, low: 363, close: 373 },
-    { time: 1631318400, open: 436, high: 442, low: 369, close: 375 },
-    { time: 1631404800, open: 388, high: 396, low: 380, close: 388 },
-    { time: 1631491200, open: 355, high: 367, low: 347, close: 359 },
-    { time: 1631577600, open: 419, high: 423, low: 391, close: 392 },
-    { time: 1631664000, open: 388, high: 395, low: 379, close: 386 },
-    { time: 1631750400, open: 418, high: 423, low: 371, close: 379 },
-    { time: 1631836800, open: 447, high: 452, low: 420, close: 429 },
-    { time: 1631923200, open: 350, high: 358, low: 348, close: 352 },
-    { time: 1632009600, open: 356, high: 453, low: 356, close: 446 },
-    { time: 1632096000, open: 368, high: 369, low: 352, close: 361 },
-    { time: 1632182400, open: 426, high: 432, low: 424, close: 432 },
-    { time: 1632268800, open: 373, high: 406, low: 369, close: 401 },
-    { time: 1632355200, open: 361, high: 448, low: 357, close: 447 },
-    { time: 1632441600, open: 449, high: 452, low: 404, close: 414 },
-  ];
 
   return (
     <>
@@ -604,7 +707,13 @@ const Trade = () => {
                   <div className="me-3 alin_c">
                     {/* <p className="rate_title rc">6589656</p> */}
                     <p className="rate_title rc">
-                      <span className="text-success">{latestPrice}</span>
+                      <span
+                        className={`fw-bold ${
+                          latestPrice > 0
+                        }?'text-success':'text-danger'`}
+                      >
+                        {latestPrice}
+                      </span>
                     </p>
                   </div>
                   <div class="dropdown">
@@ -722,38 +831,118 @@ const Trade = () => {
                     </div>
                   </div>
                   <div className="t_table_main t_table_main_rr">
-                    <div className="t_table_sec">
+                    {/* Buy Section */}
+                    <div
+                      className={`t_table_sec tradeBookBox ${
+                        selectedCoin?.symbol === "TOMAX" ||
+                        selectedCoin?.symbol === "HILL"
+                          ? "custom-style"
+                          : "other-style"
+                      }`}
+                    >
+                      {(selectedCoin?.symbol === "TOMAX" ||
+                        selectedCoin?.symbol === "HILL") && (
+                        <h6 className="wc">Buy</h6>
+                      )}
                       <table className="trade_table_1 trade_table_1v">
-                        <tr>
-                          <th className="t_t_heading wc b_boot">
-                            Price (USDT)
-                          </th>
-                          <th className="t_t_heading wc b_boot">
-                            Quantity ({selectedCoin?.symbol})
-                          </th>
-                          <th className="t_t_heading wc b_boot">
-                            Total (USDT)
-                          </th>
-                        </tr>
-                        {tradeData.map((trade, index) => (
-                          <tr className="overflow-y-auto" key={index}>
-                            <td className="t_t_data b_boot wc">
-                              {trade.price}
-                            </td>
-                            <td
-                              className={`t_t_data b_boot wc ${
-                                trade.quantity > 0 ? "gc" : "rc"
-                              }`}
-                            >
-                              {trade.quantity}
-                            </td>
-                            <td className="t_t_data b_boot wc">
-                              {trade.total}
-                            </td>
+                        <thead>
+                          <tr>
+                            <th className="t_t_heading wc b_boot">
+                              Price (USDT)
+                            </th>
+                            <th className="t_t_heading wc b_boot">
+                              Quantity ({selectedCoin?.symbol})
+                            </th>
+                            <th className="t_t_heading wc b_boot">
+                              Total (USDT)
+                            </th>
                           </tr>
-                        ))}
+                        </thead>
+                        <tbody>
+                          {(Array.isArray(customTradeDataBuy) &&
+                          customTradeDataBuy.length > 0
+                            ? customTradeDataBuy
+                            : Array.isArray(tradeData)
+                            ? tradeData
+                            : []
+                          ).map((trade, index) => (
+                            <tr
+                              className="overflow-y-auto"
+                              key={`buy-${index}`}
+                            >
+                              <td className="t_t_data b_boot wc">
+                                {trade.price}
+                              </td>
+                              <td
+                                className={`t_t_data b_boot wc ${
+                                  trade.quantity > 0 ? "gc" : "rc"
+                                }`}
+                              >
+                                {trade.quantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {trade.price * trade.quantity}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
                       </table>
                     </div>
+
+                    {/* Sell Section - only shown if symbol is TOMAX */}
+                    {selectedCoin?.symbol === "TOMAX" && (
+                      <div
+                        className={`t_table_sec mt-3 tradeBookBox ${
+                          selectedCoin?.symbol === "TOMAX" ||
+                          selectedCoin?.symbol === "HILL"
+                            ? "custom-style"
+                            : "other-style"
+                        }`}
+                      >
+                        {(selectedCoin?.symbol === "TOMAX" ||
+                          selectedCoin?.symbol === "HILL") && (
+                          <h6 className="wc">Sell</h6>
+                        )}
+                        <table className="trade_table_1 trade_table_1v">
+                          <thead>
+                            <tr>
+                              <th className="t_t_heading wc b_boot">
+                                Price (USDT)
+                              </th>
+                              <th className="t_t_heading wc b_boot">
+                                Quantity ({selectedCoin?.symbol})
+                              </th>
+                              <th className="t_t_heading wc b_boot">
+                                Total (USDT)
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {Array.isArray(customTradeDataSell) &&
+                              customTradeDataSell.map((trade, index) => (
+                                <tr
+                                  className="overflow-y-auto"
+                                  key={`sell-${index}`}
+                                >
+                                  <td className="t_t_data b_boot wc">
+                                    {trade.price}
+                                  </td>
+                                  <td
+                                    className={`t_t_data b_boot wc ${
+                                      trade.quantity > 0 ? "gc" : "rc"
+                                    }`}
+                                  >
+                                    {trade.quantity}
+                                  </td>
+                                  <td className="t_t_data b_boot wc">
+                                    {trade.price * trade.quantity}
+                                  </td>
+                                </tr>
+                              ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -804,8 +993,12 @@ const Trade = () => {
                             className="sec_t_t wc"
                             onChange={(e) => setBuyLimit(e.target.value)}
                           >
-                            <option className="market" value={"MARKET"}>Market</option>
-                            <option className="market" value={"LIMIT"}>Limit</option>
+                            <option className="market" value={"MARKET"}>
+                              Market
+                            </option>
+                            <option className="market" value={"LIMIT"}>
+                              Limit
+                            </option>
                           </select>
 
                           <div className="d-flex j_con mt-3 mb-3">
@@ -830,7 +1023,10 @@ const Trade = () => {
                                 <input
                                   type="text"
                                   className="t_t_input w-100 wc"
-                                  value={latestPrice}
+                                  value={buyLimitPrice}
+                                  onChange={(e) =>
+                                    setButLimitPrice(e.target.value)
+                                  }
                                 />
                                 <h4 className="WC f_g_text alin_c">USDT</h4>
                               </div>
@@ -858,7 +1054,11 @@ const Trade = () => {
                                 ref={buyTotal}
                                 type="text"
                                 className="t_t_input w-100 wc"
-                                value={(latestPrice * buyamount).toFixed(4)}
+                                value={
+                                  buyLimit === "LIMIT"
+                                    ? (buyLimitPrice * buyamount).toFixed(4)
+                                    : (latestPrice * buyamount).toFixed(4)
+                                }
                               />
                               <h4 className="WC f_g_text alin_c">Total</h4>
                             </div>
@@ -954,8 +1154,12 @@ const Trade = () => {
                             className="sec_t_t wc"
                             onChange={(e) => setSellLimit(e.target.value)}
                           >
-                            <option value={"MARKET"}>Market</option>
-                            <option value={"LIMIT"}>Limit</option>
+                            <option className="market" value={"MARKET"}>
+                              Market
+                            </option>
+                            <option className="market" value={"LIMIT"}>
+                              Limit
+                            </option>
                           </select>
 
                           <div className="d-flex j_con mt-3 mb-3">
@@ -981,7 +1185,10 @@ const Trade = () => {
                                 <input
                                   type="text"
                                   className="t_t_input w-100 wc"
-                                  value={latestPrice}
+                                  value={sellLimitPrice}
+                                  onChange={(e) =>
+                                    setSellLimitPrice(e.target.value)
+                                  }
                                 />
                                 <h4 className="WC f_g_text alin_c">USDT</h4>
                               </div>
@@ -1009,7 +1216,11 @@ const Trade = () => {
                                 ref={sellTotal}
                                 type="text"
                                 className="t_t_input w-100 wc"
-                                value={(latestPrice * sellamount).toFixed(4)}
+                                value={
+                                  sellLimit === "LIMIT"
+                                    ? (sellLimitPrice * sellamount).toFixed(4)
+                                    : (latestPrice * sellamount).toFixed(4)
+                                }
                               />
                               <h4 className="WC f_g_text alin_c">Total</h4>
                             </div>
@@ -1114,6 +1325,7 @@ const Trade = () => {
                     role="tab"
                     aria-controls="nav-home_t1"
                     aria-selected="true"
+                    onClick={() => handleTabClick("openOrders")}
                   >
                     Open Orders
                   </button>
@@ -1126,6 +1338,7 @@ const Trade = () => {
                     role="tab"
                     aria-controls="nav-profile_t1"
                     aria-selected="false"
+                    onClick={() => handleTabClick("pendingOrders")}
                   >
                     Pending Orders
                   </button>
@@ -1138,8 +1351,22 @@ const Trade = () => {
                     role="tab"
                     aria-controls="nav-profile_t10"
                     aria-selected="false"
+                    onClick={() => handleTabClick("completedOrders")}
                   >
                     Completed Orders
+                  </button>
+                  <button
+                    class="nav-link t_t_btn02 mt-0 wc"
+                    id="nav-profile-tab_t10"
+                    data-bs-toggle="tab"
+                    data-bs-target="#nav-profile_t11"
+                    type="button"
+                    role="tab"
+                    aria-controls="nav-profile_t11"
+                    aria-selected="false"
+                    onClick={() => handleTabClick("cancelOrders")}
+                  >
+                    Cancel Orders
                   </button>
                 </div>
               </nav>
@@ -1161,11 +1388,16 @@ const Trade = () => {
                           <th className="t_t_heading wc b_boot"> Type</th>
                           <th className="t_t_heading wc b_boot"> All</th>
                           <th className="t_t_heading wc b_boot"> Price</th>
+                          <th className="t_t_heading wc b_boot">
+                            {" "}
+                            Limit Price
+                          </th>
                           <th className="t_t_heading wc b_boot"> Amount</th>
                           <th className="t_t_heading wc b_boot"> Remaining</th>
                           <th className="t_t_heading wc b_boot"> Filled</th>
                           <th className="t_t_heading wc b_boot"> Total</th>
                           <th className="t_t_heading wc b_boot"> Action </th>
+                          <th className="t_t_heading wc b_boot"> </th>
                         </tr>
                         {openOrder && openOrder.length > 0 ? (
                           openOrder.map((pending, index) => (
@@ -1185,6 +1417,11 @@ const Trade = () => {
                                 {pending?.tokenPrice}
                               </td>
                               <td className="t_t_data b_boot wc">
+                                {pending?.orderType === "LIMIT"
+                                  ? pending?.limitPrice
+                                  : "-"}
+                              </td>
+                              <td className="t_t_data b_boot wc">
                                 {pending?.tokenQuantity}
                               </td>
                               <td className="t_t_data b_boot wc">
@@ -1199,6 +1436,15 @@ const Trade = () => {
                               </td>
                               <td className="t_t_data b_boot wc">
                                 {pending?.mode}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                <button
+                                  className="t_f_btn t_f_btn1 wc w-100 m-0"
+                                  onClick={() => cancelOrder(pending?._id)}
+                                  disabled={loading2}
+                                >
+                                  {loading2 ? "Cancelling" : "Cancel"}
+                                </button>
                               </td>
                             </tr>
                           ))
@@ -1242,11 +1488,16 @@ const Trade = () => {
                           <th className="t_t_heading wc b_boot"> Type</th>
                           <th className="t_t_heading wc b_boot"> All</th>
                           <th className="t_t_heading wc b_boot"> Price</th>
+                          <th className="t_t_heading wc b_boot">
+                            {" "}
+                            Limit Price
+                          </th>
                           <th className="t_t_heading wc b_boot"> Amount</th>
                           <th className="t_t_heading wc b_boot"> Remaining</th>
                           <th className="t_t_heading wc b_boot"> Filled</th>
                           <th className="t_t_heading wc b_boot"> Total</th>
                           <th className="t_t_heading wc b_boot"> Action </th>
+                          <th className="t_t_heading wc b_boot"> </th>
                         </tr>
                         {pendingOrder && pendingOrder.length > 0 ? (
                           pendingOrder.map((pending, index) => (
@@ -1266,6 +1517,11 @@ const Trade = () => {
                                 {pending?.tokenPrice}
                               </td>
                               <td className="t_t_data b_boot wc">
+                                {pending?.orderType === "LIMIT"
+                                  ? pending?.limitPrice
+                                  : "-"}
+                              </td>
+                              <td className="t_t_data b_boot wc">
                                 {pending?.tokenQuantity}
                               </td>
                               <td className="t_t_data b_boot wc">
@@ -1280,6 +1536,15 @@ const Trade = () => {
                               </td>
                               <td className="t_t_data b_boot wc">
                                 {pending?.mode}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                <button
+                                  className="t_f_btn t_f_btn1 wc w-100 m-0"
+                                  onClick={() => cancelOrder(pending?._id)}
+                                  disabled={loading2}
+                                >
+                                  {loading2 ? "Cancelling" : "Cancel"}
+                                </button>
                               </td>
                             </tr>
                           ))
@@ -1323,6 +1588,10 @@ const Trade = () => {
                           <th className="t_t_heading wc b_boot"> Type</th>
                           <th className="t_t_heading wc b_boot"> All</th>
                           <th className="t_t_heading wc b_boot"> Price</th>
+                          <th className="t_t_heading wc b_boot">
+                            {" "}
+                            Limit Price
+                          </th>
                           <th className="t_t_heading wc b_boot"> Amount</th>
                           <th className="t_t_heading wc b_boot"> Remaining</th>
                           <th className="t_t_heading wc b_boot"> Filled</th>
@@ -1345,6 +1614,11 @@ const Trade = () => {
                               <td className="t_t_data b_boot wc">0</td>
                               <td className="t_t_data b_boot wc">
                                 {pending?.tokenPrice}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.orderType === "LIMIT"
+                                  ? pending?.limitPrice
+                                  : "-"}
                               </td>
                               <td className="t_t_data b_boot wc">
                                 {pending?.tokenQuantity}
@@ -1387,6 +1661,96 @@ const Trade = () => {
                     ""
                   )}
                 </div>
+                <div
+                  class="tab-pane fade wc"
+                  id="nav-profile_t11"
+                  role="tabpanel"
+                  aria-labelledby="nav-profile-tab11"
+                >
+                  <div className="table_over">
+                    <div className="table_scroll">
+                      <table className="trade_table_222">
+                        <tr>
+                          <th className="t_t_heading wc b_boot">
+                            Trading Pair
+                          </th>
+                          <th className="t_t_heading wc b_boot"> Date</th>
+                          <th className="t_t_heading wc b_boot"> Type</th>
+                          <th className="t_t_heading wc b_boot"> All</th>
+                          <th className="t_t_heading wc b_boot"> Price</th>
+                          <th className="t_t_heading wc b_boot">
+                            {" "}
+                            Limit Price
+                          </th>
+                          <th className="t_t_heading wc b_boot"> Amount</th>
+                          <th className="t_t_heading wc b_boot"> Remaining</th>
+                          <th className="t_t_heading wc b_boot"> Filled</th>
+                          <th className="t_t_heading wc b_boot"> Total</th>
+                          <th className="t_t_heading wc b_boot"> Action </th>
+                        </tr>
+                        {cancelOrders && cancelOrders.length > 0 ? (
+                          cancelOrders.map((pending, index) => (
+                            <tr key={index}>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenSymbol}/
+                                {pending?.pairCurrencySymbol}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {new Date(pending.createdAt).toLocaleString()}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.orderType}
+                              </td>
+                              <td className="t_t_data b_boot wc">0</td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenPrice}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.orderType === "LIMIT"
+                                  ? pending?.limitPrice
+                                  : "-"}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenQuantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenPendingquantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenQuantity -
+                                  pending?.tokenPendingquantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.tokenQuantity}
+                              </td>
+                              <td className="t_t_data b_boot wc">
+                                {pending?.mode}
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr className="wc">
+                            <td colSpan="10" className="text-center">
+                              <small>No History Found</small>
+                            </td>
+                          </tr>
+                        )}
+                      </table>
+                    </div>
+                  </div>
+                  {cancelOrders && cancelOrders.length > 0 ? (
+                    <div className="text-center py-2">
+                      <Pagination
+                        total={pagination.total}
+                        pageSize={pagination.pageSize}
+                        current={pagination.current}
+                        onChange={handlePageChange4}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -1422,8 +1786,10 @@ const Trade = () => {
                       ))
                     ) : (
                       <tr className="wc">
-                      <td colSpan="10" className="text-center"><small>No Trade History Found</small></td>
-                    </tr>
+                        <td colSpan="10" className="text-center">
+                          <small>No Trade History Found</small>
+                        </td>
+                      </tr>
                     )}
                   </table>
                 </div>

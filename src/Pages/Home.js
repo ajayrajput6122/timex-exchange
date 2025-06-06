@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import Logo from "../Img/tomex.png";
 import Baner from "../Img/baner_i.png";
@@ -14,18 +14,20 @@ import Stock from "../Img/stock.png";
 import Encrypted from "../Img/encrypted.png";
 import Profits from "../Img/profits.png";
 
-import h01 from '../Img/access-control.png'
-import h02 from '../Img/excellence.png'
-import h03 from '../Img/compensation.png'
-import h04 from '../Img/return-on-investment.png'
-
+import h01 from "../Img/access-control.png";
+import h02 from "../Img/excellence.png";
+import h03 from "../Img/compensation.png";
+import h04 from "../Img/return-on-investment.png";
 
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contextapi/Auth";
+import { base_url } from "../ApiService/BaseUrl";
+import axios from "axios";
 
 const Home = () => {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const { authData } = useContext(AuthContext);
+  const [data, setData] = useState("");
 
   const navigate = useNavigate();
 
@@ -44,8 +46,42 @@ const Home = () => {
     setIsDarkTheme(!isDarkTheme);
     document.body.classList.toggle("dark-theme");
   };
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.post(`${base_url}/api/news`);
+      if (response.data.success) {
+        setData(response.data.news);
+        console.log(response.data.message);
+      } else {
+        console.error(response.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
+      {data.length > 0 && (
+        <section>
+          <div className="news-marquee wc py-2 news_bg mt-5">
+            <div className="news-track">
+              {data.length > 0 &&
+                [...data, ...data].map((item, index) => (
+                  <div key={index} className="news-item fw-bold">
+                    {item.news}
+                  </div>
+                ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="sec01_h">
         <div className="container">
           <img className="ellipse" src={Ellipse} />
@@ -76,21 +112,21 @@ const Home = () => {
       </section>
       <section className="sec02_h">
         <div className="started">
-          <Link to={"/register"}>
-            <div className="start_box start_box1">
-              <div className="icon-box d-flex">
-                <div className="icon-box-icon alin_c">
-                  <img className="box_img" src={Signup} />
-                </div>
-                <div className="icon-box-con">
-                  <h5 className="box_title box_title1 wc">Sign Up</h5>
-                  <p className="boxt_text mb-0">
-                    Keep Your Wallet Safe and Join the Crypto Community Today!
-                  </p>
-                </div>
+          {/* <Link to={"/register"}> */}
+          <div className="start_box start_box1">
+            <div className="icon-box d-flex">
+              <div className="icon-box-icon alin_c">
+                <img className="box_img" src={Signup} />
+              </div>
+              <div className="icon-box-con">
+                <h5 className="box_title box_title1 wc">Sign Up</h5>
+                <p className="boxt_text mb-0">
+                  Keep Your Wallet Safe and Join the Crypto Community Today!
+                </p>
               </div>
             </div>
-          </Link>
+          </div>
+          {/* </Link> */}
           <div
             className="start_box start_box2"
             onClick={handleKycClick}
@@ -142,8 +178,6 @@ const Home = () => {
         </div>
       </section>
       <section className="sec04_h">
-
-        
         <div className="container ">
           <div className="row column-rever">
             <div className="col-lg-6 col-sm-12 text-center">
@@ -220,7 +254,9 @@ const Home = () => {
                 and experience the freedom and flexibility to trade whenever and
                 wherever inspiration strikes.
               </p>
-              <button className="btn_timex">Download App </button>
+              <Link to={'/'}>
+                <button className="btn_timex">Download App </button>
+              </Link>
             </div>
             <div className="col-lg-6 col-md-5 col-sm-5 text-center alin_c">
               <img className="btc" src={Btc} />
@@ -232,7 +268,9 @@ const Home = () => {
       <section className="sec04_h">
         <div className="container text-center">
           {/* <h4 className="sub_title bc">.. Benefits ..</h4> */}
-          <h2 className="title_h2 wc title_h2_mb">Why Cryptocurrency is a Top Market for Investment?</h2>
+          <h2 className="title_h2 wc title_h2_mb">
+            Why Cryptocurrency is a Top Market for Investment?
+          </h2>
           {/* <p className="text ">
             Don't settle for average; level up your crypto game one step at a
             time. You'll be boasting about us in no time!

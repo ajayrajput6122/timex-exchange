@@ -129,9 +129,9 @@ const MainAccountHistory = () => {
                         <td className="t_t_data b_boot wc">
                           {new Date(data.createdAt).toLocaleString()}
                         </td>
-                        {/* <td className="t_t_data b_boot wc">
+                        <td className="t_t_data b_boot wc">
                             <Link className="table_link_btn" to={`/tokenTransactionHistory?tokenId=${data.tokenId}`}>View</Link>
-                          </td> */}
+                          </td>
                       </tr>
                     ))
                   ) : (

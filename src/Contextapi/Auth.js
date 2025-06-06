@@ -46,12 +46,27 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setAuthData({ token: "", user: {} });
     localStorage.removeItem("authData");
-    const response = axios.get(`${base_url}/api/auth/logout`,{
-      headers:{
-        Authorization:authData?.token
-      }
-    })
+    const response = axios.get(`${base_url}/api/auth/logout`, {
+      headers: {
+        Authorization: authData?.token,
+      },
+    });
   };
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedAuthData = localStorage.getItem("authData");
+      if (!storedAuthData || !JSON.parse(storedAuthData)?.token) {
+        logout(); 
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("authData", JSON.stringify(authData));

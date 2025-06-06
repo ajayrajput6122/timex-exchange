@@ -39,7 +39,9 @@ const Withdraw = () => {
     try {
       const response = await axios.post(
         `${base_url}/api/deposit_token_details`,
-        { tokenID: coinId },
+        { tokenID: coinId ,
+          type:"WITHDRAW" 
+        },
         {
           headers: {
             Authorization: authData?.token,
@@ -434,7 +436,7 @@ const Withdraw = () => {
                         Submit
                       </button>
                       <h5 className="text text-center wc mt-4">
-                        Minimum 2 USDT is required in order to initiate the
+                        Minimum 5 Tomax is required in order to initiate the
                         transaction
                       </h5>
                       <h5 className="text mt-4">

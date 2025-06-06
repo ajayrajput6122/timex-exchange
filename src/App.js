@@ -135,6 +135,14 @@ function App() {
               }
             /> */}
             <Route
+              path="activitylogs"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Activitylogs />
+                </Suspense>
+              }
+            />
+            <Route
               path="swap"
               element={
                 <Suspense fallback={<div>Loading...</div>}>
@@ -271,22 +279,15 @@ function App() {
               </Suspense>
             }
           />
+
           <Route
-            path="activitylogs"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Activitylogs />
-              </Suspense>
-            }
-          />
-          {/* <Route
             path="tokenTransactionHistory"
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <TokenTransactionHistory />
               </Suspense>
             }
-          /> */}
+          />
 
           {/* <Route
           
