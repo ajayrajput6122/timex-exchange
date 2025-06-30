@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
     const storedData = localStorage.getItem("authData");
     return storedData ? JSON.parse(storedData) : { token: "", user: {} };
   });
+  
 
   const saveAuthData = (data) => {
     setAuthData(data);
